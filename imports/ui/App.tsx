@@ -1,11 +1,29 @@
 import React from 'react';
-import { Hello } from './Hello';
-import { Info } from './Info';
+
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+
+import {Hello} from './Hello';
+import {Info} from './Info';
+
+import Layout from "/imports/ui/layouts/Layout";
+
+import Members from "/imports/ui/pages/Members";
+import Sessions from "/imports/ui/pages/Sessions";
+
+import Login from "/imports/ui/pages/Login";
 
 export const App = () => (
-  <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello />
-    <Info />
-  </div>
+    <Router>
+        <Routes>
+            <Route path="/" element={<Layout/>}>
+                <Route index element={<Members/>}/>
+                <Route path="sessions" element={<Sessions/>}>
+                    <Route path=":id"></Route>
+                
+                </Route>
+            </Route>
+            
+            <Route path="/login" element={<Login/>}/>
+        </Routes>
+    </Router>
 );

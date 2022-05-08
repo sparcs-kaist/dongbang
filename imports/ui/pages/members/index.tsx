@@ -25,7 +25,7 @@ const Members: React.FC = () => {
             <h1>멤버</h1>
             <h2>내 프로필</h2>
             <div>
-                {user ? user.profile.name : <Link to="login">로그인이 필요합니다</Link>}
+                {user ? user._id : <Link to="login">로그인이 필요합니다</Link>}
             </div>
             
             

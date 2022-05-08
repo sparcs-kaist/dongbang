@@ -3,6 +3,8 @@ import {Meteor} from 'meteor/meteor';
 
 import {initAccounts} from "./dev/initAccounts";
 
+import "../imports/lib/ssoServer";
+
 // function insertLink(title: string, url: string) {
 //     LinksCollection.insert({title, url, createdAt: new Date()});
 // }

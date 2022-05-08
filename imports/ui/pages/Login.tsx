@@ -46,8 +46,9 @@ const Login: React.FC = () => {
                     />
                     
                     <button type="submit">로그인</button>
-                </form>}
-        
+                </form>
+            }
+            <button onClick={() => Meteor.loginWithSparcsSSO()}>로그인 with SparcsSSO</button>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./styles.module.css";
 
 import NavAction from "./NavAction";
 
@@ -6,7 +7,7 @@ const Navigation: React.FC = () => {
     
     
     return (
-        <nav>
+        <nav className={styles.nav}>
             <NavAction to="/">
                 members
             </NavAction>

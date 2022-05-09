@@ -1,2 +1,2 @@
-import "./accounts";
+import "./users";
 import "./members";

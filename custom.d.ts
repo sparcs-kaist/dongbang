@@ -1,5 +1,5 @@
 import SimpleSchema from "simpl-schema";
-import {ExtendAccount} from "/imports/db/accounts";
+import {ExtendUser} from "/imports/db/users";
 
 declare module "*.module.css";
 
@@ -10,7 +10,7 @@ declare module "*.module.css";
 declare module "meteor/meteor" {
     module Meteor {
         function loginAsAdmin(password: string, callback?: () => void): void;
-        interface User extends ExtendAccount {}
+        interface User extends ExtendUser {}
     }
 }
 

@@ -27,12 +27,17 @@ export interface ExtendUser {
     status: UserStatus;
 }
 
-const userSchema = new SimpleSchema({
+Meteor.users.schema = new SimpleSchema({
     name: String,
     nickname: String,
-    status: Enum(UserStatus)
+    status: Enum(UserStatus),
+    services: {
+        type: Object,
+        optional: true,
+        blackbox: true,
+    }
 })
 
-Meteor.users.attachSchema(userSchema);
+Meteor.users.attachSchema(Meteor.users.schema);
 
 

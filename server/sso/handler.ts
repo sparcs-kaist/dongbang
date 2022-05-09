@@ -1,7 +1,7 @@
 import {Accounts} from "meteor/accounts-base";
 import {Meteor} from "meteor/meteor";
 
-
+import {UserStatus} from "/imports/db/users";
 
 Accounts.registerLoginHandler("admin", function (loginRequest) {
     // There are multiple login handlers in meteor.
@@ -19,12 +19,18 @@ Accounts.registerLoginHandler("admin", function (loginRequest) {
     
     // We create a admin user if none exists, and get the userId
     let userId = null;
-    const user = Meteor.users.findOne({username: 'admin'}, {fields: {_id: 1}});
+    const user = Meteor.users.findOne({nickname: 'admin'}, {fields: {_id: 1}});
     if (!user) {
-        userId = Meteor.users.insert({username: 'admin'});
+        userId = Meteor.users.insert({
+            name: '관리자',
+            nickname: "admin",
+            status: UserStatus.OFFLINE,
+        });
     } else {
         userId = user._id;
     }
+    
+    console.log(userId);
     
     // Send logged in user's user id 🎉
     return {

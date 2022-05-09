@@ -18,6 +18,7 @@ declare module "meteor/mongo" {
     module Mongo {
         interface Collection<T, U = T> extends CollectionStatic {
             // addSchema: (schema: Schema<T>) => void;
+            schema: SimpleSchema;
             attachSchema: (schema: SimpleSchema) => void;
         }
     }

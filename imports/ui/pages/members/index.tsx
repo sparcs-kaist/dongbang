@@ -11,11 +11,17 @@ import {Link} from "react-router-dom";
 const Members: React.FC = () => {
     const user = useTracker(() => Meteor.user());
     
+    
+    
+    // const members = useTracker(() =>
+    //     MemberCollection.find({
+    //         username: {$ne: user?.username}
+    //     }).fetch()
+    // );
+    
     const members = useTracker(() =>
-        MemberCollection.find({
-            username: {$ne: user?.username}
-        }).fetch()
-    );
+        Meteor.users.find({}).fetch()
+    )
     
     // const setOnline
     
@@ -32,7 +38,7 @@ const Members: React.FC = () => {
             <h2>동방</h2>
             <ul>
                 {members.map(member =>
-                    <li>{member.name}</li>
+                    <li>{member._id}</li>
                 )}
             </ul>
         </div>

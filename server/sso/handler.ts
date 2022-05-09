@@ -1,6 +1,8 @@
 import {Accounts} from "meteor/accounts-base";
 import {Meteor} from "meteor/meteor";
 
+
+
 Accounts.registerLoginHandler("admin", function (loginRequest) {
     // There are multiple login handlers in meteor.
     // A login request go through all these handlers to find it's login handler
@@ -8,6 +10,7 @@ Accounts.registerLoginHandler("admin", function (loginRequest) {
     if (!loginRequest.admin) {
         return undefined;
     }
+    console.log(loginRequest)
     
     // Our authentication logic 😉
     if (loginRequest.password !== 'admin-password') {

@@ -1,7 +1,7 @@
 import {Meteor} from "meteor/meteor";
 
-Meteor.publish("members.me", function publishMembers() {
+Meteor.publish("members", function publishMembers() {
 
 
-
+    return Meteor.users.find({});
 })

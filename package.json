@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.15.4",
+    "@sinclair/typebox": "^0.23.5",
+    "ajv": "^8.11.0",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "meteor-node-stubs": "^1.2.1",

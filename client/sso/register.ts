@@ -11,3 +11,13 @@ Meteor.loginAsAdmin = function (password, callback) {
         userCallback: callback
     });
 };
+
+Meteor.loginAsTestAccount = function (username, callback) {
+    Accounts.callLoginMethod({
+        methodArguments: [{
+            test: true,
+            username: username
+        }],
+        userCallback: callback,
+    })
+}

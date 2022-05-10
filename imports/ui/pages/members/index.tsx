@@ -4,14 +4,14 @@ import React from "react";
 import styles from "./styles.module.css";
 
 import {useTracker} from "meteor/react-meteor-data";
-import {MemberCollection} from "/imports/db/members";
 
 import {Link} from "react-router-dom";
 
+import {updateStatus} from "/imports/api/methods/members";
+import {UserStatus} from "/imports/db/users";
+
 const Members: React.FC = () => {
     const user = useTracker(() => Meteor.user());
-    
-    
     
     // const members = useTracker(() =>
     //     MemberCollection.find({
@@ -19,11 +19,33 @@ const Members: React.FC = () => {
     //     }).fetch()
     // );
     
-    const members = useTracker(() =>
-        Meteor.users.find({}).fetch()
-    )
+    const members = useTracker<Meteor.User[]>(() => {
+        const handler = Meteor.subscribe("members");
     
-    // const setOnline
+        if (!handler.ready()) {
+            return [];
+        }
+        
+        return Meteor.users.find({}).fetch()
+    })
+    
+    
+    const changeStatus = () => {
+        updateStatus.call(
+            {
+                type: user?.status.type === UserStatus.OFFLINE
+                    ? UserStatus.PRESENT
+                    : UserStatus.OFFLINE,
+                message: "qwerqwer"
+            },
+            (err, res) => {
+                if (err) alert(err)
+                else {
+                    console.log(res)
+                }
+            }
+        )
+    }
     
     
     return (
@@ -31,14 +53,26 @@ const Members: React.FC = () => {
             <h1>멤버</h1>
             <h2>내 프로필</h2>
             <div>
-                {user ? user._id : <Link to="login">로그인이 필요합니다</Link>}
+                {user
+                    ? <div>
+                        <span>{user.name}</span>
+                        <button onClick={changeStatus}>상태 변경</button>
+                    </div>
+                    : <Link to="login">로그인이 필요합니다</Link>}
             </div>
             
             
             <h2>동방</h2>
             <ul>
                 {members.map(member =>
-                    <li>{member._id}</li>
+                    <li>
+                        <div>
+                            <span><h3>{member.name}</h3></span>
+                            <span>{member.username}</span>
+                            <div>{member.status.type}</div>
+                            <div>{member.status.message}</div>
+                        </div>
+                    </li>
                 )}
             </ul>
         </div>

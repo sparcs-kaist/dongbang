@@ -1,7 +1,9 @@
+/// <reference path="node_modules/@types/meteor-mdg-validated-method/index.d.ts" />
+
 import SimpleSchema from "simpl-schema";
 import {ExtendUser} from "/imports/db/users";
 
-declare module "*.module.css";
+
 
 
 // type Validator<T> = (value: any) => boolean;
@@ -10,6 +12,7 @@ declare module "*.module.css";
 declare module "meteor/meteor" {
     module Meteor {
         function loginAsAdmin(password: string, callback?: () => void): void;
+        function loginAsTestAccount(username: string, callback?: () => void): void;
         interface User extends ExtendUser {}
     }
 }

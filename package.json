@@ -9,11 +9,10 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.15.4",
-    "@sinclair/typebox": "^0.23.5",
-    "@types/simpl-schema": "^1.12.2",
     "ajv": "^8.11.0",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
+    "dotenv": "^16.0.0",
     "meteor-node-stubs": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -22,9 +21,11 @@
   },
   "devDependencies": {
     "@types/meteor": "^1.4.81",
+    "@types/meteor-mdg-validated-method": "^1.2.4",
     "@types/mocha": "^8.2.3",
     "@types/react": "^17.0.30",
     "@types/react-dom": "^17.0.9",
+    "@types/simpl-schema": "^1.12.2",
     "typescript": "^4.5.4"
   },
   "meteor": {

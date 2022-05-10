@@ -29,10 +29,17 @@
     },
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["node", "mocha"],
+    "types": ["node", "mocha", "meteor"],
     "esModuleInterop": true,
     "preserveSymlinks": true
   },
+//  "include": [
+//    "src",
+//    "**/*.ts",
+//    "@types/**/*.d.ts",
+////    "node_modules/@types/**/*.d.ts"
+//
+//  ],
   "exclude": [
     "./.meteor/**",
     "./packages/**"

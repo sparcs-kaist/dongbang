@@ -1,17 +1,12 @@
 import {Meteor} from "meteor/meteor";
 import SimpleSchema from "simpl-schema";
+import {Enum} from "/imports/custom/simpl-schema";
 
 
 // const Options = (...values: string[]) =>
 //     new RegExp(`^${values.map(v => `(${v})`).join("|")}$`);
 
-const Enum = (enumObj: Object) =>
-    new RegExp(`^${
-        Object
-            .values(enumObj)
-            .map(v => `(${v})`)
-            .join("|")
-    }$`);
+
 
 
 export enum UserStatus {
@@ -23,20 +18,32 @@ export enum UserStatus {
 
 export interface ExtendUser {
     name: string;
-    nickname: string;
-    status: UserStatus;
+    username: string;
+    status: {
+        type: UserStatus;
+        message?: string;
+    };
 }
 
 Meteor.users.schema = new SimpleSchema({
     name: String,
-    nickname: String,
-    status: Enum(UserStatus),
+    username: String,
+    status: new SimpleSchema({
+        type: Enum(UserStatus),
+        message: {type: String, optional: true},
+    }),
     services: {
         type: Object,
         optional: true,
         blackbox: true,
     }
 })
+
+const a = {
+    validate(obj: any) {
+        console.log(obj)
+    }
+}
 
 Meteor.users.attachSchema(Meteor.users.schema);
 

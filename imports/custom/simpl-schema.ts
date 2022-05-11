@@ -1,3 +1,4 @@
+
 export const Enum = (enumObj: Object) => (
     new RegExp(`^${
         Object
@@ -6,3 +7,16 @@ export const Enum = (enumObj: Object) => (
             .join("|")
     }$`)
 );
+
+type Field = BooleanConstructor
+    | StringConstructor
+    | NumberConstructor
+    | DateConstructor
+    | ArrayConstructor
+    | "SimpleSchema.Integer"
+    | RegExp
+    | string
+
+export const Optional = (field: Field) => (
+    {type: field, optional: true}
+)

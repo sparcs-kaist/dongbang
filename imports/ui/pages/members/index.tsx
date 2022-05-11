@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import {updateStatus} from "/imports/api/methods/members";
 import {UserStatus} from "/imports/db/users";
 
-import {userQuery} from "/imports/api/publications/members";
+import {userQuery} from "/imports/api/query/members";
 
 const Members: React.FC = () => {
     const user = useTracker(() => Meteor.user());
@@ -78,7 +78,7 @@ const Members: React.FC = () => {
             <h2>동방</h2>
             <ul>
                 {members.map(member =>
-                    <li>
+                    <li key={member._id}>
                         <div>
                             <span><h3>{member.name}</h3></span>
                             <span>{member.username}</span>

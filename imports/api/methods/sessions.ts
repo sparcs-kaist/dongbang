@@ -1,19 +1,31 @@
-import SimpleSchema from "simpl-schema";
+import {Meteor} from "meteor/meteor";
 import {ValidatedMethod} from "meteor/mdg:validated-method";
-import {SessionCollection} from "/imports/db/sessions";
+import {Location, SessionCollection} from "/imports/db/sessions";
+import SimpleSchema from "simpl-schema";
+import {Enum, Optional} from "/imports/custom/simpl-schema";
 
+type CreateSessionMethod = (session: {
+    name: string;
+    location?: Location;
+}) => void;
 
-export const createSession = new ValidatedMethod({
+export const createSession = new ValidatedMethod<string, CreateSessionMethod>({
     name: "session.create",
-    validate: arg => undefined,
+    validate: new SimpleSchema({
+        name: String,
+        location: Optional(Enum(Location)),
+    }).validator(),
     run(session) {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized.");
         }
         
-        const user = Meteor.users.findOne(this.userId, {fields: {sessionId: 1}})
-        if (user.sessionId) {
-            throw new Meteor.Error("Leave current session first to create session")
+        const currentSession = Meteor.users
+            .getLink<Meteor.User>(this.userId, "session")
+            .fetch();
+  
+        if (currentSession) {
+            throw new Meteor.Error("Leave current session first to create new session")
         }
         
         const sessionId = SessionCollection.insert({
@@ -22,16 +34,8 @@ export const createSession = new ValidatedMethod({
             creatorId: this.userId,
         });
         
-        console.log(sessionId);
-        
-        //
-        const membersLink = SessionCollection.getLink(sessionId, "members");
-        console.log(membersLink)
-        //
-        
-        // const user = Meteor.users.findOne(this.userId);
-        
-        membersLink.set(this.userId);
-        
+        SessionCollection
+            .getLink<Meteor.User>(sessionId, "members")
+            .set(this.userId);
     }
 })

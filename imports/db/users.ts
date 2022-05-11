@@ -1,16 +1,10 @@
 import {Meteor} from "meteor/meteor";
 import SimpleSchema from "simpl-schema";
-import {Enum} from "/imports/custom/simpl-schema";
+import {Enum, Optional} from "/imports/custom/simpl-schema";
 
 import {SessionCollection} from "/imports/db/sessions";
 
-import {Session} from "/imports/db/sessions";
-
-
-// const Options = (...values: string[]) =>
-//     new RegExp(`^${values.map(v => `(${v})`).join("|")}$`);
-
-
+import {SessionOut} from "/imports/db/sessions";
 
 
 export enum UserStatus {
@@ -20,7 +14,8 @@ export enum UserStatus {
 }
 
 
-export interface ExtendUser {
+export interface User {
+    _id?: string;
     name: string;
     username: string;
     status: {
@@ -28,7 +23,7 @@ export interface ExtendUser {
         message?: string;
     };
     sessionId?: string;
-    session?: Session;
+    session?: SessionOut;
 }
 
 Meteor.users.schema = new SimpleSchema({
@@ -36,32 +31,23 @@ Meteor.users.schema = new SimpleSchema({
     username: String,
     status: new SimpleSchema({
         type: Enum(UserStatus),
-        message: {type: String, optional: true},
+        message: Optional(String),
     }),
     services: {
         type: Object,
         optional: true,
         blackbox: true,
     },
-    sessionId: {type: String, optional: true},
-})
+    sessionId: Optional(String),
+});
 
-const a = {
-    validate(obj: any) {
-        console.log(obj)
-    }
-}
 
 Meteor.users.attachSchema(Meteor.users.schema);
 
 Meteor.users.addLinks({
-    // "session": {
-    //     collection: SessionCollection,
-    //     inversedBy: "members",
-    // }
     "session": {
         type: "one",
         collection: SessionCollection,
         field: "sessionId"
     }
-})
+});

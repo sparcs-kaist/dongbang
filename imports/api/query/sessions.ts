@@ -1,5 +1,5 @@
 import {SessionCollection} from "/imports/db/sessions";
-
+import {expose} from "./helpers/expose";
 
 export const sessionQuery = SessionCollection.createQuery("session", {
     name: 1,
@@ -10,6 +10,6 @@ export const sessionQuery = SessionCollection.createQuery("session", {
     members: {
         name: 1
     },
-},
-    // {scoped: true}
-)
+});
+
+expose(sessionQuery);

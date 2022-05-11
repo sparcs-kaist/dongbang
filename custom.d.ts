@@ -1,11 +1,8 @@
 /// <reference path="node_modules/@types/meteor-mdg-validated-method/index.d.ts" />
 
 import SimpleSchema from "simpl-schema";
-import {ExtendUser} from "/imports/db/users";
+import {User as UserExtend} from "/imports/db/users";
 
-
-// type Validator<T> = (value: any) => boolean;
-// type Schema<T> = any
 
 declare module "meteor/meteor" {
     module Meteor {
@@ -13,30 +10,36 @@ declare module "meteor/meteor" {
         
         function loginAsTestAccount(username: string, callback?: () => void): void;
         
-        interface User extends ExtendUser {
-        }
+        interface User extends UserExtend {}
     }
 }
 
 
 declare module "meteor/mongo" {
     module Mongo {
-        // type QueryBody<T> = Mongo.FieldSpecifier & {
-        //     $options: Omit<Mongo.Options<T>, 'limit'>
-        // }
         type QueryBody<T> = any;
         
         interface QueryOptions {
         
         }
         
+        export interface GraphQuery<T, U> extends Mongo.Cursor<T, U> {
+            expose(): void;
+            clone(): GraphQuery<T, U>;
+            subscribe(): GraphQueryHandler;
+        }
+        
+        export interface GraphQueryHandler {
+            ready(): boolean;
+        }
+        
         type CreateQuery<T, U> = (
             body?: QueryBody<T>, options?: QueryOptions
-        ) => Mongo.Cursor<T, U>;
+        ) => GraphQuery<T, U>;
         
         type CreateNamedQuery<T, U> = (
             name: string, body?: QueryBody<T>, options?: QueryOptions
-        ) => Mongo.Cursor<T, U>;
+        ) => GraphQuery<T, U>;
         
         interface ExposeConfig {
             firewall?(filters: any, options: any, userId: string): void;
@@ -49,17 +52,40 @@ declare module "meteor/mongo" {
             restrictLinks?: string[];
         }
         
+        interface DirectLinkOptions<T> {
+            type?: "one" | "many";
+            collection: Partial<Collection<T>>;
+            field: string;
+        }
+        
+        interface InverseLinkOptions<T> {
+            collection: Partial<Collection<T>>;
+            inversedBy: string;
+        }
+        
+        type LinkOptions<T> = DirectLinkOptions<T> | InverseLinkOptions<T>;
+        
+        type ObjectOrId<T> = string | Partial<T>
+        
+        interface Link<T, L> {
+            find(filters?: any, options?: any): Link<T, L>;
+            fetch(filters?: any, options?: any): T;
+            set(objectOrId: ObjectOrId<L>): void;
+            unset(): void;
+            add(objectOrIds: ObjectOrId<L> | ObjectOrId<L>[]): void;
+            remove(objectOrIds: ObjectOrId<L> | ObjectOrId<L>[]): void;
+        }
         
         interface Collection<T, U = T> extends CollectionStatic {
-            // addSchema: (schema: Schema<T>) => void;
+            // Methods injected by "aldeed:collection2"
             schema: SimpleSchema;
-            
             attachSchema(schema: SimpleSchema): void;
             
-            // createQuery: (...args: QueryProps) => Mongo.Cursor<T, T>;
+            // Methods injected by "cultofcoders:grapher"
             createQuery: CreateQuery<T, U> | CreateNamedQuery<T, U>;
-            
-            expose(config?: ExposeConfig): any;
+            addLinks<T>(links: {[key: string]: LinkOptions<T>}): void;
+            expose(config?: ExposeConfig): void;
+            getLink<L>(objectOrId: ObjectOrId<L>, name: string): Link<T, L>;
         }
     }
 }

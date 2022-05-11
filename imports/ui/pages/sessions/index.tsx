@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useTracker} from "meteor/react-meteor-data";
 
-import {sessionQuery} from "/imports/api/publications/sessions";
+import {sessionQuery} from "/imports/api/query/sessions";
 
 import {createSession} from "/imports/api/methods/sessions";
 
@@ -47,7 +47,7 @@ const Sessions: React.FC = () => {
                         <h3>{session.name}</h3>
                         <div>
                             {session.members.map(member =>
-                                <p>{member.name}</p>
+                                <p key={member._id}>{member.name}</p>
                             )}
                         </div>
                     </li>

@@ -2,6 +2,10 @@ import {Meteor} from "meteor/meteor";
 import SimpleSchema from "simpl-schema";
 import {Enum} from "/imports/custom/simpl-schema";
 
+import {SessionCollection} from "/imports/db/sessions";
+
+import {Session} from "/imports/db/sessions";
+
 
 // const Options = (...values: string[]) =>
 //     new RegExp(`^${values.map(v => `(${v})`).join("|")}$`);
@@ -23,6 +27,8 @@ export interface ExtendUser {
         type: UserStatus;
         message?: string;
     };
+    sessionId?: string;
+    session?: Session;
 }
 
 Meteor.users.schema = new SimpleSchema({
@@ -36,7 +42,8 @@ Meteor.users.schema = new SimpleSchema({
         type: Object,
         optional: true,
         blackbox: true,
-    }
+    },
+    sessionId: {type: String, optional: true},
 })
 
 const a = {
@@ -47,4 +54,14 @@ const a = {
 
 Meteor.users.attachSchema(Meteor.users.schema);
 
-
+Meteor.users.addLinks({
+    // "session": {
+    //     collection: SessionCollection,
+    //     inversedBy: "members",
+    // }
+    "session": {
+        type: "one",
+        collection: SessionCollection,
+        field: "sessionId"
+    }
+})

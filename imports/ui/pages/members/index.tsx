@@ -10,6 +10,8 @@ import {Link} from "react-router-dom";
 import {updateStatus} from "/imports/api/methods/members";
 import {UserStatus} from "/imports/db/users";
 
+import {userQuery} from "/imports/api/publications/members";
+
 const Members: React.FC = () => {
     const user = useTracker(() => Meteor.user());
     
@@ -19,15 +21,26 @@ const Members: React.FC = () => {
     //     }).fetch()
     // );
     
-    const members = useTracker<Meteor.User[]>(() => {
-        const handler = Meteor.subscribe("members");
-    
-        if (!handler.ready()) {
-            return [];
-        }
+    // const members = useTracker<Meteor.User[]>(() => {
+    //     const handler = Meteor.subscribe("members");
+    //
+    //     if (!handler.ready()) {
+    //         return [];
+    //     }
+    //
+    //     return Meteor.users.find({}).fetch()
+    // })
+    const members = useTracker(() => {
+        const query = userQuery.clone();
+        const handler = query.subscribe();
         
-        return Meteor.users.find({}).fetch()
-    })
+        if (!handler.ready()) {
+            return []
+        }
+        return query.fetch()
+    });
+    
+    console.log(members[0])
     
     
     const changeStatus = () => {

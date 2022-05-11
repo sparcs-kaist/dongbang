@@ -9,6 +9,12 @@ import {UserStatus} from "/imports/db/users";
 
 import "./dev/initTestAccounts";
 
+import {userQuery} from "/imports/api/publications/members";
+import {sessionQuery} from "/imports/api/publications/sessions";
+
+userQuery.expose()
+sessionQuery.expose()
+
 // import {initialize} from "/imports/lib/addValidator";
 
 Meteor.startup(() => {

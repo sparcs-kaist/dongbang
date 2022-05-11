@@ -17,4 +17,22 @@ SessionCollection.schema = new SimpleSchema({
 
 })
 
-SessionCollection.attachSchema(SessionCollection.schema);
+// SessionCollection.attachSchema(SessionCollection.schema);
+
+SessionCollection.addLinks({
+    "creator": {
+        type: "one",
+        collection: Meteor.users,
+        field: "creatorId",
+    },
+    // "members": {
+    //     type: "many",
+    //     collection: Meteor.users,
+    //     field: "memberIds",
+    // }
+    "members": {
+        collection: Meteor.users,
+        inversedBy: "session",
+    }
+})
+

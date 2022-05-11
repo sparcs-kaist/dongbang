@@ -8,7 +8,7 @@ import {Info} from './Info';
 import Layout from "/imports/ui/layouts/Layout";
 
 import Members from "/imports/ui/pages/members";
-import Sessions from "/imports/ui/pages/Sessions";
+import Sessions from "/imports/ui/pages/sessions";
 
 import Login from "/imports/ui/pages/Login";
 

@@ -69,7 +69,8 @@ declare module "meteor/mongo" {
         
         interface Link<T, L> {
             find(filters?: any, options?: any): Link<T, L>;
-            fetch(filters?: any, options?: any): T;
+            fetch(filters?: any, options?: any): L;
+            count(): number;
             set(objectOrId: ObjectOrId<L>): void;
             unset(): void;
             add(objectOrIds: ObjectOrId<L> | ObjectOrId<L>[]): void;

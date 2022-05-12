@@ -4,7 +4,7 @@ import {Enum, Optional} from "/imports/custom/simpl-schema";
 
 import {SessionCollection} from "/imports/db/sessions";
 
-import {SessionOut} from "/imports/db/sessions";
+import {Session} from "/imports/db/sessions";
 
 
 export enum UserStatus {
@@ -23,7 +23,7 @@ export interface User {
         message?: string;
     };
     sessionId?: string;
-    session?: SessionOut;
+    session?: Session;
 }
 
 Meteor.users.schema = new SimpleSchema({

@@ -8,19 +8,18 @@ export enum Location {
     B_SITE = "location:b_site",
 }
 
-interface SessionIn {
+interface SessionCreate {
     name: string;
     location?: Location;
     creatorId: string;
 }
 
-export interface SessionOut extends SessionIn {
+export interface Session extends SessionCreate {
     _id: string;
-    creator: User;
     members: User[];
 }
 
-export const SessionCollection = new Mongo.Collection<SessionIn, SessionOut>("sessions");
+export const SessionCollection = new Mongo.Collection<SessionCreate, Session>("sessions");
 
 SessionCollection.schema = new SimpleSchema({
     name: String,
@@ -31,11 +30,6 @@ SessionCollection.schema = new SimpleSchema({
 SessionCollection.attachSchema(SessionCollection.schema);
 
 SessionCollection.addLinks<Meteor.User>({
-    "creator": {
-        type: "one",
-        collection: Meteor.users,
-        field: "creatorId",
-    },
     "members": {
         collection: Meteor.users,
         inversedBy: "session",

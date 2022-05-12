@@ -3,6 +3,10 @@ import {Meteor} from "meteor/meteor";
 import React from "react";
 import styles from "./styles.module.css";
 
+import {Text} from "/imports/ui/components/Text";
+
+import {MemberItem, MemberContainer} from "./components";
+
 import {useTracker} from "meteor/react-meteor-data";
 
 import {Link} from "react-router-dom";
@@ -63,31 +67,24 @@ const Members: React.FC = () => {
     
     return (
         <div className={styles.root}>
-            <h1>멤버</h1>
-            <h2>내 프로필</h2>
-            <div>
+            <Text.main>멤버</Text.main>
+            <Text.sub>내 프로필</Text.sub>
+            <MemberContainer>
                 {user
-                    ? <div>
-                        <span>{user.name}</span>
-                        <button onClick={changeStatus}>상태 변경</button>
-                    </div>
+                    ? <MemberItem member={user}/>
                     : <Link to="login">로그인이 필요합니다</Link>}
-            </div>
+            </MemberContainer>
             
             
-            <h2>동방</h2>
-            <ul>
+            <Text.sub>동방</Text.sub>
+            <MemberContainer>
                 {members.map(member =>
-                    <li key={member._id}>
-                        <div>
-                            <span><h3>{member.name}</h3></span>
-                            <span>{member.username}</span>
-                            <div>{member.status.type}</div>
-                            <div>{member.status.message}</div>
-                        </div>
-                    </li>
+                    <MemberItem
+                        key={member._id}
+                        member={member}
+                    />
                 )}
-            </ul>
+            </MemberContainer>
         </div>
     )
 }

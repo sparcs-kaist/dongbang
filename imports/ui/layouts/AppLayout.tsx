@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Layout.module.css";
+import styles from "./AppLayout.module.css";
 import classNames from "classnames";
 
 import {Outlet, NavLink, useResolvedPath, useMatch} from "react-router-dom";
@@ -8,17 +8,18 @@ import Header from "/imports/ui/layouts/Header";
 import Navigation from "/imports/ui/layouts/Navigation";
 
 
-const Layout: React.FC = () => {
+const AppLayout: React.FC = () => {
     const path = useMatch("sessions");
     console.log(path)
     
     return (<>
         <Header />
-        <Outlet/>
-        
+        <main className={styles.content}>
+            <Outlet/>
+        </main>
         <Navigation />
         
     </>)
 }
 
-export default Layout;
+export default AppLayout;

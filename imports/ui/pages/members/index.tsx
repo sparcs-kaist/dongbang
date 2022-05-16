@@ -76,7 +76,7 @@ const Members: React.FC = () => {
             </MemberContainer>
             
             
-            <Text.sub>동방</Text.sub>
+            <Text.sub>동방 {members.length}</Text.sub>
             <MemberContainer>
                 {members.map(member =>
                     <MemberItem

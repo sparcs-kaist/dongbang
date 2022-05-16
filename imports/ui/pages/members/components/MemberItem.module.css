@@ -1,0 +1,16 @@
+.item {
+    padding: 0 15px;
+}
+
+.inner {
+    padding: 25px;
+}
+
+.item:active {
+    background-color: var(--grey-700);
+    transition: background-color .05s ease;
+}
+
+.item:not(:last-child) > .inner {
+    border-bottom: 1px solid var(--grey-750);
+}

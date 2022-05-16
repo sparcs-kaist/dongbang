@@ -1,0 +1,26 @@
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(var(--theme-background_w), 0.85);
+}
+
+.topBorder {
+    height: 5px;
+    background-color: var(--theme-400);
+}
+
+.logo {
+    height: 35px;
+    width: 220px;
+}
+
+.content {
+    height: 70px;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

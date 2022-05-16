@@ -1,0 +1,12 @@
+h1.main {
+    color: var(--grey-000);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+h2.sub {
+    color: var(--grey-600);
+    font-size: 13px;
+    font-weight: 400;
+    padding: 13px 0 5px;
+}

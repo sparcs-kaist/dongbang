@@ -49,4 +49,8 @@
     --grey-000: rgb(var(--grey-000_w));
     --shadow-400: 0 0 15px 0 rgba(var(--grey-000_w), .15);
     --shadow-500: 0 2px 20px 0 rgba(var(--grey-000_w), .15);
+    --header-height: 75px;
+    --nav-height: 55px;
+    --max-width: 768px;
+    --page-margin: max(15px, calc(50vw - var(--max-width) / 2));
 }

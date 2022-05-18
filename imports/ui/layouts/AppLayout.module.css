@@ -1,4 +1,5 @@
 main.content {
-    margin-top: 75px;
-    padding: 0 15px;
+    margin-top: var(--header-height);
+    margin-bottom: var(--nav-height);
+    padding: 0 var(--page-margin);
 }

@@ -1,8 +1,46 @@
 .nav {
     position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(var(--theme-background_w), 0.8);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 var(--page-margin);
+    overflow: hidden;
 }
 
-.active {
-    color: red;
+.nav * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav > a {
+    flex: 1;
+    height: 100%;
+}
+
+.nav .touch {
+    width: calc(var(--nav-height) + 25px);
+    height: calc(var(--nav-height) + 25px);
+    border-radius: 50%;
+}
+
+
+.nav > a:active .touch {
+    background-color: rgba(var(--grey-000_w), 0.1);
+}
+
+.nav svg {
+    width: 32px;
+    height: 32px;
+}
+
+.active svg {
+    fill: var(--theme-500);
 }

@@ -7,10 +7,11 @@ import {NavLink} from "react-router-dom";
 
 interface NavActionProps {
     to: string;
-    children: ReactNode;
+    // children: ReactNode;
+    icon: ReactNode
 }
 
-const NavAction: React.FC<NavActionProps> = ({to, children}) => {
+const NavAction: React.FC<NavActionProps> = ({to, icon}) => {
     
     
     
@@ -19,7 +20,7 @@ const NavAction: React.FC<NavActionProps> = ({to, children}) => {
             to={to}
             className={({isActive}) => classNames({[styles.active]: isActive})}
         >
-            {children}
+            <div className={styles.touch}>{icon}</div>
         </NavLink>
     )
 }

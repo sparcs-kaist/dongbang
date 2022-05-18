@@ -4,7 +4,7 @@
     width: 100%;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    background-color: rgba(var(--theme-background_w), 0.85);
+    background-color: rgba(var(--theme-background_w), 0.8);
 }
 
 .topBorder {
@@ -18,9 +18,20 @@
 }
 
 .content {
-    height: 70px;
+    height: calc(var(--header-height) - 5px);
     padding: 0 15px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+}
+
+.actions * {
+    display: flex;
+}
+
+.actions svg {
+    width: 32px;
+    height: 32px;
+    fill: var(--theme-500);
 }

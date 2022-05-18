@@ -9,15 +9,10 @@ import {Text} from "/imports/ui/components/Text";
 
 import {MemberItem, MemberContainer} from "./components";
 
-import {useTracker} from "meteor/react-meteor-data";
-
 import {Link} from "react-router-dom";
 
 import {updateStatus} from "/imports/api/methods/members";
 import {UserStatus} from "/imports/db/users";
-
-import {userQuery} from "/imports/api/query/members";
-import {useQueryData} from "/imports/common/hooks/useQueryData";
 
 interface MembersProps {
     user: Meteor.User | null;

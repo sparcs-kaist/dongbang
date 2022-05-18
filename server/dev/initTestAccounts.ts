@@ -20,6 +20,78 @@ const users: Mongo.OptionalId<Meteor.User>[] = [
             message: "",
         }
     },
+    {
+        name: "가나다",
+        username: "a",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "라마바",
+        username: "b",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "사아자",
+        username: "c",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "차카타",
+        username: "d",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "파하가",
+        username: "e",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "가나다",
+        username: "f",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "가나다",
+        username: "g",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "가나다",
+        username: "h",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
+    {
+        name: "가나다",
+        username: "i",
+        status: {
+            type: UserStatus.OFFLINE,
+            message: "",
+        }
+    },
 ]
 
 const createUser = (user: Mongo.OptionalId<Meteor.User>) => {

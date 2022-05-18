@@ -3,6 +3,8 @@ import {Meteor} from "meteor/meteor";
 import React from "react";
 import styles from "./styles.module.css";
 
+import {Outlet} from "react-router-dom";
+
 import {Text} from "/imports/ui/components/Text";
 
 import {MemberItem, MemberContainer} from "./components";
@@ -85,6 +87,7 @@ const Members: React.FC = () => {
                     />
                 )}
             </MemberContainer>
+            <Outlet/>
         </div>
     )
 }

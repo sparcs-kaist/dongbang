@@ -17,7 +17,7 @@ const Header: React.FC = () => {
             <div className={styles.content}>
                 <Logo className={styles.logo}/>
                 <div>
-                    <HeaderAction path="/">
+                    <HeaderAction path="members">
                         <Link to="login">login</Link>
                     </HeaderAction>
                     <HeaderAction path="sessions">

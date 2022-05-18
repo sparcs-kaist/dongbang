@@ -8,7 +8,7 @@ const Navigation: React.FC = () => {
     
     return (
         <nav className={styles.nav}>
-            <NavAction to="/">
+            <NavAction to="members">
                 members
             </NavAction>
             <NavAction to="sessions">

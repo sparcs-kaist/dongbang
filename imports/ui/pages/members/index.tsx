@@ -17,36 +17,15 @@ import {updateStatus} from "/imports/api/methods/members";
 import {UserStatus} from "/imports/db/users";
 
 import {userQuery} from "/imports/api/query/members";
+import {useQueryData} from "/imports/common/hooks/useQueryData";
 
-const Members: React.FC = () => {
-    const user = useTracker(() => Meteor.user());
+interface MembersProps {
+    user: Meteor.User | null;
+    members?: Meteor.User[];
+}
+
+const Members: React.FC<MembersProps> = ({user, members}) => {
     
-    // const members = useTracker(() =>
-    //     MemberCollection.find({
-    //         username: {$ne: user?.username}
-    //     }).fetch()
-    // );
-    
-    // const members = useTracker<Meteor.User[]>(() => {
-    //     const handler = Meteor.subscribe("members");
-    //
-    //     if (!handler.ready()) {
-    //         return [];
-    //     }
-    //
-    //     return Meteor.users.find({}).fetch()
-    // })
-    const members = useTracker(() => {
-        const query = userQuery.clone();
-        const handler = query.subscribe();
-        
-        if (!handler.ready()) {
-            return []
-        }
-        return query.fetch()
-    });
-    
-    console.log(members[0])
     
     
     const changeStatus = () => {
@@ -78,9 +57,9 @@ const Members: React.FC = () => {
             </MemberContainer>
             
             
-            <Text.sub>동방 {members.length}</Text.sub>
+            <Text.sub>동방 {members?.length}</Text.sub>
             <MemberContainer>
-                {members.map(member =>
+                {members?.map(member =>
                     <MemberItem
                         key={member._id}
                         member={member}

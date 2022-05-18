@@ -1,22 +1,10 @@
-/// <reference path="node_modules/@types/meteor-mdg-validated-method/index.d.ts" />
+/// <reference path="../node_modules/@types/meteor/mongo.d.ts" />
+
 
 import SimpleSchema from "simpl-schema";
-import {User as UserExtend} from "/imports/db/users";
-
-
-declare module "meteor/meteor" {
-    module Meteor {
-        function loginAsAdmin(password: string, callback?: () => void): void;
-        
-        function loginAsTestAccount(username: string, callback?: () => void): void;
-        
-        interface User extends UserExtend {}
-    }
-}
-
 
 declare module "meteor/mongo" {
-    module Mongo {
+    export module Mongo {
         type QueryBody<T> = any;
         
         interface QueryOptions {
@@ -90,7 +78,3 @@ declare module "meteor/mongo" {
         }
     }
 }
-
-
-
-

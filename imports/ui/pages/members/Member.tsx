@@ -1,4 +1,8 @@
 import React from "react";
+import styles from "./Member.module.css";
+
+import Drawer from "/imports/ui/components/Drawer";
+
 import {useParams} from "react-router-dom";
 
 
@@ -7,7 +11,9 @@ const Member: React.FC = () => {
     
     
     return (
-        <div>{username}</div>
+        <Drawer>
+            {username}
+        </Drawer>
     )
 }
 

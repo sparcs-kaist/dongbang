@@ -1,0 +1,20 @@
+.drawer {
+    z-index: 50;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FFF;
+    min-height: 30vh;
+}
+
+.backdrop {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.4;
+}

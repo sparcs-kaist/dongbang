@@ -12,7 +12,12 @@ declare module "meteor/mongo" {
         }
         
         export interface GraphQuery<T, U> extends Mongo.Cursor<T, U> {
-            expose(): void;
+            expose(options?: {
+                firewall?(userId: string, params: any): void,
+                embody?: {
+                    $filter?({filters, params}: {filters: any, params: any}): void
+                },
+            }): void;
             clone(): GraphQuery<T, U>;
             subscribe(): GraphQueryHandler;
         }

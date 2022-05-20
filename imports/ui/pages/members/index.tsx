@@ -12,7 +12,6 @@ import {MemberItem, MemberContainer} from "./components";
 import {Link} from "react-router-dom";
 
 import {updateStatus} from "/imports/api/methods/members";
-import {UserStatus} from "/imports/db/users";
 
 interface MembersProps {
     user: Meteor.User | null;
@@ -23,22 +22,22 @@ const Members: React.FC<MembersProps> = ({user, members}) => {
     
     
     
-    const changeStatus = () => {
-        updateStatus.call(
-            {
-                type: user?.status.type === UserStatus.OFFLINE
-                    ? UserStatus.PRESENT
-                    : UserStatus.OFFLINE,
-                message: "qwerqwer"
-            },
-            (err, res) => {
-                if (err) alert(err)
-                else {
-                    console.log(res)
-                }
-            }
-        )
-    }
+    // const changeStatus = () => {
+    //     updateStatus.call(
+    //         {
+    //             type: user?.status.type === UserStatus.OFFLINE
+    //                 ? UserStatus.PRESENT
+    //                 : UserStatus.OFFLINE,
+    //             message: "qwerqwer"
+    //         },
+    //         (err, res) => {
+    //             if (err) alert(err)
+    //             else {
+    //                 console.log(res)
+    //             }
+    //         }
+    //     )
+    // }
     
     
     return (

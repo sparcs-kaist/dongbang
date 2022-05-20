@@ -1,18 +1,20 @@
 import {Meteor} from "meteor/meteor";
 import {expose} from "./helpers/expose";
 
-import {UserStatus} from "/imports/db/users";
-
 export const userQuery = Meteor.users.createQuery("user", {
     $filters: {
-        "status.type": {$ne: UserStatus.OFFLINE}
+        // "status.type": {$ne: UserStatus.OFFLINE}
+        isActive: true
+        // _id: {$eq: this.userId}
     },
     $options: {
         sort: {name: 1}
     },
     name: 1,
     username: 1,
-    status: 1,
+    // status: 1,
+    isActive: 1,
+    statusMsg: 1,
     session: {
         name: 1,
         location: 1

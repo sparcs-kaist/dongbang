@@ -1,27 +1,20 @@
 import {Meteor} from "meteor/meteor";
 import SimpleSchema from "simpl-schema";
-import {Enum, Optional} from "/imports/custom/simpl-schema";
-
-import {SessionCollection} from "/imports/db/sessions";
+import {Optional} from "/imports/custom/simpl-schema";
 
 import {Session} from "/imports/db/sessions";
-
-
-export enum UserStatus {
-    PRESENT = "userstatus:present",
-    SESSION = "userstatus:session",
-    OFFLINE = "userstatus:offline",
-}
 
 
 export interface User {
     _id?: string;
     name: string;
     username: string;
-    status: {
-        type: UserStatus;
-        message?: string;
-    };
+    isActive: boolean;
+    statusMsg?: string;
+    // status: {
+    //     type: UserStatus;
+    //     message?: string;
+    // };
     sessionId?: string;
     session?: Session;
 }
@@ -29,10 +22,12 @@ export interface User {
 Meteor.users.schema = new SimpleSchema({
     name: String,
     username: String,
-    status: new SimpleSchema({
-        type: Enum(UserStatus),
-        message: Optional(String),
-    }),
+    isActive: Boolean,
+    statusMsg: Optional(String),
+    // status: new SimpleSchema({
+    //     type: Enum(UserStatus),
+    //     message: Optional(String),
+    // }),
     services: {
         type: Object,
         optional: true,
@@ -44,10 +39,5 @@ Meteor.users.schema = new SimpleSchema({
 
 Meteor.users.attachSchema(Meteor.users.schema);
 
-Meteor.users.addLinks({
-    "session": {
-        type: "one",
-        collection: SessionCollection,
-        field: "sessionId"
-    }
-});
+
+

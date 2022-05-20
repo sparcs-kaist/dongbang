@@ -1,12 +1,12 @@
 
-// export const Enum = (enumObj: Object) => (
-//     new RegExp(`^${
-//         Object
-//             .values(enumObj)
-//             .map(v => `(${v})`)
-//             .join("|")
-//     }$`)
-// );
+export const Enum = (enumObj: Object) => (
+    new RegExp(`^${
+        Object
+            .values(enumObj)
+            .map(v => `(${v})`)
+            .join("|")
+    }$`)
+);
 
 type Field = BooleanConstructor
     | StringConstructor

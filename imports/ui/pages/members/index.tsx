@@ -43,16 +43,12 @@ const Members: React.FC<MembersProps> = ({user, members}) => {
     return (
         <div className={styles.root}>
             <Text.main>멤버</Text.main>
-            <Text.sub>내 프로필</Text.sub>
-            <MemberContainer>
+            <MemberContainer title={"내 프로필"}>
                 {user
                     ? <MemberItem member={user}/>
                     : <Link to="login">로그인이 필요합니다</Link>}
             </MemberContainer>
-            
-            
-            <Text.sub>동방 {members?.length}</Text.sub>
-            <MemberContainer>
+            <MemberContainer title={`동방 ${members?.length}`}>
                 {members?.map(member =>
                     <MemberItem
                         key={member._id}

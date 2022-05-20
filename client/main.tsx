@@ -5,9 +5,7 @@ import {App} from '/imports/ui/App'
 
 import "./sso/register";
 
-import "/imports/db";
-import "/imports/api/query";
-import "/imports/api/methods"
+import "/imports";
 
 Meteor.startup(() => {
     render(<App/>, document.getElementById('react-target'));

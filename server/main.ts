@@ -1,8 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 
-import "/imports/db";
-import "/imports/api/query";
-import "/imports/api/methods"
+import "/imports";
 
 import "./sso/handler";
 

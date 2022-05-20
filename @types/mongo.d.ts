@@ -18,8 +18,9 @@ declare module "meteor/mongo" {
                     $filter?({filters, params}: {filters: any, params: any}): void
                 },
             }): void;
-            clone(): GraphQuery<T, U>;
+            clone(options?: any): GraphQuery<T, U>;
             subscribe(): GraphQueryHandler;
+            fetchOne(): U | undefined;
         }
         
         export interface GraphQueryHandler {

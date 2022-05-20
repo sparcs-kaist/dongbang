@@ -16,16 +16,13 @@ import Sessions from "/imports/ui/pages/sessions";
 
 import Login from "/imports/ui/pages/Login";
 
-import {useTracker} from "meteor/react-meteor-data";
 import {useQueryData} from "/imports/common/hooks/useQueryData";
 import {membersQuery} from "/imports/api/query/members";
+import {useUser} from "/imports/common/hooks/useUser";
 
 export const App = () => {
-    const user = useTracker(() => Meteor.user());
-    
-    
+    const user = useUser();
     const members = useQueryData(membersQuery);
-    
     
     return (
         <Router>

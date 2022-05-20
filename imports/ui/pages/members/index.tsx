@@ -14,7 +14,7 @@ import {Link} from "react-router-dom";
 import {updateStatus} from "/imports/api/methods/members";
 
 interface MembersProps {
-    user: Meteor.User | null;
+    user?: Meteor.User;
     members?: Meteor.User[];
 }
 

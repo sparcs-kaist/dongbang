@@ -29,3 +29,9 @@ SessionCollection.schema = new SimpleSchema({
 
 SessionCollection.attachSchema(SessionCollection.schema);
 
+SessionCollection.addLinks({
+    "members": {
+        collection: Meteor.users,
+        inversedBy: "session",
+    }
+});

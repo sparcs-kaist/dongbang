@@ -2,7 +2,7 @@ import {Meteor} from "meteor/meteor";
 import SimpleSchema from "simpl-schema";
 import {Optional} from "/imports/custom/simpl-schema";
 
-import {Session} from "/imports/db/sessions";
+import {Session, SessionCollection} from "/imports/db/sessions";
 
 
 export interface User {
@@ -39,5 +39,12 @@ Meteor.users.schema = new SimpleSchema({
 
 Meteor.users.attachSchema(Meteor.users.schema);
 
+Meteor.users.addLinks({
+    "session": {
+        type: "one",
+        collection: SessionCollection,
+        field: "sessionId"
+    }
+});
 
 

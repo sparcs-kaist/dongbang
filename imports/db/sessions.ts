@@ -1,6 +1,7 @@
+import {Meteor} from "meteor/meteor";
+
 import {Mongo} from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
-import {User} from "/imports/db/users";
 import {Enum, Optional} from "/imports/custom/simpl-schema";
 
 export enum Location {
@@ -16,7 +17,7 @@ interface SessionCreate {
 
 export interface Session extends SessionCreate {
     _id: string;
-    members: User[];
+    members: Meteor.User[];
 }
 
 export const SessionCollection = new Mongo.Collection<SessionCreate, Session>("sessions");

@@ -5,7 +5,7 @@ import {Optional} from "/imports/custom/simpl-schema";
 import {Session, SessionCollection} from "/imports/db/sessions";
 
 
-export interface User {
+export interface UserExtension {
     _id?: string;
     name: string;
     username: string;

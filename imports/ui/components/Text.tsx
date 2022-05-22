@@ -12,8 +12,8 @@ interface TextComponents {
 }
 
 const textComponentGenerator = (componentClassName: string): TextComponent =>
-    ({children, className, ...props}) =>
-        <p className={classNames(componentClassName, className)} {...props}>{children}</p>
+    ({className, ...props}) =>
+        <p className={classNames(componentClassName, className)} {...props} />
 
 export const Text: TextComponents = {
     main: textComponentGenerator(styles.main),

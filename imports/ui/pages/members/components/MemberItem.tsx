@@ -14,7 +14,7 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
     
     const userStatus: ReactNode = member.session
         ? <span>{member.session.name} 참여 중</span>
-        : <span>{member.status?.message || "동방"}</span>
+        : <span>{member?.statusMsg || "동방"}</span>
     
     return (
         <div

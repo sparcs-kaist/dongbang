@@ -1,5 +1,5 @@
 main.content {
-    margin-top: var(--header-height);
-    margin-bottom: var(--nav-height);
-    padding: 0 var(--page-margin);
+    padding: var(--header-height) var(--page-margin) var(--nav-height);
+    min-height: 100%;
+    /*background-color: blue;*/
 }

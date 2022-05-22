@@ -1,5 +1,3 @@
-import {Meteor} from "meteor/meteor";
-
 import React from 'react';
 import "./index.css";
 import "./theme.css";
@@ -19,21 +17,29 @@ import Login from "/imports/ui/pages/Login";
 import {useQueryData} from "/imports/common/hooks/useQueryData";
 import {membersQuery} from "/imports/api/query/members";
 import {useUser} from "/imports/common/hooks/useUser";
+import {sessionsQuery} from "/imports/api/query/sessions";
 
 export const App = () => {
     const user = useUser();
     const members = useQueryData(membersQuery);
+    const sessions = useQueryData(sessionsQuery);
     
     return (
         <Router>
             <Routes>
                 <Route index element={<Navigate to="/members" replace={true}/>}/>
                 <Route path="/" element={<AppLayout/>}>
-                    <Route path="members" element={<Members user={user} members={members}/>}>
+                    <Route
+                        path="members"
+                        element={<Members user={user} members={members}/>}
+                    >
                         <Route path=":username" element={<Member/>}/>
                     
                     </Route>
-                    <Route path="sessions" element={<Sessions/>}>
+                    <Route
+                        path="sessions"
+                        element={<Sessions sessions={sessions} currentSessionId={user?.session?._id}/>}
+                    >
                         <Route path=":id"/>
                     
                     </Route>

@@ -12,12 +12,12 @@ interface MemberContainerProps {
 const MemberContainer: React.FC<MemberContainerProps> = (
     {title, children}
 ) => (
-    <div>
+    children ? <div>
         <Text.sub>{title}</Text.sub>
         <Card className={styles.card}>
             {children}
         </Card>
-    </div>
+    </div> : null
 );
 
 export default MemberContainer;

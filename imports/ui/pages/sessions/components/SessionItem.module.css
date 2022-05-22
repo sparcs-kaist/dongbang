@@ -1,0 +1,24 @@
+.item {
+    padding: 22px 34px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.members {
+    display: flex;
+    flex-direction: column;
+}
+
+.controls {
+    display: flex;
+    height: 0;
+    overflow: hidden;
+    flex-direction: row;
+}
+
+.show {
+    height: auto;
+}

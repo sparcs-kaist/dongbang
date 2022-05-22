@@ -1,13 +1,33 @@
-import React, {ReactNode} from "react";
+import {Meteor} from "meteor/meteor";
+
+import React, {HTMLAttributes} from "react";
+import classNames from "classnames";
 import styles from "./Text.module.css";
 
-const MainText: React.FC<{children: ReactNode}> = ({children}) =>
-    <h1 className={styles.main}>{children}</h1>
+type TextComponent = React.FC<HTMLAttributes<HTMLParagraphElement>>;
 
-const SubText: React.FC<{children: ReactNode}> = ({children}) =>
-    <h2 className={styles.sub}>{children}</h2>
-
-export const Text = {
-    main: MainText,
-    sub: SubText,
+interface TextComponents {
+    main: TextComponent;
+    sub: TextComponent;
 }
+
+const textComponentGenerator = (componentClassName: string): TextComponent =>
+    ({children, className, ...props}) =>
+        <p className={classNames(componentClassName, className)} {...props}>{children}</p>
+
+export const Text: TextComponents = {
+    main: textComponentGenerator(styles.main),
+    sub: textComponentGenerator(styles.sub),
+}
+
+export const CardText: TextComponents = {
+    main: textComponentGenerator(styles.mainCard),
+    sub: textComponentGenerator(styles.subCard),
+}
+
+
+export const renderProfileText = (member: Meteor.User) =>
+    <>
+        <span>{member.name}</span>
+        <span className={styles.profileUsername}>{member.username}</span>
+    </>

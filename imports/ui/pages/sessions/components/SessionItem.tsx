@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import classNames from "classnames";
 import styles from "./SessionItem.module.css";
 
-
 import {Session} from "/imports/db/sessions";
 
 import {Card} from "/imports/ui/components/Card";
+import {CardText, renderProfileText} from "/imports/ui/components/Text";
 
 import {joinSession, leaveSession} from "/imports/api/methods/sessions";
 
@@ -31,10 +31,12 @@ const SessionItem: React.FC<SessionItemProps> = ({session}) => {
             onFocus={() => setShowControls(true)}
             onBlur={() => setShowControls(false)}
         >
-            <p className={styles.title}>{session.name}</p>
+            <CardText.main className={styles.title}>{session.name}</CardText.main>
             <div className={styles.members}>
                 {session.members.map(member =>
-                    <span>{member.name}</span>
+                    <CardText.sub>
+                        {renderProfileText(member)}
+                    </CardText.sub>
                 )}
             </div>
             

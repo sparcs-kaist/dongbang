@@ -2,6 +2,9 @@ import {Meteor} from "meteor/meteor";
 
 import React, {ReactNode} from "react";
 import styles from "./MemberItem.module.css";
+
+import {CardText, renderProfileText} from "/imports/ui/components/Text";
+
 import {useNavigate} from "react-router-dom";
 
 
@@ -22,14 +25,14 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
             onClick={() => navigate(`${member.username}`, {replace: true})}
         >
             <div className={styles.inner}>
-                <p className={styles.userMain}>
-                    <span>{member.name}</span>
-                    <span>{member.username}</span>
-                </p>
-                <p className={styles.userDesc}>
+                <CardText.main>
+                    {renderProfileText(member)}
+                </CardText.main>
+
+                <CardText.sub className={styles.userDesc}>
                     <div className={styles.indicator}/>
                     {userStatus}
-                </p>
+                </CardText.sub>
             </div>
         </div>
     )

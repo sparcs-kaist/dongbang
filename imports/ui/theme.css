@@ -31,6 +31,8 @@
     --grey-700_w: 192, 192, 192;
     --grey-650_w: 161, 161, 161;
     --grey-600_w: 138, 138, 138;
+    --grey-500_w: 108, 108, 108;
+    --grey-400_w: 072, 072, 072;
     --grey-300_w: 050, 050, 050;
     --grey-200_w: 034, 034, 034;
     --grey-100_w: 016, 016, 016;
@@ -43,6 +45,8 @@
     --grey-700: rgb(var(--grey-700_w));
     --grey-650: rgb(var(--grey-650_w));
     --grey-600: rgb(var(--grey-600_w));
+    --grey-500: rgb(var(--grey-500_w));
+    --grey-400: rgb(var(--grey-400_w));
     --grey-300: rgb(var(--grey-300_w));
     --grey-200: rgb(var(--grey-200_w));
     --grey-100: rgb(var(--grey-100_w));

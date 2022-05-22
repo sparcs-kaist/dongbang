@@ -8,7 +8,8 @@ export const sessionsQuery = SessionCollection.createQuery("session", {
         name: 1
     },
     members: {
-        name: 1
+        name: 1,
+        username: 1,
     },
 });
 

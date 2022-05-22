@@ -12,6 +12,10 @@
     flex-direction: column;
 }
 
+.members > p {
+    margin-top: 5px;
+}
+
 .controls {
     display: flex;
     height: 0;

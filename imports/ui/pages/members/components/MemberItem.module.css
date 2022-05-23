@@ -21,6 +21,18 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--grey-600);
+    background-color: currentColor;
     margin-right: 8px;
+}
+
+.statusLocation span {
+    color: var(--theme-red);
+}
+
+.statusSession span {
+    color: var(--theme-500);
+}
+
+.statusActive span {
+    color: var(--theme-green);
 }

@@ -29,7 +29,7 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
         <Card
             primary={joined}
             tabIndex={-1}
-            onClick={() => setShowControls(!showControls)}
+            onFocus={() => setShowControls(true)}
             onBlur={() => setShowControls(false)}
             className={classNames(styles.root, {[styles.show]: showControls})}
         >

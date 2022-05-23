@@ -8,17 +8,39 @@ import {renderProfileText} from "/imports/ui/components/Text";
 
 import {useNavigate} from "react-router-dom";
 
+import {Location} from "/imports/db/sessions";
+import classNames from "classnames";
+
 
 interface MemberItemProps {
     member: Meteor.User;
+}
+
+const loc = {
+    [Location.A_SITE]: "A SITE",
+    [Location.B_SITE]: "B SITE",
 }
 
 const MemberItem: React.FC<MemberItemProps> = ({member}) => {
     const navigate = useNavigate();
     
     const userStatus: ReactNode = member.session
-        ? <span>{member.session.name} 참여 중</span>
-        : <span>{member?.statusMsg || "동방"}</span>
+        ? member.session.location
+            ? <MemberStatus className={styles.statusLocation}>
+                <span>
+                    {loc[member.session.location]}
+                </span>에서&nbsp;<span>{member.session.name}</span>&nbsp;참여 중
+            </MemberStatus>
+            : <MemberStatus className={styles.statusSession}>
+                <span>{member.session.name}</span>&nbsp;참여 중
+            </MemberStatus>
+        : member.isActive
+            ? <MemberStatus className={styles.statusActive}>
+                <span>{member?.statusMsg || "동방"}</span>
+            </MemberStatus>
+            : <MemberStatus>
+                <span>{member?.statusMsg || "오프라인"}</span>
+            </MemberStatus>
     
     return (
         <CardClickable
@@ -29,14 +51,18 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
                 <CardText.main>
                     {renderProfileText(member)}
                 </CardText.main>
-
-                <CardText.sub className={styles.userDesc}>
-                    <div className={styles.indicator}/>
-                    {userStatus}
-                </CardText.sub>
+                {userStatus}
             </div>
         </CardClickable>
     )
 }
+
+const MemberStatus: React.FC<{ className?: string }> = ({className, children}) => (
+    <CardText.sub className={classNames(styles.userDesc, className)}>
+        <span className={styles.indicator}/>
+        {children}
+    </CardText.sub>
+)
+
 
 export default React.memo(MemberItem);

@@ -51,13 +51,17 @@
     --grey-200: rgb(var(--grey-200_w));
     --grey-100: rgb(var(--grey-100_w));
     --grey-000: rgb(var(--grey-000_w));
+    --theme-red_w: 229, 76, 101;
+    --theme-red: rgb(var(--theme-red_w));
+    --theme-green_w: 48, 201, 107;
+    --theme-green: rgb(var(--theme-green_w));
     --shadow-400: 0 0 15px 0 rgba(var(--grey-000_w), .15);
     --shadow-500: 0 2px 20px 0 rgba(var(--grey-000_w), .15);
     --header-height: 75px;
     --nav-height: 55px;
     --max-width: 768px;
     --page-margin: max(15px, calc(50vw - var(--max-width) / 2));
-    --card-vertical-padding: 20px;
-    --card-horizontal-padding: 28px;
+    --card-vertical-padding: 22px;
+    --card-horizontal-padding: 32px;
 
 }

@@ -4,7 +4,7 @@ import styles from "./SessionItem.module.css";
 
 import {Session} from "/imports/db/sessions";
 
-import {Card, CardClickable, CardText} from "/imports/ui/components/Card";
+import {Card, CardClickable, CardText, CardButton} from "/imports/ui/components/Card";
 import {renderProfileText} from "/imports/ui/components/Text";
 
 import {joinSession, leaveSession} from "/imports/api/methods/sessions";
@@ -26,13 +26,14 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
     }
     
     return (
-        <Card primary={joined}>
-            <CardClickable
-                className={styles.item}
-                tabIndex={-1}
-                onFocus={() => setShowControls(true)}
-                onBlur={() => setShowControls(false)}
-            >
+        <Card
+            primary={joined}
+            tabIndex={-1}
+            onClick={() => setShowControls(!showControls)}
+            onBlur={() => setShowControls(false)}
+            className={classNames(styles.root, {[styles.show]: showControls})}
+        >
+            <CardClickable className={styles.item}>
                 <CardText.main className={styles.title}>{session.name}</CardText.main>
                 <div className={styles.members}>
                     {session.members.map(member =>
@@ -42,16 +43,14 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                     )}
                 </div>
                 
-                <div
-                    className={classNames(
-                        styles.controls,
-                        {[styles.show]: showControls}
-                    )}
-                >
-                    <button onClick={join}>참여</button>
-                    <button onClick={leave}>나가기</button>
-                </div>
+                <div className={styles.controlSpace}/>
             </CardClickable>
+            <div className={styles.controls}>
+                {joined
+                    ? <CardButton onClick={leave}>나가기</CardButton>
+                    : <CardButton onClick={join}>참여</CardButton>
+                }
+            </div>
         </Card>
     )
 }

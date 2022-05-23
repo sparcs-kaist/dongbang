@@ -3,7 +3,7 @@
 }
 
 .inner {
-    padding: 22px;
+    padding: var(--card-vertical-padding) calc(var(--card-horizontal-padding) - 12px);
 }
 
 .item:not(:last-child) > .inner {

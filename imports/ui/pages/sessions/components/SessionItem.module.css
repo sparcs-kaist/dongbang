@@ -1,5 +1,9 @@
+.root {
+    position: relative;
+}
+
 .item {
-    padding: 22px 34px;
+    padding: var(--card-vertical-padding) var(--card-horizontal-padding);
 }
 
 .title {
@@ -17,13 +21,36 @@
 }
 
 .controls {
+    pointer-events: none;
+    position: absolute;
     display: flex;
-    height: 0;
-    overflow: hidden;
+    /*width: 100%;*/
     flex-direction: row;
+    /*justify-content: flex-end;*/
+
+    opacity: 0;
+    /*display: none;*/
+    bottom: 18px;
+    right: 22px;
+    transition: opacity .2s ease;
+}
+
+.show .controls {
+    pointer-events: auto;
+    cursor: pointer;
+    display: flex;
+    opacity: 1;
+}
+
+.controlSpace {
+    height: 0;
     transition: height .2s ease;
 }
 
-.show {
-    height: 20px;
+.show .controlSpace {
+    height: 26px;
 }
+
+/*.show {*/
+/*    height: 26px;*/
+/*}*/

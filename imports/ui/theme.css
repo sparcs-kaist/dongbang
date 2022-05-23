@@ -57,4 +57,7 @@
     --nav-height: 55px;
     --max-width: 768px;
     --page-margin: max(15px, calc(50vw - var(--max-width) / 2));
+    --card-vertical-padding: 20px;
+    --card-horizontal-padding: 28px;
+
 }

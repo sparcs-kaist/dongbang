@@ -14,7 +14,27 @@
 }
 
 .clickable:active {
-    background-color: var(--grey-700);
+    background-color: rgba(var(--grey-000_w), 0.1);
+}
+
+.button {
+    cursor: pointer;
+    color: var(--grey-650);
+    font-size: 13px;
+    height: 26px;
+    padding: 0 20px;
+    margin-left: 5px;
+    border-radius: 13px;
+    border: none;
+    background-color: rgba(var(--grey-900_w), 0.4);
+}
+
+.button.transparent {
+
+}
+
+.primary.card .button {
+    color: var(--grey-900);
 }
 
 .mainText {

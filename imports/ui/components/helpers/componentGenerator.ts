@@ -3,17 +3,17 @@ import classNames from "classnames";
 
 import {Argument} from "classnames";
 
-export const componentGenerator = <T>(
+export const componentGenerator = <T, U = any>(
     element: any,
     componentClassName: string,
-    dynamicClassName?: (props: any) => Argument,
-): React.FC<T & HTMLAttributes<any>> => (
-    {className, children, ...props}
-) => (
-    React.createElement(
+    dynamicClassName?: (props: T & HTMLAttributes<U>) => Argument,
+): React.FC<T & HTMLAttributes<U>> => (props) => {
+    const {className, children, ...otherProps} = props;
+    
+    return React.createElement(
         element,
         {
-            ...props,
+            ...otherProps,
             className: classNames(
                 componentClassName,
                 className,
@@ -22,4 +22,4 @@ export const componentGenerator = <T>(
         },
         children
     )
-);
+};

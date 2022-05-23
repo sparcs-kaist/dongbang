@@ -2,10 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 
 import {SessionContainer, SessionItem} from "/imports/ui/pages/sessions/components";
-
 import {Text} from "/imports/ui/components/Text";
 
-import {joinSession, leaveSession, startSession} from "/imports/api/methods/sessions";
 import {Session} from "/imports/db/sessions";
 
 interface SessionsProps {
@@ -35,30 +33,9 @@ const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
         setSessionGroups(group);
     }, [sessions, currentSessionId, setSessionGroups]);
     
-    // const
-    
-    
-    const [name, setName] = useState("");
-    
-    
-    const create = () => {
-        startSession.call({
-            name: name,
-        }, (err, res) => {
-            if (err) alert(err)
-            else {
-                console.log(res);
-            }
-        })
-    }
-    
-    
     return (
         <div>
             <Text.main>세션</Text.main>
-            
-            <input type="text" onChange={e => setName(e.target.value)}/>
-            <button onClick={create}>생성</button>
             
             <SessionContainer title="참여 중">
                 {sessionGroups.current.map(session =>

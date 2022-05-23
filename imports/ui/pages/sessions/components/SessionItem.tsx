@@ -37,7 +37,7 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                 <CardText.main className={styles.title}>{session.name}</CardText.main>
                 <div className={styles.members}>
                     {session.members.map(member =>
-                        <CardText.sub>
+                        <CardText.sub key={member._id}>
                             {renderProfileText(member)}
                         </CardText.sub>
                     )}

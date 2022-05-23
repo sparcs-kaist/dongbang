@@ -20,7 +20,7 @@ const NavAction: React.FC<NavActionProps> = ({to, icon}) => {
             to={to}
             className={({isActive}) => classNames({[styles.active]: isActive})}
         >
-            <div className={styles.touch}>{icon}</div>
+            {icon}
         </NavLink>
     )
 }

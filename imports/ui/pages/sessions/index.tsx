@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Outlet} from "react-router-dom";
 
 import {SessionContainer, SessionItem} from "/imports/ui/pages/sessions/components";
 
@@ -86,6 +87,7 @@ const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
                     />
                 )}
             </SessionContainer>
+            <Outlet/>
         </div>
     )
 }

@@ -25,17 +25,6 @@
     height: 100%;
 }
 
-.nav .touch {
-    width: calc(var(--nav-height) + 25px);
-    height: calc(var(--nav-height) + 25px);
-    border-radius: 50%;
-}
-
-
-.nav > a:active .touch {
-    background-color: rgba(var(--grey-000_w), 0.1);
-}
-
 .nav svg {
     width: 32px;
     height: 32px;

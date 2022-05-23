@@ -1,13 +1,15 @@
 import React, {ReactNode} from "react";
-import {useLocation, useMatch, useResolvedPath} from "react-router-dom";
+import styles from "./styles.module.css";
+import {useLocation, useResolvedPath, Link} from "react-router-dom";
 
 
 interface HeaderActionProps {
     path: string;
-    children: ReactNode;
+    to: string;
+    icon: ReactNode;
 }
 
-const HeaderAction: React.FC<HeaderActionProps> = ({path, children}) => {
+const HeaderAction: React.FC<HeaderActionProps> = ({path, to, icon}) => {
     const location = useLocation();
     const resolvedPath = useResolvedPath(path);
     
@@ -17,7 +19,9 @@ const HeaderAction: React.FC<HeaderActionProps> = ({path, children}) => {
     let isActive = locationPathname === toPathname
         || locationPathname.startsWith(toPathname) && locationPathname.charAt(toPathname.length) === "/";
     
-    return (isActive ? <>{children}</> : null)
+    return (isActive
+        ? <Link to={to} className={styles.action}>{icon}</Link>
+        : null)
 }
 
 export default HeaderAction;

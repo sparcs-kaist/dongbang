@@ -19,11 +19,25 @@
 
 .content {
     height: calc(var(--header-height) - 5px);
-    padding: 0 15px;
+    padding: 0 10px 0 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.action {
+    width: calc(var(--header-height) - 20px);
+    height: calc(var(--header-height) - 20px);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .05s ease;
+}
+
+.action:active {
+    background-color: rgba(var(--grey-000_w), 0.1);
 }
 
 .actions * {

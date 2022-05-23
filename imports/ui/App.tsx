@@ -18,6 +18,7 @@ import {useQueryData} from "/imports/common/hooks/useQueryData";
 import {membersQuery} from "/imports/api/query/members";
 import {useUser} from "/imports/common/hooks/useUser";
 import {sessionsQuery} from "/imports/api/query/sessions";
+import CreateSession from "/imports/ui/pages/sessions/CreateSession";
 
 export const App = () => {
     const user = useUser();
@@ -40,7 +41,11 @@ export const App = () => {
                         path="sessions"
                         element={<Sessions sessions={sessions} currentSessionId={user?.session?._id}/>}
                     >
+                        <Route path="create" element={<CreateSession/>}/>
                         <Route path=":id"/>
+                    
+                    </Route>
+                    <Route path="schedules">
                     
                     </Route>
                 </Route>

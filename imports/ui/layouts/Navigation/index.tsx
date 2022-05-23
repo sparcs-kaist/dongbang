@@ -12,7 +12,7 @@ const Navigation: React.FC = () => {
         <nav className={styles.nav}>
             <NavAction to="members" icon={<MemberIcon/>}/>
             <NavAction to="sessions" icon={<SessionIcon/>}/>
-            <NavAction to="schedule" icon={<ScheduleIcon/>}/>
+            <NavAction to="schedules" icon={<ScheduleIcon/>}/>
         </nav>
     )
 }

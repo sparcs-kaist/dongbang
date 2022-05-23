@@ -60,7 +60,10 @@ export const startSession = new ValidatedMethod<string, StartSession>({
     name: "session.start",
     mixins: [cleanup],
     validate: new SimpleSchema({
-        name: String,
+        name: {
+            type: String,
+            min: 1,
+        },
         location: Optional(Enum(Location)),
     }).validator(),
     run(session) {

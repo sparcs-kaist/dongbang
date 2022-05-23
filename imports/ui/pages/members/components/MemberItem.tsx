@@ -3,7 +3,8 @@ import {Meteor} from "meteor/meteor";
 import React, {ReactNode} from "react";
 import styles from "./MemberItem.module.css";
 
-import {CardText, renderProfileText} from "/imports/ui/components/Text";
+import {CardClickable, CardText} from "/imports/ui/components/Card";
+import {renderProfileText} from "/imports/ui/components/Text";
 
 import {useNavigate} from "react-router-dom";
 
@@ -20,7 +21,7 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
         : <span>{member?.statusMsg || "동방"}</span>
     
     return (
-        <div
+        <CardClickable
             className={styles.item}
             onClick={() => navigate(`${member.username}`, {replace: true})}
         >
@@ -34,7 +35,7 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
                     {userStatus}
                 </CardText.sub>
             </div>
-        </div>
+        </CardClickable>
     )
 }
 

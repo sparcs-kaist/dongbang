@@ -1,28 +1,13 @@
 import {Meteor} from "meteor/meteor";
 
-import React, {HTMLAttributes} from "react";
-import classNames from "classnames";
+import React from "react";
 import styles from "./Text.module.css";
 
-type TextComponent = React.FC<HTMLAttributes<HTMLParagraphElement>>;
+import {componentGenerator} from "./helpers/componentGenerator";
 
-interface TextComponents {
-    main: TextComponent;
-    sub: TextComponent;
-}
-
-const textComponentGenerator = (componentClassName: string): TextComponent =>
-    ({className, ...props}) =>
-        <p className={classNames(componentClassName, className)} {...props} />
-
-export const Text: TextComponents = {
-    main: textComponentGenerator(styles.main),
-    sub: textComponentGenerator(styles.sub),
-}
-
-export const CardText: TextComponents = {
-    main: textComponentGenerator(styles.mainCard),
-    sub: textComponentGenerator(styles.subCard),
+export const Text = {
+    main: componentGenerator("h1", styles.main),
+    sub: componentGenerator("p", styles.sub),
 }
 
 

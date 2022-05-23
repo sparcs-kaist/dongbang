@@ -64,6 +64,7 @@ const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
                     <SessionItem
                         session={session}
                         key={session._id}
+                        joined
                     />
                 )}
             </SessionContainer>

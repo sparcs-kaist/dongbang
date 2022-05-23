@@ -3,3 +3,37 @@
     border-radius: 12px;
     overflow: hidden;
 }
+
+.primary.card {
+    background-color: var(--theme-500);
+}
+
+.clickable {
+    transition: background-color .05s ease;
+    cursor: pointer;
+}
+
+.clickable:active {
+    background-color: var(--grey-700);
+}
+
+.mainText {
+    color: var(--grey-000);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.primary.card .mainText {
+    color: var(--grey-900);
+}
+
+.subText {
+    color: var(--grey-500);
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.primary.card .subText {
+    color: rgba(var(--grey-900_w), 0.8);
+}

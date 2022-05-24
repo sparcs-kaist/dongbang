@@ -5,9 +5,9 @@
     right: 0;
     bottom: 0;
     background-color: #FFF;
-    min-height: 30vh;
+    /*min-height: 30vh;*/
     border-radius: 20px 20px 0 0;
-    /*animation: open .3s;*/
+    padding: 30px calc(var(--page-margin) + 5px);
 }
 
 .backdrop {
@@ -19,7 +19,6 @@
     bottom: 0;
     background-color: #000;
     opacity: 0.4;
-    /*animation: openBackdrop .3s;*/
 }
 
 .open .drawer {

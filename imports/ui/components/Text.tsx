@@ -4,10 +4,11 @@ import React from "react";
 import styles from "./Text.module.css";
 
 import {componentGenerator} from "./helpers/componentGenerator";
+import {HeadingProps, PProps} from "react-html-props";
 
 export const Text = {
-    main: componentGenerator("h1", styles.main),
-    sub: componentGenerator("p", styles.sub),
+    main: componentGenerator<HeadingProps>("h1", styles.main),
+    sub: componentGenerator<PProps>("p", styles.sub),
 }
 
 

@@ -9,6 +9,11 @@ export enum Location {
     B_SITE = "location:b_site",
 }
 
+export const LOCATION_NAME = {
+    [Location.A_SITE]: "A SITE",
+    [Location.B_SITE]: "B SITE",
+} as const;
+
 interface SessionCreate {
     name: string;
     location?: Location;

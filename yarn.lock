@@ -1032,6 +1032,11 @@ react-dom@^17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
+react-html-props@^1.0.33:
+  version "1.0.33"
+  resolved "https://registry.yarnpkg.com/react-html-props/-/react-html-props-1.0.33.tgz#3c501d06f88779156e14b7f1a6f9b9b3e1071a33"
+  integrity sha512-AmQb+N22J1P0VDPte/ttg3yyvp/j/aVQIPDyuS+5A8azFP3hAMC29Ab2YWM+pja+yy5lo54D6VNqg7UIjqhV6g==
+
 react-router-dom@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.3.0.tgz#a0216da813454e521905b5fa55e0e5176123f43d"

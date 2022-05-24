@@ -1,24 +1,21 @@
-import React, {HTMLAttributes} from "react";
+import React from "react";
+import {ElementProps} from "react-html-props";
 import classNames from "classnames";
 
-import {Argument} from "classnames";
+type PropRenderer<T, U> = (props: T & U) => T;
 
-export const componentGenerator = <T, U = any>(
+export const componentGenerator = <T extends ElementProps, U = {}>(
     element: any,
     componentClassName: string,
-    dynamicClassName?: (props: T & HTMLAttributes<U>) => Argument,
-): React.FC<T & HTMLAttributes<U>> => (props) => {
-    const {className, children, ...otherProps} = props;
+    propRenderer: PropRenderer<T, U> = props => props,
+): React.FC<T & U> => (props) => {
+    const {className, children, ...otherProps} = propRenderer(props);
     
     return React.createElement(
         element,
         {
             ...otherProps,
-            className: classNames(
-                componentClassName,
-                className,
-                dynamicClassName?.(props),
-            ),
+            className: classNames(componentClassName, className),
         },
         children
     )

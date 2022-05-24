@@ -1,17 +1,19 @@
-import React, {ReactNode, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./Drawer.module.css";
 
 import {useNavigate} from "react-router-dom";
 
 interface DrawerProps {
-    children?: ReactNode;
+    close?: boolean;
 }
 
-const Drawer: React.FC<DrawerProps> = ({children}) => {
+const Drawer: React.FC<DrawerProps> = ({children, close}) => {
     const navigate = useNavigate();
     
     type State = typeof styles.open | typeof styles.close | null;
     const [animationState, setAnimationState] = useState<State>(styles.open);
+    
+    
     
     
     const onAnimationEnd = () => {
@@ -24,6 +26,10 @@ const Drawer: React.FC<DrawerProps> = ({children}) => {
                 break;
         }
     }
+    
+    useEffect(() => {
+        if (close) setAnimationState(styles.close);
+    }, [close]);
     
     return (<div className={animationState}>
         <div className={styles.drawer} onAnimationEnd={onAnimationEnd}>

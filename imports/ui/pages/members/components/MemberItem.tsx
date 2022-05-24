@@ -8,7 +8,7 @@ import {renderProfileText} from "/imports/ui/components/Text";
 
 import {useNavigate} from "react-router-dom";
 
-import {Location} from "/imports/db/sessions";
+import {LOCATION_NAME} from "/imports/db/sessions";
 import classNames from "classnames";
 
 
@@ -16,10 +16,6 @@ interface MemberItemProps {
     member: Meteor.User;
 }
 
-const loc = {
-    [Location.A_SITE]: "A SITE",
-    [Location.B_SITE]: "B SITE",
-}
 
 const MemberItem: React.FC<MemberItemProps> = ({member}) => {
     const navigate = useNavigate();
@@ -28,7 +24,7 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
         ? member.session.location
             ? <MemberStatus className={styles.statusLocation}>
                 <span>
-                    {loc[member.session.location]}
+                    {LOCATION_NAME[member.session.location]}
                 </span>에서&nbsp;<span>{member.session.name}</span>&nbsp;참여 중
             </MemberStatus>
             : <MemberStatus className={styles.statusSession}>

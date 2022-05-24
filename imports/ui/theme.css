@@ -13,11 +13,13 @@
     --alert-foreground-900: rgb(var(--alert-foreground-900_w));
     --theme-400_w: 236, 143, 038;
     --theme-500_w: 235, 160, 042;
+    --theme-500-shadow_w: 211, 143, 39;
     --theme-900_w: 248, 222, 182;
     --theme-foreground-200_w: 052, 029, 004;
     --theme-foreground-900_w: 255, 255, 255;
     --theme-400: rgb(var(--theme-400_w));
     --theme-500: rgb(var(--theme-500_w));
+    --theme-500-shadow: rgb(var(--theme-500-shadow_w));
     --theme-900: rgb(var(--theme-900_w));
     --theme-foreground-200: rgb(var(--theme-foreground-200_w));
     --theme-foreground-900: rgb(var(--theme-foreground-900_w));
@@ -63,5 +65,16 @@
     --page-margin: max(15px, calc(50vw - var(--max-width) / 2));
     --card-vertical-padding: 22px;
     --card-horizontal-padding: 32px;
+}
 
+button {
+    cursor: pointer;
+    transition: background-color .05s ease;
+    border: none;
+    outline: none;
+}
+
+input {
+    border: none;
+    outline: none;
 }

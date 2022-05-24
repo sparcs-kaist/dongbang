@@ -1,24 +1,32 @@
-import React, {ButtonHTMLAttributes} from "react";
+import React from "react";
 import styles from "./Card.module.css";
 import {componentGenerator} from "./helpers/componentGenerator";
+import {ButtonProps, DivProps, HeadingProps, PProps} from "react-html-props";
+import classNames from "classnames";
 
 
-export const Card = componentGenerator<{ primary?: boolean }>(
+export const Card = componentGenerator<DivProps, { primary?: boolean }>(
     "div",
     styles.card,
-    ({primary}) => ({[styles.primary]: primary}),
+    ({primary, className, ...props}) => ({
+        ...props,
+        className: classNames({[styles.primary]: primary}, className),
+    }),
 );
 
-export const CardClickable = componentGenerator("div", styles.clickable);
+export const CardClickable = componentGenerator<DivProps>("div", styles.clickable);
 
 
-export const CardButton = componentGenerator<{ transparent?: boolean } & ButtonHTMLAttributes<HTMLButtonElement>>(
+export const CardButton = componentGenerator<ButtonProps, { transparent?: boolean }>(
     "button",
     styles.button,
-    ({transparent}) => ({[styles.transparent]: transparent}),
+    ({transparent, className, ...props}) => ({
+        ...props,
+        className: classNames({[styles.transparent]: transparent}, className),
+    }),
 );
 
 export const CardText = {
-    main: componentGenerator("h2", styles.mainText),
-    sub: componentGenerator("p", styles.subText),
+    main: componentGenerator<HeadingProps>("h2", styles.mainText),
+    sub: componentGenerator<PProps>("p", styles.subText),
 }

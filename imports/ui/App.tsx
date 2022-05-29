@@ -10,7 +10,7 @@ import AppLayout from "/imports/ui/layouts/AppLayout";
 import Members from "/imports/ui/pages/members";
 import Member from "/imports/ui/pages/members/Member";
 
-import Sessions from "/imports/ui/pages/sessions";
+import SessionsPage from "/imports/ui/pages/sessions";
 
 import Login from "/imports/ui/pages/Login";
 
@@ -39,7 +39,7 @@ export const App = () => {
                     </Route>
                     <Route
                         path="sessions"
-                        element={<Sessions sessions={sessions} currentSessionId={user?.session?._id}/>}
+                        element={<SessionsPage sessions={sessions} currentSessionId={user?.session?._id}/>}
                     >
                         <Route path="create" element={<CreateSession/>}/>
                         <Route path=":id"/>

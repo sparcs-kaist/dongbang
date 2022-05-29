@@ -41,27 +41,33 @@ const CreateSession: React.FC = () => {
     
     
     return (
-        <Drawer close={close}>
+        <Drawer close={close} className={styles.root}>
             <Text.main>세션 열기</Text.main>
-            
-            <Text.sub>세션 이름</Text.sub>
-            <Input
-                type="text"
-                placeholder="세션 이름"
-                name="name"
-                {...name}
-            />
-            
-            <Text.sub>장소</Text.sub>
-            <Select value={location} onChange={v => setLocation(v as Location)}>
-                <SelectItem valueFor={Location.A_SITE}>A SITE</SelectItem>
-                <SelectItem valueFor={Location.B_SITE}>B SITE</SelectItem>
-                <SelectItem>없음</SelectItem>
-            </Select>
-            <Text.sub className={classNames(styles.desc, {[styles.show]: location})} style={{display: "flex", alignItems: "center", gap: 1}}>
-                <span style={{display: "inline-flex", alignItems: "center", gap: 4}}><LocationIcon/>{locationName}</span>를 예약합니다
-            </Text.sub>
-            
+            <div>
+                <Text.sub>세션 이름</Text.sub>
+                <Input
+                    type="text"
+                    placeholder="세션 이름"
+                    name="name"
+                    {...name}
+                />
+            </div>
+            <div>
+                <Text.sub>장소</Text.sub>
+                <Select value={location} onChange={v => setLocation(v as Location)}>
+                    <SelectItem valueFor={Location.A_SITE}>A SITE</SelectItem>
+                    <SelectItem valueFor={Location.B_SITE}>B SITE</SelectItem>
+                    <SelectItem>없음</SelectItem>
+                </Select>
+                <Text.sub className={classNames(styles.desc, {[styles.show]: location})}
+                          style={{display: "flex", alignItems: "center", gap: 1}}>
+                    <span style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 4
+                    }}><LocationIcon/>{locationName}</span>를 예약합니다
+                </Text.sub>
+            </div>
             <div className={styles.buttonContainer}>
                 <Button onClick={create} disabled={!validate()}>열기</Button>
             </div>

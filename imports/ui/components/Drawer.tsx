@@ -2,12 +2,14 @@ import React, {useEffect, useState} from "react";
 import styles from "./Drawer.module.css";
 
 import {useNavigate} from "react-router-dom";
+import {DivProps} from "react-html-props";
+import classNames from "classnames";
 
-interface DrawerProps {
+interface DrawerProps extends DivProps {
     close?: boolean;
 }
 
-const Drawer: React.FC<DrawerProps> = ({children, close}) => {
+const Drawer: React.FC<DrawerProps> = ({children, close, className, ...props}) => {
     const navigate = useNavigate();
     
     type State = typeof styles.open | typeof styles.close | null;
@@ -31,8 +33,12 @@ const Drawer: React.FC<DrawerProps> = ({children, close}) => {
         if (close) setAnimationState(styles.close);
     }, [close]);
     
-    return (<div className={animationState}>
-        <div className={styles.drawer} onAnimationEnd={onAnimationEnd}>
+    return (<div className={animationState} >
+        <div
+            className={classNames(styles.drawer, className)}
+            onAnimationEnd={onAnimationEnd}
+            {...props}
+        >
             {children}
         </div>
         <div

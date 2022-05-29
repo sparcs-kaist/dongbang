@@ -42,8 +42,7 @@ const authenticateByLDAP = asyncToSync(async (
 ): Promise<string | null> => {
     try {
         await client.bind(
-            // TODO : sanitize username
-            `uid=${username},ou=People,dc=sparcs,dc=org`,
+            `uid=${santize(username)},ou=People,dc=sparcs,dc=org`,
             password
         );
         await client.unbind();
@@ -53,6 +52,11 @@ const authenticateByLDAP = asyncToSync(async (
     
     return username;
 });
+
+const santize = (string: string): string => {
+    if (!/^\w*$/.test(string)) throw Error("Disallowed character")
+    return string;
+}
 
 
 const initializeUser = (username: string): string => {

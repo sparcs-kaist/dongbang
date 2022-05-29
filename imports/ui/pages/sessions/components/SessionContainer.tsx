@@ -1,12 +1,19 @@
-import React from "react";
-import styles from "./SessionContainer.module.css"
+import React, {ReactNode} from "react";
 
-const SessionContainer: React.FC = (
-    {children}
+import {Text} from "/imports/ui/components/Text";
+
+interface SessionContainerProps {
+    title: ReactNode;
+    children: ReactNode[];
+}
+
+const SessionContainer: React.FC<SessionContainerProps> = (
+    {title, children}
 ) => (
-    <div className={styles.root}>
-        <div className={styles.container}>{children}</div>
-    </div>
+    (children.length) ? <div>
+        <Text.sub>{title}</Text.sub>
+        <div>{children}</div>
+    </div> : null
 )
 
 

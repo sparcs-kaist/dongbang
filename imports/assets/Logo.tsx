@@ -1,8 +1,8 @@
 import React from "react";
+import {SVGProps} from "react-html-props";
 
-export const Logo: React.FC<{className?: string}> = React.memo(({className}) =>
-    <svg className={className}
-        width="1205" height="216" viewBox="0 0 1205 216" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const Logo: React.FC<SVGProps> = React.memo((props) =>
+    <svg width="1205" height="216" viewBox="0 0 1205 216" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
         <path d="M0 149.46L34.08 81.99L0 27.52V149.46Z" fill="#EC8F26"/>
         <path d="M15.47 216L100 138.25L45.96 161.54L15.47 216Z" fill="#EBA12A"/>
         <path d="M82.01 0L0.709961 157.3L53.62 130.48L99.38 75.13L82.01 0Z" fill="#EBA12A"/>

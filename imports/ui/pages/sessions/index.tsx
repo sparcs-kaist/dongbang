@@ -12,29 +12,8 @@ interface SessionsProps {
     currentSessionId?: string;
 }
 
-interface SessionGroup {
-    current: Session[];
-    important: Session[];
-    common: Session[];
-}
-
 const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
-    const [sessionGroups, setSessionGroups] = useState<SessionGroup>(
-        {current: [], important: [], common: []}
-    );
-    
-    useEffect(() => {
-        const filter = (session: Session): keyof SessionGroup => (
-            currentSessionId === session._id ? "current"
-                : session.location ? "important" : "common"
-        );
-        
-        const group: SessionGroup = {current: [], important: [], common: []};
-        sessions?.forEach(session => group[filter(session)].push(session));
-        setSessionGroups(group);
-    }, [sessions, currentSessionId, setSessionGroups]);
-    
-    console.log(sessions)
+    const sessionGroups = sortSession(sessions, currentSessionId);
     
     return (
         <div>
@@ -42,7 +21,6 @@ const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
             
             <div style={{display: "flex", flexDirection: "column"}}>
                 <LayoutGroup>
-                    
                     <SessionContainer title="참여 중" key="current">
                         {sessionGroups.current.map(session =>
                             <SessionItem
@@ -70,12 +48,28 @@ const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
                             />
                         )}
                     </SessionContainer>
-                    
                 </LayoutGroup>
             </div>
             <Outlet/>
         </div>
     )
+}
+
+interface SessionGroup {
+    current: Session[];
+    important: Session[];
+    common: Session[];
+}
+
+const sortSession = (sessions: Session[] | undefined, currentSessionId: string | undefined) => {
+    const filter = (session: Session): keyof SessionGroup => (
+        currentSessionId === session._id ? "current"
+            : session.location ? "important" : "common"
+    );
+    
+    const group: SessionGroup = {current: [], important: [], common: []};
+    sessions?.forEach(session => group[filter(session)].push(session));
+    return group;
 }
 
 export default Sessions;

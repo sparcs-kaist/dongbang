@@ -30,10 +30,8 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
     return (
         <motion.div
             layout
-            key={session._id + (joined ? "joined" : "no")}
-            // layoutId="session"
+            key={session._id}
             layoutId={session._id}
-            // layoutId={session._id + (joined ? "joined" : "no")}
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             exit={{opacity: 0}}

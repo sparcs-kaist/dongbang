@@ -8,7 +8,7 @@
     color: var(--grey-650);
     font-size: 13px;
     font-weight: 400;
-    margin: 13px 0 5px;
+    padding-top: 12px;
 }
 
 .profileName {

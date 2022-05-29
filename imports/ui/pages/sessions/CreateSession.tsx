@@ -12,6 +12,7 @@ import {startSession} from "/imports/api/methods/sessions";
 import useInput from "/imports/common/hooks/useInput";
 
 import {Location, LOCATION_NAME} from "/imports/db/sessions";
+import {LocationIcon} from "/imports/assets/Icons";
 
 const CreateSession: React.FC = () => {
     const [close, setClose] = useState<boolean>(false);
@@ -57,8 +58,8 @@ const CreateSession: React.FC = () => {
                 <SelectItem valueFor={Location.B_SITE}>B SITE</SelectItem>
                 <SelectItem>없음</SelectItem>
             </Select>
-            <Text.sub className={classNames(styles.desc, {[styles.show]: location})}>
-                <span>{locationName}</span>를 예약합니다
+            <Text.sub className={classNames(styles.desc, {[styles.show]: location})} style={{display: "flex", alignItems: "center", gap: 1}}>
+                <span style={{display: "inline-flex", alignItems: "center", gap: 4}}><LocationIcon/>{locationName}</span>를 예약합니다
             </Text.sub>
             
             <div className={styles.buttonContainer}>

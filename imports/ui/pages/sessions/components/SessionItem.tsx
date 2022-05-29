@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import classNames from "classnames";
 import styles from "./SessionItem.module.css";
 
-import {Session} from "/imports/db/sessions";
+import {LOCATION_NAME, Session} from "/imports/db/sessions";
 
 import {Card, CardClickable, CardText, CardButton} from "/imports/ui/components/Card";
 import {renderProfileText} from "/imports/ui/components/Text";
@@ -10,6 +10,8 @@ import {renderProfileText} from "/imports/ui/components/Text";
 import {joinSession, leaveSession} from "/imports/api/methods/sessions";
 
 import {AnimatePresence, motion} from "framer-motion";
+import sessions from "/imports/ui/pages/sessions";
+import {LocationIcon} from "/imports/assets/Icons";
 
 interface SessionItemProps {
     session: Session;
@@ -44,9 +46,13 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                 className={classNames(styles.root, {[styles.show]: showControls})}
             >
                 <CardClickable className={styles.item}>
-                    <motion.div>
-                        <CardText.main className={styles.title}>{session.name}</CardText.main>
-                    </motion.div>
+                    {session.location &&
+                        <CardText.sub className={styles.location} style={{display: "flex", alignItems: "center", gap: 5}}>
+                            <LocationIcon/>
+                            <span>{LOCATION_NAME[session.location]}</span>
+                        </CardText.sub>
+                    }
+                    <CardText.main className={styles.title}>{session.name}</CardText.main>
                     <div className={styles.members}>
                         <AnimatePresence initial={false}>
                             

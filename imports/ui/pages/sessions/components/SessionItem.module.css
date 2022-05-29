@@ -6,6 +6,11 @@
     padding: var(--card-vertical-padding) var(--card-horizontal-padding);
 }
 
+.location {
+    padding: 0 0 10px;
+    color: var(--theme-red);
+}
+
 .title {
     font-size: 16px;
     font-weight: 500;

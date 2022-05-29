@@ -44,7 +44,9 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                 className={classNames(styles.root, {[styles.show]: showControls})}
             >
                 <CardClickable className={styles.item}>
-                    <CardText.main className={styles.title}>{session.name}</CardText.main>
+                    <motion.div>
+                        <CardText.main className={styles.title}>{session.name}</CardText.main>
+                    </motion.div>
                     <div className={styles.members}>
                         <AnimatePresence initial={false}>
                             

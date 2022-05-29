@@ -1,7 +1,7 @@
-import SessionContainer from "./SessionContainer";
+import SessionTitle from "./SessionTitle";
 import SessionItem from "./SessionItem";
 
 export {
-    SessionContainer,
+    SessionTitle,
     SessionItem,
 };

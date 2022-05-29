@@ -1,20 +1,32 @@
-import React, {ReactNode} from "react";
+import React, {Children, ReactNode} from "react";
+import {motion, AnimatePresence} from "framer-motion";
+
 
 import {Text} from "/imports/ui/components/Text";
 
 interface SessionContainerProps {
-    title: ReactNode;
-    children: ReactNode[];
+    title: string;
+    children: ReactNode;
 }
 
 const SessionContainer: React.FC<SessionContainerProps> = (
     {title, children}
-) => (
-    (children.length) ? <div>
-        <Text.sub>{title}</Text.sub>
-        <div>{children}</div>
-    </div> : null
-)
+) => {
+    return (
+        <AnimatePresence initial={false}>
+            {Children.count(children) > 0 ? <motion.div
+                layout
+                key={title}
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+            >
+                <Text.sub>{title}</Text.sub>
+            </motion.div> : null}
+            {children}
+        </AnimatePresence>
+    )
+}
 
 
 export default SessionContainer;

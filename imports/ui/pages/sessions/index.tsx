@@ -5,6 +5,7 @@ import {SessionContainer, SessionItem} from "/imports/ui/pages/sessions/componen
 import {Text} from "/imports/ui/components/Text";
 
 import {Session} from "/imports/db/sessions";
+import {LayoutGroup} from "framer-motion";
 
 interface SessionsProps {
     sessions?: Session[];
@@ -23,7 +24,7 @@ const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
     );
     
     useEffect(() => {
-        const filter = (session: Session): keyof SessionGroup=> (
+        const filter = (session: Session): keyof SessionGroup => (
             currentSessionId === session._id ? "current"
                 : session.location ? "important" : "common"
         );
@@ -33,37 +34,45 @@ const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
         setSessionGroups(group);
     }, [sessions, currentSessionId, setSessionGroups]);
     
+    console.log(sessions)
+    
     return (
         <div>
             <Text.main>세션</Text.main>
             
-            <SessionContainer title="참여 중">
-                {sessionGroups.current.map(session =>
-                    <SessionItem
-                        session={session}
-                        key={session._id}
-                        joined
-                    />
-                )}
-            </SessionContainer>
-            
-            <SessionContainer title="중요">
-                {sessionGroups.important.map(session =>
-                    <SessionItem
-                        session={session}
-                        key={session._id}
-                    />
-                )}
-            </SessionContainer>
-            
-            <SessionContainer title="일반">
-                {sessionGroups.common.map(session =>
-                    <SessionItem
-                        session={session}
-                        key={session._id}
-                    />
-                )}
-            </SessionContainer>
+            <div style={{display: "flex", flexDirection: "column"}}>
+                <LayoutGroup>
+                    
+                    <SessionContainer title="참여 중" key="current">
+                        {sessionGroups.current.map(session =>
+                            <SessionItem
+                                session={session}
+                                key={session._id}
+                                joined
+                            />
+                        )}
+                    </SessionContainer>
+                    
+                    <SessionContainer title="중요" key="important">
+                        {sessionGroups.important.map(session =>
+                            <SessionItem
+                                session={session}
+                                key={session._id}
+                            />
+                        )}
+                    </SessionContainer>
+                    
+                    <SessionContainer title="일반" key="common">
+                        {sessionGroups.common.map(session =>
+                            <SessionItem
+                                session={session}
+                                key={session._id}
+                            />
+                        )}
+                    </SessionContainer>
+                    
+                </LayoutGroup>
+            </div>
             <Outlet/>
         </div>
     )

@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "dotenv": "^16.0.0",
+    "framer-motion": "^6.3.4",
     "meteor-node-stubs": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

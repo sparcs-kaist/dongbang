@@ -1,19 +1,29 @@
 import {Meteor} from "meteor/meteor";
 
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 
 import {Link} from "react-router-dom";
 import {useTracker} from "meteor/react-meteor-data";
+import useInput from "/imports/ui/common/hooks/useInput";
 
 const Login: React.FC = () => {
-    const [username, setUsername] = useState<string>("");
+    const {input: username} = useInput("");
+    const {input: password} = useInput("");
     
     const user = useTracker(() => Meteor.user());
     
     const login = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        Meteor.loginAsTestAccount(username);
+        
+        Meteor.loginAsLDAP(
+            username.value,
+            password.value,
+            (err) => {
+            if (err) {
+                alert(err)
+            }
+        });
     }
     
     const logout = () => Meteor.logout();
@@ -34,7 +44,16 @@ const Login: React.FC = () => {
                         placeholder="username"
                         name="username"
                         required
-                        onChange={e => setUsername(e.target.value)}
+                        {...username}
+                    />
+                    
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        placeholder="password"
+                        name="password"
+                        required
+                        {...password}
                     />
                     
                     <button type="submit">로그인</button>

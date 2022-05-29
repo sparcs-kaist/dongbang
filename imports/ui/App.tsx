@@ -14,9 +14,9 @@ import Sessions from "/imports/ui/pages/sessions";
 
 import Login from "/imports/ui/pages/Login";
 
-import {useQueryData} from "/imports/common/hooks/useQueryData";
+import {useQueryData} from "./common/hooks/useQueryData";
 import {membersQuery} from "/imports/api/query/members";
-import {useUser} from "/imports/common/hooks/useUser";
+import {useUser} from "./common/hooks/useUser";
 import {sessionsQuery} from "/imports/api/query/sessions";
 import CreateSession from "/imports/ui/pages/sessions/CreateSession";
 

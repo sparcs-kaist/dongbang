@@ -9,7 +9,7 @@ import {Button} from "/imports/ui/components/Button";
 import {Select, SelectItem} from "/imports/ui/components/Select";
 
 import {startSession} from "/imports/api/methods/sessions";
-import useInput from "/imports/common/hooks/useInput";
+import useInput from "../../common/hooks/useInput";
 
 import {Location, LOCATION_NAME} from "/imports/db/sessions";
 import {LocationIcon} from "/imports/assets/Icons";

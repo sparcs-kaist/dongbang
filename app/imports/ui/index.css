@@ -1,18 +1,24 @@
 html {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  font-family: var(--theme-font);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--theme-background);
-  -webkit-tap-highlight-color: transparent;
-  min-height: 100%;
+    font-family: var(--theme-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--theme-background);
+    -webkit-tap-highlight-color: transparent;
+    min-height: 100%;
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

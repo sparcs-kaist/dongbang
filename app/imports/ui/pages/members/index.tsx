@@ -28,7 +28,7 @@ const Members: React.FC<MembersProps> = ({user, members}) => {
                 </AnimatePresence>
             </MemberContainer>
             <LayoutGroup>
-                <MemberContainer title={`동방 ${members?.length}`}>
+                <MemberContainer title={`동방 ${members?.length || 0}`}>
                     <AnimatePresence initial={false}>
                         {otherMembers?.map(member =>
                             <MemberItem

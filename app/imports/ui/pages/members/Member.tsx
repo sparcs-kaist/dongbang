@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import Drawer from "/imports/ui/components/Drawer";
 import {Text, renderProfileText} from "/imports/ui/components/Text";
 import {Button} from "/imports/ui/components/Button";
+import MemberStatus from "/imports/ui/pages/members/components/MemberStatus";
 
 import {updateStatus} from "/imports/api/methods/members";
 
@@ -35,13 +36,20 @@ const Member: React.FC<MemberProps> = ({user, members}) => {
     return (
         <Drawer className={styles.root}>
             {member ? <>
-                <Text.main>{renderProfileText(member)}</Text.main>
-    
-    
+                <div>
+                    <Text.main>
+                        {renderProfileText(member)}
+                    </Text.main>
+                    <Text.sub className={styles.status}>
+                        <MemberStatus member={member}/>
+                    </Text.sub>
+                </div>
+                
+                
                 {isSelf && <div className={styles.buttonContainer}>
                     <Button onClick={toggleStatus}>상태 변경</Button>
                 </div>}
-                
+            
             </> : <>
             
             

@@ -1,0 +1,26 @@
+
+.userDesc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.indicator {
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    background-color: currentColor;
+    margin-right: 0.6em;
+}
+
+.statusLocation span {
+    color: var(--theme-red);
+}
+
+.statusSession span {
+    color: var(--theme-500);
+}
+
+.statusActive span {
+    color: var(--theme-green);
+}

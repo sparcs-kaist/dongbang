@@ -21,9 +21,11 @@ const Members: React.FC<MembersProps> = ({user, members}) => {
         <div className={styles.root}>
             <Text.main>멤버</Text.main>
             <MemberContainer title={"내 프로필"}>
-                {user
-                    ? <MemberItem member={user}/>
-                    : <RequireLogin/>}
+                <AnimatePresence initial={false}>
+                    {user
+                        ? <MemberItem member={user}/>
+                        : <RequireLogin/>}
+                </AnimatePresence>
             </MemberContainer>
             <LayoutGroup>
                 <MemberContainer title={`동방 ${members?.length}`}>

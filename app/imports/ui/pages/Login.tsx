@@ -17,14 +17,13 @@ import {Text} from "/imports/ui/components/Text";
 const Login: React.FC = () => {
     const navigate = useNavigate();
     
-    const {input: username, setValue: setUsername} = useInput("");
+    const {input: username} = useInput("");
     const {input: password, setValue: setPassword} = useInput("");
     const [error, setError] = useState(false);
     
     const user = useTracker(() => Meteor.user());
     
     const alertLoginFail = () => {
-        setUsername("");
         setPassword("");
         setError(true);
     }

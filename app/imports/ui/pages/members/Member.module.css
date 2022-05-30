@@ -1,0 +1,18 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.status {
+    font-size: 14px;
+    padding-top: 2px;
+    padding-left: 2px;
+}
+
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}

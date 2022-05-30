@@ -49,6 +49,22 @@ function cleanup(options: any) {
     return options
 }
 
+function active (options: any) {
+    const run = options.run;
+    
+    options.run = function (...args: any[]) {
+        const res = run.call(this, ...args);
+        
+        Meteor.users.update(this.userId, {
+            $set: {isActive: true}
+        });
+        
+        return res;
+    }
+    
+    return options
+}
+
 
 
 type StartSession = (session: {
@@ -58,7 +74,7 @@ type StartSession = (session: {
 
 export const startSession = new ValidatedMethod<string, StartSession>({
     name: "session.start",
-    mixins: [cleanup],
+    mixins: [cleanup, active],
     validate: new SimpleSchema({
         name: {
             type: String,
@@ -116,7 +132,7 @@ type JoinSession = (session: {sessionId: string}) => void;
 
 export const joinSession = new ValidatedMethod<string, JoinSession>({
     name: "session.join",
-    mixins: [cleanup],
+    mixins: [cleanup, active],
     validate: new SimpleSchema({
         sessionId: String,
     }).validator(),

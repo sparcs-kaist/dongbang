@@ -1,5 +1,7 @@
 import SimpleSchema from "simpl-schema";
 import {ValidatedMethod} from "meteor/mdg:validated-method";
+import {Meteor} from "meteor/meteor";
+import {Session} from "/imports/db/sessions";
 
 type UpdateStatusMethod = (status: {
     isActive?: boolean;
@@ -22,5 +24,11 @@ export const updateStatus = new ValidatedMethod<string, UpdateStatusMethod>({
         Meteor.users.update(this.userId, {
             $set: {...status}
         });
+        
+        if (!status.isActive) {
+            Meteor.users
+                .getLink<Session>(this.userId, "session")
+                .unset();
+        }
     }
 });

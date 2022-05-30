@@ -6,9 +6,9 @@ import styles from "./styles.module.css";
 import {Outlet} from "react-router-dom";
 
 import {Text} from "/imports/ui/components/Text";
-
 import {MemberItem, MemberContainer, RequireLogin} from "./components";
 
+import {AnimatePresence, LayoutGroup} from "framer-motion";
 
 interface MembersProps {
     user?: Meteor.User;
@@ -25,14 +25,18 @@ const Members: React.FC<MembersProps> = ({user, members}) => {
                     ? <MemberItem member={user}/>
                     : <RequireLogin/>}
             </MemberContainer>
-            <MemberContainer title={`동방 ${members?.length}`}>
-                {otherMembers?.map(member =>
-                    <MemberItem
-                        key={member._id}
-                        member={member}
-                    />
-                )}
-            </MemberContainer>
+            <LayoutGroup>
+                <MemberContainer title={`동방 ${members?.length}`}>
+                    <AnimatePresence initial={false}>
+                        {otherMembers?.map(member =>
+                            <MemberItem
+                                key={member._id}
+                                member={member}
+                            />
+                        )}
+                    </AnimatePresence>
+                </MemberContainer>
+            </LayoutGroup>
             <Outlet/>
         </div>
     )

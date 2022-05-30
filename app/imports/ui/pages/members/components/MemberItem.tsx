@@ -1,7 +1,10 @@
 import {Meteor} from "meteor/meteor";
 
 import React, {ReactNode} from "react";
+import classNames from "classnames";
 import styles from "./MemberItem.module.css";
+
+import {motion} from "framer-motion";
 
 import {CardClickable, CardText} from "/imports/ui/components/Card";
 import {renderProfileText} from "/imports/ui/components/Text";
@@ -9,7 +12,6 @@ import {renderProfileText} from "/imports/ui/components/Text";
 import {useNavigate} from "react-router-dom";
 
 import {LOCATION_NAME} from "/imports/db/sessions";
-import classNames from "classnames";
 
 
 interface MemberItemProps {
@@ -39,17 +41,26 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
             </MemberStatus>
     
     return (
-        <CardClickable
-            className={styles.item}
-            onClick={() => navigate(`${member.username}`, {replace: true})}
+        <motion.div
+            layout
+            key={member._id}
+            initial={{opacity: 0, height: 0}}
+            animate={{opacity: 1, height: "auto"}}
+            exit={{opacity: 0, height: 0}}
+            className={styles.root}
         >
-            <div className={styles.inner}>
-                <CardText.main>
-                    {renderProfileText(member)}
-                </CardText.main>
-                {userStatus}
-            </div>
-        </CardClickable>
+            <CardClickable
+                className={styles.item}
+                onClick={() => navigate(`${member.username}`, {replace: true})}
+            >
+                <div className={styles.inner}>
+                    <CardText.main>
+                        {renderProfileText(member)}
+                    </CardText.main>
+                    {userStatus}
+                </div>
+            </CardClickable>
+        </motion.div>
     )
 }
 

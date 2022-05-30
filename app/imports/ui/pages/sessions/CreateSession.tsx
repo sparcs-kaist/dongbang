@@ -25,7 +25,9 @@ const CreateSession: React.FC = () => {
         if (location) setLocationName(LOCATION_NAME[location]);
     }, [location]);
     
-    const validate = useCallback(() => name.value.length > 0, [name.value]);
+    const validate = useCallback(() => (
+        !close && (name.value.length > 0)
+    ), [name.value, close]);
     
     
     const create = () => {

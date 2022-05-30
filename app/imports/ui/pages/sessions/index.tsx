@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Outlet} from "react-router-dom";
 
 import {SessionTitle, SessionItem} from "/imports/ui/pages/sessions/components";
 import {Text} from "/imports/ui/components/Text";
 
 import {Session} from "/imports/db/sessions";
-import {AnimatePresence, LayoutGroup} from "framer-motion";
+import {AnimatePresence} from "framer-motion";
 
 interface SessionsProps {
     sessions?: Session[];

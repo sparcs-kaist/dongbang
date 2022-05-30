@@ -1,0 +1,60 @@
+.drawer {
+    z-index: 50;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FFF;
+    /*min-height: 30vh;*/
+    border-radius: 20px 20px 0 0;
+    padding: 30px calc(var(--page-margin) + 5px);
+}
+
+.backdrop {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.4;
+}
+
+.open .drawer {
+    animation: open .25s;
+}
+
+.open .backdrop {
+    animation: openBackdrop .25s;
+}
+
+.close .drawer {
+    animation: open reverse .25s;
+}
+
+.close .backdrop {
+    animation: openBackdrop reverse .25s;
+}
+
+
+
+@keyframes open {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transition: none;
+    }
+}
+
+@keyframes openBackdrop {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.4;
+    }
+}

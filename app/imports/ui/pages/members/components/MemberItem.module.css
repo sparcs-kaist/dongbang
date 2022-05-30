@@ -1,0 +1,39 @@
+
+.item {
+    padding: 0 12px;
+}
+
+.inner {
+    padding: var(--card-vertical-padding) calc(var(--card-horizontal-padding) - 12px);
+}
+
+.root:not(:last-child) .inner {
+    border-bottom: 1px solid var(--grey-750);
+}
+
+
+.userDesc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    margin-right: 8px;
+}
+
+.statusLocation span {
+    color: var(--theme-red);
+}
+
+.statusSession span {
+    color: var(--theme-500);
+}
+
+.statusActive span {
+    color: var(--theme-green);
+}

@@ -1,0 +1,12 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}

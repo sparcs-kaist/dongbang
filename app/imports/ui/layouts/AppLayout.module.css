@@ -1,0 +1,5 @@
+main.content {
+    padding: var(--header-height) var(--page-margin) var(--nav-height);
+    min-height: 100%;
+    /*background-color: blue;*/
+}

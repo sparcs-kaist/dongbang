@@ -79,6 +79,7 @@ export const startSession = new ValidatedMethod<string, StartSession>({
         name: {
             type: String,
             min: 1,
+            max: 50,
         },
         location: Optional(Enum(Location)),
     }).validator(),

@@ -16,7 +16,7 @@ interface MembersProps {
 }
 
 const Members: React.FC<MembersProps> = ({user, members}) => {
-    
+    const otherMembers = members?.filter(member => member._id !== user?._id);
     return (
         <div className={styles.root}>
             <Text.main>멤버</Text.main>
@@ -26,7 +26,7 @@ const Members: React.FC<MembersProps> = ({user, members}) => {
                     : <RequireLogin/>}
             </MemberContainer>
             <MemberContainer title={`동방 ${members?.length}`}>
-                {members?.map(member =>
+                {otherMembers?.map(member =>
                     <MemberItem
                         key={member._id}
                         member={member}

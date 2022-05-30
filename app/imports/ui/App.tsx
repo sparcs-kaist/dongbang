@@ -34,7 +34,7 @@ export const App = () => {
                         path="members"
                         element={<Members user={user} members={members}/>}
                     >
-                        <Route path=":username" element={<Member/>}/>
+                        <Route path=":username" element={<Member user={user} members={members}/>}/>
                     
                     </Route>
                     <Route

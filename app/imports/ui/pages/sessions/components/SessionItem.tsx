@@ -10,7 +10,6 @@ import {renderProfileText} from "/imports/ui/components/Text";
 import {joinSession, leaveSession} from "/imports/api/methods/sessions";
 
 import {AnimatePresence, motion} from "framer-motion";
-import sessions from "/imports/ui/pages/sessions";
 import {LocationIcon} from "/imports/assets/Icons";
 
 interface SessionItemProps {

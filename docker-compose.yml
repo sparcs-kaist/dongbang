@@ -13,6 +13,9 @@ services:
       ROOT_URL: ${APP_ROOT_URL:-http://localhost}
       MONGO_URL: mongodb://mongo:27017/meteor
       PORT: 3000
+      MEMVERS_ROOT: ${MEMVERS_ROOT}
+      MEMVERS_CREDENTIALS_UN: ${MEMVERS_CREDENTIALS_UN}
+      MEMVERS_CREDENTIALS_PW: ${MEMVERS_CREDENTIALS_PW}
 
   mongo:
     image: mongo:4.4.10

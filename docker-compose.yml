@@ -11,13 +11,11 @@ services:
       - mongo
     environment:
       ROOT_URL: ${APP_ROOT_URL:-http://localhost}
-      MONGO_URL: mongodb://mongo:${MONGO_PORT}/meteor
+      MONGO_URL: mongodb://mongo:27017/meteor
       PORT: 3000
 
   mongo:
     image: mongo:4.4.10
-    ports:
-      - '${MONGO_PORT}:27017'
     command:
       - --storageEngine=wiredTiger
     volumes:

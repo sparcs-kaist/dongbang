@@ -6,16 +6,18 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '80:3000'
+      - '34572:3000'
     depends_on:
       - mongo
     environment:
       ROOT_URL: ${APP_ROOT_URL:-http://localhost}
-      MONGO_URL: mongodb://mongo:27017/meteor
+      MONGO_URL: mongodb://mongo:23424/meteor
       PORT: 3000
 
   mongo:
     image: mongo:latest
+    ports:
+      - '23424:27017'
     command:
       - --storageEngine=wiredTiger
     volumes:

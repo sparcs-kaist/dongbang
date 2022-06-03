@@ -3,29 +3,32 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: var(--nav-height);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     background-color: rgba(var(--theme-background_w), 0.8);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 var(--page-margin);
+    padding: 0 var(--page-margin) env(safe-area-inset-bottom, 0);
     overflow: hidden;
 }
 
-.nav * {
+.container {
+    height: var(--nav-height);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container * {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.nav > a {
+.container > a {
     flex: 1;
     height: 100%;
 }
 
-.nav svg {
+.container svg {
     width: 32px;
     height: 32px;
 }

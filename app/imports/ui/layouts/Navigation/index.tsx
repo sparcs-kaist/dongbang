@@ -10,9 +10,11 @@ const Navigation: React.FC = () => {
     
     return (
         <nav className={styles.nav}>
+            <div className={styles.container}>
             <NavAction to="members" icon={<MemberIcon/>}/>
             <NavAction to="sessions" icon={<SessionIcon/>}/>
             <NavAction to="schedules" icon={<ScheduleIcon/>}/>
+                </div>
         </nav>
     )
 }

@@ -4,10 +4,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #FFF;
-    /*min-height: 30vh;*/
+    background-color: var(--grey-900);
     border-radius: 20px 20px 0 0;
-    padding: 30px calc(var(--page-margin) + 5px);
+    padding: 30px calc(var(--page-margin) + 5px) calc(env(safe-area-inset-bottom, 0) + 30px);
 }
 
 .backdrop {

@@ -2,9 +2,7 @@ version: '3'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: snowsuno/dongbang:latest
     ports:
       - '${EXTERNAL_PORT-3000}:3000'
     depends_on:

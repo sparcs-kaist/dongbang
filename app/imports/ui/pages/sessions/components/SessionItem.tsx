@@ -46,7 +46,10 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
             >
                 <CardClickable className={styles.item}>
                     {session.location &&
-                        <CardText.sub className={styles.location} style={{display: "flex", alignItems: "center", gap: 5}}>
+                        <CardText.sub
+                            location
+                            style={{display: "flex", alignItems: "center", gap: 5, paddingBottom: 10}}
+                        >
                             <LocationIcon/>
                             <span>{LOCATION_NAME[session.location]}</span>
                         </CardText.sub>

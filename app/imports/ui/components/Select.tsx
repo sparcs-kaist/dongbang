@@ -1,31 +1,53 @@
 import React, {Children, cloneElement, isValidElement} from "react";
-import styles from "./Select.module.css"
 import {ButtonProps, DivProps} from "react-html-props";
-import {componentGenerator} from "/imports/ui/components/helpers/componentGenerator";
-import classNames from "classnames";
+import styled from "styled-components";
 
-export const Select = componentGenerator<Omit<DivProps, "onChange">, {value: string | undefined, onChange: (value: string | undefined) => void}>(
-    "div",
-    styles.selectContainer,
-    ({value, onChange, children, ...props}) => ({
-        ...props,
-        children: Children.map(children, child => {
-            if (!isValidElement(child)) {
-                console.error("Child of `Select` must be `SelectItem`");
-                return child;
-            }
-            
-            return cloneElement(child, {currentValue: value, setValue: onChange});
-        })
-    })
+
+interface SelectProps extends Omit<DivProps, "onChange"> {
+    value?: string;
+    onChange?: (value: string) => void;
+}
+
+const UnstyledSelect: React.FC<SelectProps> = ({value, onChange, children, ...props}) => (
+    <div {...props}>
+        {Children.map(children, child => isValidElement(child)
+            && cloneElement(child, {currentValue: value, setValue: onChange})
+        )}
+    </div>
 );
 
-export const SelectItem = componentGenerator<ButtonProps, {valueFor?: string, currentValue?: string, setValue?: (value: string | undefined) => void}>(
-    "button",
-    styles.selectItem,
-    ({className, valueFor, currentValue, setValue, ...props}) => ({
-        ...props,
-        className: classNames(className, {[styles.selected]: valueFor === currentValue}),
-        onClick: () => setValue?.(valueFor),
-    })
+export const Select = styled(UnstyledSelect)`
+  display: flex;
+  flex-direction: row;
+  background-color: var(--grey-800);
+  color: var(--grey-650);
+  border-radius: 10px;
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  overflow: hidden;
+`;
+
+
+interface SelectItemProps extends ButtonProps {
+    value?: string;
+    currentValue?: string;
+    setValue?: (value: string | undefined) => void;
+}
+
+export const UnstyledSelectItem: React.FC<SelectItemProps> = ({value, currentValue, setValue, ...props}) => (
+    <button
+        {...props}
+        onClick={() => setValue?.(value)}
+    />
 );
+
+export const SelectItem = styled(UnstyledSelectItem).attrs(props => ({
+    active: props.currentValue === props.value
+}))`
+  flex: 1;
+  height: 100%;
+  font-size: inherit;
+  background: ${({active}) => active ? "var(--theme-500)" : "none"};
+  color: ${({active}) => active ? "var(--grey-900)" : "inherit"};
+`;

@@ -1,7 +1,6 @@
 import React, {ReactNode} from "react";
-import styles from "./MemberContainer.module.css";
 
-import {motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 
 import {Text} from "/imports/ui/components/Text";
 import {Card} from "/imports/ui/components/Card";
@@ -16,8 +15,10 @@ const MemberContainer: React.FC<MemberContainerProps> = (
 ) => (
     children ? <motion.div>
         <Text.sub>{title}</Text.sub>
-        <Card className={styles.card}>
-            {children}
+        <Card>
+            <AnimatePresence initial={false}>
+                {children}
+            </AnimatePresence>
         </Card>
     </motion.div> : null
 );

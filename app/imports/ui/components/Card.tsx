@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import {HTMLMotionProps} from "framer-motion";
+import Component from "/imports/ui/components/animate/Component";
 
 
-interface CardProps {
+interface CardProps extends HTMLMotionProps<"div"> {
     primary?: boolean;
 }
 
-export const Card = styled.div<CardProps>`
+export const Card = styled(Component)<CardProps>`
   --color: ${props => props.primary
           ? "var(--grey-900)"
           : "var(--grey-100)"
@@ -30,20 +32,45 @@ export const Card = styled.div<CardProps>`
   margin-bottom: 10px;
 `;
 
-export const CardClickable = styled.div`
+export const CardBody = styled(Component)<HTMLMotionProps<"div">>`
+  position: relative;
+  padding: var(--card-vertical-padding) var(--card-horizontal-padding);
+
+  &:before {
+    content: "";
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    transition: background-color 0.2s ease;
+    background-color: transparent;
+  }
+
+  &:not(:first-child):before {
+    background-color: var(--grey-750);
+  }
+`
+
+export const CardAction = styled.div`
   transition: background-color .05s ease;
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   &:active {
     background-color: rgba(var(--grey-000_w), 0.1);
   }
 `;
 
-interface CardButtonProps {
-    transparent?: boolean;
-}
 
-export const CardButton = styled.button<CardButtonProps>`
+export const CardButton = styled.button<{
+    transparent?: boolean;
+}>`
+  z-index: 2;
   cursor: pointer;
   color: var(--color-button);
   font-size: 13px;
@@ -58,9 +85,6 @@ export const CardButton = styled.button<CardButtonProps>`
   };
 `;
 
-interface CardTextProps {
-    location?: boolean;
-}
 
 export const CardText = {
     main: styled.h2`
@@ -68,7 +92,9 @@ export const CardText = {
       font-weight: 500;
       margin-bottom: 5px;
     `,
-    sub: styled.p<CardTextProps>`
+    sub: styled.p<{
+        location?: boolean;
+    }>`
       color: ${props => props.location
               ? "var(--color-location)"
               : "var(--color-sub)"

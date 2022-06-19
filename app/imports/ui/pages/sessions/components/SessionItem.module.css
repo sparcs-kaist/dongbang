@@ -2,9 +2,6 @@
     position: relative;
 }
 
-.item {
-    padding: var(--card-vertical-padding) var(--card-horizontal-padding);
-}
 
 .location {
     padding: 0 0 10px;
@@ -25,37 +22,34 @@
     margin-top: 5px;
 }
 
-.controls {
-    pointer-events: none;
-    position: absolute;
-    display: flex;
-    /*width: 100%;*/
-    flex-direction: row;
-    /*justify-content: flex-end;*/
+/*.controls {*/
+/*    pointer-events: none;*/
+/*    !*position: absolute;*!*/
+/*    display: flex;*/
+/*    width: 100%;*/
+/*    flex-direction: row;*/
+/*    justify-content: flex-end;*/
 
-    opacity: 0;
-    /*display: none;*/
-    bottom: 18px;
-    right: 22px;
-    transition: opacity .2s ease;
-}
+/*    opacity: 0;*/
+/*    height: 0;*/
 
-.show .controls {
-    pointer-events: auto;
-    cursor: pointer;
-    display: flex;
-    opacity: 1;
-}
+/*    transition: opacity .2s ease, height .2s ease;*/
+/*}*/
 
-.controlSpace {
-    height: 0;
-    transition: height .2s ease;
-}
-
-.show .controlSpace {
-    height: 26px;
-}
-
-/*.show {*/
+/*.show .controls {*/
+/*    pointer-events: auto;*/
+/*    cursor: pointer;*/
+/*    display: flex;*/
+/*    opacity: 1;*/
 /*    height: 26px;*/
 /*}*/
+
+/*.controlSpace {*/
+/*    height: 0;*/
+/*    transition: height .2s ease;*/
+/*}*/
+
+/*.show .controlSpace {*/
+/*    height: 26px;*/
+/*}*/
+

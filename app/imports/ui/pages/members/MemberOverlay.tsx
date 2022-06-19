@@ -1,7 +1,7 @@
 import {Meteor} from "meteor/meteor";
 
 import React from "react";
-import styles from "./Member.module.css";
+import styles from "./MemberOverlay.css";
 
 import {useParams} from "react-router-dom";
 
@@ -18,7 +18,7 @@ interface MemberProps {
     members?: Meteor.User[];
 }
 
-const Member: React.FC<MemberProps> = ({user, members}) => {
+const MemberOverlay: React.FC<MemberProps> = ({user, members}) => {
     const {username} = useParams();
     const isSelf = user?.username === username;
     
@@ -58,4 +58,4 @@ const Member: React.FC<MemberProps> = ({user, members}) => {
     )
 }
 
-export default Member;
+export default MemberOverlay;

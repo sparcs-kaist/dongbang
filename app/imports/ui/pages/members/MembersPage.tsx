@@ -14,7 +14,7 @@ interface MembersProps {
     members?: Meteor.User[];
 }
 
-const Members: React.FC<MembersProps> = ({user, members}) => {
+const MembersPage: React.FC<MembersProps> = ({user, members}) => {
     const otherMembers = members?.filter(member => member._id !== user?._id);
     return (
         <div>
@@ -39,4 +39,4 @@ const Members: React.FC<MembersProps> = ({user, members}) => {
     )
 }
 
-export default Members;
+export default MembersPage;

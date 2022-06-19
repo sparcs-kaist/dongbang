@@ -14,7 +14,7 @@ import useInput from "../../common/hooks/useInput";
 import {Location, LOCATION_NAME} from "/imports/db/sessions";
 import {LocationIcon} from "/imports/assets/Icons";
 
-const CreateSession: React.FC = () => {
+const CreateSessionOverlay: React.FC = () => {
     const [close, setClose] = useState<boolean>(false);
     const {input: name} = useInput("");
     const [location, setLocation] = useState<Location | undefined>(undefined);
@@ -77,4 +77,4 @@ const CreateSession: React.FC = () => {
     )
 }
 
-export default CreateSession;
+export default CreateSessionOverlay;

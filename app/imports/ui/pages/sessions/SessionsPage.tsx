@@ -12,7 +12,7 @@ interface SessionsProps {
     currentSessionId?: string;
 }
 
-const Sessions: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
+const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
     const sessionGroups = sortSession(sessions, currentSessionId);
     
     return (
@@ -83,4 +83,4 @@ const sortSession = (sessions: Session[] | undefined, currentSessionId: string |
     return group;
 }
 
-export default Sessions;
+export default SessionsPage;

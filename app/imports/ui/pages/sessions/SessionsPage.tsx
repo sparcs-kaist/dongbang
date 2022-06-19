@@ -15,55 +15,53 @@ interface SessionsProps {
 const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
     const sessionGroups = sortSession(sessions, currentSessionId);
     
-    return (
-        <div>
-            <Text.main>세션</Text.main>
-            
-            <div style={{display: "flex", flexDirection: "column"}}>
-                <LayoutGroup>
-                    <AnimatePresence initial={false}>
-                        <SessionTitle
-                            key="current"
-                            title="참여 중"
-                            numSessions={sessionGroups.current.length}
+    return (<>
+        <Text.main>세션</Text.main>
+        
+        <div style={{display: "flex", flexDirection: "column"}}>
+            <LayoutGroup>
+                <AnimatePresence initial={false}>
+                    <SessionTitle
+                        key="current"
+                        title="참여 중"
+                        numSessions={sessionGroups.current.length}
+                    />
+                    {sessionGroups.current.map(session =>
+                        <SessionItem
+                            session={session}
+                            key={session._id}
+                            joined
                         />
-                        {sessionGroups.current.map(session =>
-                            <SessionItem
-                                session={session}
-                                key={session._id}
-                                joined
-                            />
-                        )}
-                        
-                        <SessionTitle
-                            key="important"
-                            title="중요"
-                            numSessions={sessionGroups.important.length}
+                    )}
+                    
+                    <SessionTitle
+                        key="important"
+                        title="중요"
+                        numSessions={sessionGroups.important.length}
+                    />
+                    {sessionGroups.important.map(session =>
+                        <SessionItem
+                            session={session}
+                            key={session._id}
                         />
-                        {sessionGroups.important.map(session =>
-                            <SessionItem
-                                session={session}
-                                key={session._id}
-                            />
-                        )}
-                        
-                        <SessionTitle
-                            key="common"
-                            title="일반"
-                            numSessions={sessionGroups.common.length}
+                    )}
+                    
+                    <SessionTitle
+                        key="common"
+                        title="일반"
+                        numSessions={sessionGroups.common.length}
+                    />
+                    {sessionGroups.common.map(session =>
+                        <SessionItem
+                            session={session}
+                            key={session._id}
                         />
-                        {sessionGroups.common.map(session =>
-                            <SessionItem
-                                session={session}
-                                key={session._id}
-                            />
-                        )}
-                    </AnimatePresence>
-                </LayoutGroup>
-            </div>
-            <Outlet/>
+                    )}
+                </AnimatePresence>
+            </LayoutGroup>
         </div>
-    )
+        <Outlet/>
+    </>)
 }
 
 interface SessionGroup {

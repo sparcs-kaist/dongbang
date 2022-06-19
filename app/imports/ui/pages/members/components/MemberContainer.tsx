@@ -1,6 +1,6 @@
 import React, {ReactNode} from "react";
 
-import {AnimatePresence, motion} from "framer-motion";
+import {AnimatePresence} from "framer-motion";
 
 import {Text} from "/imports/ui/components/Text";
 import {Card} from "/imports/ui/components/Card";
@@ -13,14 +13,14 @@ interface MemberContainerProps {
 const MemberContainer: React.FC<MemberContainerProps> = (
     {title, children}
 ) => (
-    children ? <motion.div>
+    children ? <>
         <Text.sub>{title}</Text.sub>
         <Card>
             <AnimatePresence initial={false}>
                 {children}
             </AnimatePresence>
         </Card>
-    </motion.div> : null
+    </> : null
 );
 
 export default MemberContainer;

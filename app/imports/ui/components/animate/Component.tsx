@@ -1,8 +1,8 @@
 import React from "react";
-import {motion} from "framer-motion";
+import {HTMLMotionProps, motion} from "framer-motion";
 
 
-const Component: React.FC = <T,>(props: T) => (
+const Component: React.FC<HTMLMotionProps<"div">> = <T,>(props: T) => (
     <motion.div
         layout
         initial={{opacity: 0}}

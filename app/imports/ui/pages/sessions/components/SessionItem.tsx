@@ -9,7 +9,7 @@ import {renderProfileText} from "/imports/ui/components/Text";
 
 import {joinSession, leaveSession} from "/imports/api/methods/sessions";
 
-import {AnimatePresence, motion} from "framer-motion";
+import {AnimatePresence, LayoutGroup, motion} from "framer-motion";
 import {LocationIcon} from "/imports/assets/Icons";
 
 interface SessionItemProps {
@@ -36,7 +36,6 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
             tabIndex={-1}
             onFocus={() => setShowControls(true)}
             onBlur={() => setShowControls(false)}
-            className={classNames(styles.root, {[styles.show]: showControls}, styles.item)}
         >
             <CardBody>
                 <CardAction/>
@@ -49,27 +48,19 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                         <span>{LOCATION_NAME[session.location]}</span>
                     </CardText.sub>
                 }
-                <CardText.main className={styles.title}>{session.name}</CardText.main>
+                <CardText.main className={styles.title}>
+                    {session.name}
+                </CardText.main>
                 
-                <div className={styles.members}>
+                <motion.div className={styles.members}>
                     <AnimatePresence initial={false}>
                         {session.members.map(member =>
-                            <motion.div
-                                layout
-                                key={session._id + member._id}
-                                // layoutId={session._id + (joined ? "joined" : "no")}
-                                initial={{opacity: 0, height: 0}}
-                                animate={{opacity: 1, height: "auto"}}
-                                exit={{opacity: 0, height: 0}}
-                            >
-                                
-                                <CardText.sub key={member._id}>
-                                    {renderProfileText(member)}
-                                </CardText.sub>
-                            </motion.div>
+                            <CardText.sub key={member._id}>
+                                {renderProfileText(member)}
+                            </CardText.sub>
                         )}
                     </AnimatePresence>
-                </div>
+                </motion.div>
                 
                 <motion.div
                     initial="hidden"
@@ -83,15 +74,16 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                             height: "auto"
                         },
                     }}
-                    style={{display: "flex", justifyContent: "flex-end", overflow: "hidden"}}
+                    style={{display: "flex", justifyContent: "flex-end", alignItems: "center", zIndex: 5}}
                     animate={showControls ? "show" : "hidden"}
-                    // className={styles.controls}
                 >
                     {joined
-                        ? <CardButton onClick={leave}>나가기</CardButton>
-                        : <CardButton onClick={join}>참여</CardButton>
+                        ? <CardButton onClick={leave} disabled={!showControls}>나가기</CardButton>
+                        : <CardButton onClick={join} disabled={!showControls}>참여</CardButton>
                     }
                 </motion.div>
+                
+            
             </CardBody>
         </Card>
     )

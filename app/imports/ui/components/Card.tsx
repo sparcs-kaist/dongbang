@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {HTMLMotionProps} from "framer-motion";
 import Component from "/imports/ui/components/animate/Component";
 
 
-interface CardProps extends HTMLMotionProps<"div"> {
+interface CardProps {
     primary?: boolean;
 }
 
@@ -32,7 +31,7 @@ export const Card = styled(Component)<CardProps>`
   margin-bottom: 10px;
 `;
 
-export const CardBody = styled(Component)<HTMLMotionProps<"div">>`
+export const CardBody = styled(Component)`
   position: relative;
   padding: var(--card-vertical-padding) var(--card-horizontal-padding);
 
@@ -87,12 +86,12 @@ export const CardButton = styled.button<{
 
 
 export const CardText = {
-    main: styled.h2`
+    main: styled(Component)`
       font-size: 16px;
       font-weight: 500;
       margin-bottom: 5px;
     `,
-    sub: styled.p<{
+    sub: styled(Component)<{
         location?: boolean;
     }>`
       color: ${props => props.location

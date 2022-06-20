@@ -33,9 +33,8 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
             key={session._id}
             layoutId={session._id}
             primary={joined}
-            tabIndex={-1}
-            onFocus={() => setShowControls(true)}
-            onBlur={() => setShowControls(false)}
+            onMouseEnter={() => setShowControls(true)}
+            onMouseLeave={() => setShowControls(false)}
         >
             <CardBody>
                 <CardAction/>

@@ -69,7 +69,7 @@ export const CardAction = styled.div`
 export const CardButton = styled.button<{
     transparent?: boolean;
 }>`
-  z-index: 2;
+  z-index: 10;
   cursor: pointer;
   color: var(--color-button);
   font-size: 13px;

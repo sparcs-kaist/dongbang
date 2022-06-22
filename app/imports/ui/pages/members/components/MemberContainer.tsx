@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React, {Children, ReactNode} from "react";
 
 import {AnimatePresence} from "framer-motion";
 
@@ -15,11 +15,13 @@ const MemberContainer: React.FC<MemberContainerProps> = (
 ) => (
     children ? <>
         <Text.sub>{title}</Text.sub>
-        <Card>
-            <AnimatePresence initial={false}>
-                {children}
-            </AnimatePresence>
-        </Card>
+        <AnimatePresence initial={false}>
+            {Children.count(children) > 0 && <Card>
+                <AnimatePresence initial={false}>
+                    {children}
+                </AnimatePresence>
+            </Card>}
+        </AnimatePresence>
     </> : null
 );
 

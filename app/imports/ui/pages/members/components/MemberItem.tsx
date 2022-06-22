@@ -22,7 +22,7 @@ const MemberItem: React.FC<MemberItemProps> = ({member}) => {
             layout
             key={member._id}
         >
-            <CardAction onClick={() => navigate(`${member.username}`, {replace: true})}/>
+            <CardAction onClick={() => navigate(`${member.username}`)}/>
             <CardText.main>
                 {renderProfileText(member)}
             </CardText.main>

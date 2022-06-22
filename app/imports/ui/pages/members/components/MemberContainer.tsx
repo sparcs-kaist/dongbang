@@ -4,6 +4,7 @@ import {AnimatePresence} from "framer-motion";
 
 import {Text} from "/imports/ui/components/Text";
 import {Card} from "/imports/ui/components/Card";
+import List from "/imports/ui/components/List";
 
 interface MemberContainerProps {
     title: ReactNode;
@@ -17,9 +18,9 @@ const MemberContainer: React.FC<MemberContainerProps> = (
         <Text.sub>{title}</Text.sub>
         <AnimatePresence initial={false}>
             {Children.count(children) > 0 && <Card>
-                <AnimatePresence initial={false}>
+                <List>
                     {children}
-                </AnimatePresence>
+                </List>
             </Card>}
         </AnimatePresence>
     </> : null

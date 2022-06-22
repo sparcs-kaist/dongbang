@@ -5,7 +5,7 @@ import {SessionTitle, SessionItem} from "/imports/ui/pages/sessions/components";
 import {Text} from "/imports/ui/components/Text";
 
 import {Session} from "/imports/db/sessions";
-import {AnimatePresence, LayoutGroup} from "framer-motion";
+import List from "/imports/ui/components/List";
 
 interface SessionsProps {
     sessions?: Session[];
@@ -17,49 +17,44 @@ const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => 
     
     return (<>
         <Text.main>세션</Text.main>
-        
-        <div style={{display: "flex", flexDirection: "column"}}>
-            <LayoutGroup>
-                <AnimatePresence initial={false}>
-                    <SessionTitle
-                        key="current"
-                        title="참여 중"
-                        numSessions={sessionGroups.current.length}
-                    />
-                    {sessionGroups.current.map(session =>
-                        <SessionItem
-                            session={session}
-                            key={session._id}
-                            joined
-                        />
-                    )}
-                    
-                    <SessionTitle
-                        key="important"
-                        title="중요"
-                        numSessions={sessionGroups.important.length}
-                    />
-                    {sessionGroups.important.map(session =>
-                        <SessionItem
-                            session={session}
-                            key={session._id}
-                        />
-                    )}
-                    
-                    <SessionTitle
-                        key="common"
-                        title="일반"
-                        numSessions={sessionGroups.common.length}
-                    />
-                    {sessionGroups.common.map(session =>
-                        <SessionItem
-                            session={session}
-                            key={session._id}
-                        />
-                    )}
-                </AnimatePresence>
-            </LayoutGroup>
-        </div>
+        <List>
+            <SessionTitle
+                key="current"
+                title="참여 중"
+                numSessions={sessionGroups.current.length}
+            />
+            {sessionGroups.current.map(session =>
+                <SessionItem
+                    session={session}
+                    key={session._id}
+                    joined
+                />
+            )}
+            
+            <SessionTitle
+                key="important"
+                title="중요"
+                numSessions={sessionGroups.important.length}
+            />
+            {sessionGroups.important.map(session =>
+                <SessionItem
+                    session={session}
+                    key={session._id}
+                />
+            )}
+            
+            <SessionTitle
+                key="common"
+                title="일반"
+                numSessions={sessionGroups.common.length}
+            />
+            {sessionGroups.common.map(session =>
+                <SessionItem
+                    session={session}
+                    key={session._id}
+                />
+            )}
+        </List>
         <Outlet/>
     </>)
 }

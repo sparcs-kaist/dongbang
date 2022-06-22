@@ -8,9 +8,9 @@ import {renderProfileText} from "/imports/ui/components/Text";
 
 import {joinSession, leaveSession} from "/imports/api/methods/sessions";
 
-import {AnimatePresence, motion} from "framer-motion";
 import {LocationIcon} from "/imports/assets/Icons";
 import Collapse from "/imports/ui/components/animate/Collapse";
+import List from "/imports/ui/components/List";
 
 interface SessionItemProps {
     session: Session;
@@ -50,16 +50,14 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                 <CardText.main className={styles.title}>
                     {session.name}
                 </CardText.main>
-                
-                <motion.div className={styles.members}>
-                    <AnimatePresence initial={false}>
-                        {session.members.map(member =>
-                            <CardText.sub key={member._id}>
-                                {renderProfileText(member)}
-                            </CardText.sub>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
+
+                <List>
+                    {session.members.map(member =>
+                        <CardText.sub key={member._id}>
+                            {renderProfileText(member)}
+                        </CardText.sub>
+                    )}
+                </List>
                 
                 <Collapse
                     show={showControls}
@@ -70,7 +68,7 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                         : <CardButton onClick={join} disabled={!showControls}>참여</CardButton>
                     }
                 </Collapse>
-                
+            
             
             </CardBody>
         </Card>

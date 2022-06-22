@@ -51,17 +51,25 @@ export const CardBody = styled(Component)`
   }
 `
 
-export const CardAction = styled.div`
+export const CardAction = styled.div<{
+    mobile?: boolean;
+}>`
   transition: background-color .05s ease;
-  cursor: pointer;
+
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
 
-  &:active {
-    background-color: rgba(var(--grey-000_w), 0.1);
+  @media ${({mobile}) => mobile ? "(any-hover: none)" : "all"}{
+    &, & > * {
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: rgba(var(--grey-000_w), 0.1);
+    }
   }
 `;
 

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import classNames from "classnames";
 import styles from "./SessionItem.module.css";
 
 import {LOCATION_NAME, Session} from "/imports/db/sessions";
@@ -9,7 +8,7 @@ import {renderProfileText} from "/imports/ui/components/Text";
 
 import {joinSession, leaveSession} from "/imports/api/methods/sessions";
 
-import {AnimatePresence, LayoutGroup, motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {LocationIcon} from "/imports/assets/Icons";
 
 interface SessionItemProps {
@@ -37,7 +36,7 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
             onMouseLeave={() => setShowControls(false)}
         >
             <CardBody>
-                <CardAction/>
+                <CardAction mobile/>
                 {session.location &&
                     <CardText.sub
                         location

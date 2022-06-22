@@ -10,6 +10,7 @@ import {joinSession, leaveSession} from "/imports/api/methods/sessions";
 
 import {AnimatePresence, motion} from "framer-motion";
 import {LocationIcon} from "/imports/assets/Icons";
+import Collapse from "/imports/ui/components/animate/Collapse";
 
 interface SessionItemProps {
     session: Session;
@@ -60,26 +61,15 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
                     </AnimatePresence>
                 </motion.div>
                 
-                <motion.div
-                    initial="hidden"
-                    variants={{
-                        hidden: {
-                            opacity: 0,
-                            height: 0,
-                        },
-                        show: {
-                            opacity: 1,
-                            height: "auto"
-                        },
-                    }}
+                <Collapse
+                    show={showControls}
                     style={{display: "flex", justifyContent: "flex-end", alignItems: "center", zIndex: 5}}
-                    animate={showControls ? "show" : "hidden"}
                 >
                     {joined
                         ? <CardButton onClick={leave} disabled={!showControls}>나가기</CardButton>
                         : <CardButton onClick={join} disabled={!showControls}>참여</CardButton>
                     }
-                </motion.div>
+                </Collapse>
                 
             
             </CardBody>

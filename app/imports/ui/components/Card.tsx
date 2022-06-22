@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Component from "/imports/ui/components/animate/Component";
+import Fade from "/imports/ui/components/animate/Fade";
 
 
 interface CardProps {
     primary?: boolean;
 }
 
-export const Card = styled(Component)<CardProps>`
+export const Card = styled(Fade)<CardProps>`
   --color: ${props => props.primary
           ? "var(--grey-900)"
           : "var(--grey-100)"
@@ -31,7 +31,7 @@ export const Card = styled(Component)<CardProps>`
   margin-bottom: 10px;
 `;
 
-export const CardBody = styled(Component)`
+export const CardBody = styled(Fade)`
   position: relative;
   padding: var(--card-vertical-padding) var(--card-horizontal-padding);
 
@@ -94,12 +94,12 @@ export const CardButton = styled.button<{
 
 
 export const CardText = {
-    main: styled(Component)`
+    main: styled(Fade)`
       font-size: 16px;
       font-weight: 500;
       margin-bottom: 5px;
     `,
-    sub: styled(Component)<{
+    sub: styled(Fade)<{
         location?: boolean;
     }>`
       color: ${props => props.location

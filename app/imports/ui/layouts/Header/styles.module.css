@@ -5,6 +5,7 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     background-color: rgba(var(--theme-background_w), 0.8);
+    z-index: 50;
 }
 
 .topBorder {

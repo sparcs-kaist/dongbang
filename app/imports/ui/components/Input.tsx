@@ -1,8 +1,18 @@
 import React from "react";
-import styles from "./Input.module.css";
+import styled from "styled-components";
 
-import {componentGenerator} from "/imports/ui/components/helpers/componentGenerator";
-import {InputProps} from "react-html-props";
-
-
-export const Input = componentGenerator<InputProps>("input", styles.input);
+export const Input = styled.input`
+  background-color: var(--grey-800);
+  color: var(--grey-100);
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 0 20px;
+  width: 100%;
+  height: 40px;
+  font-size: 15px;
+  
+  &::placeholder {
+    color: var(--grey-650);
+  }
+`;

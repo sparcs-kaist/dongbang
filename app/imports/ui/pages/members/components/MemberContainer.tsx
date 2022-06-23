@@ -1,10 +1,10 @@
-import React, {ReactNode} from "react";
-import styles from "./MemberContainer.module.css";
+import React, {Children, ReactNode} from "react";
 
-import {motion} from "framer-motion";
+import {AnimatePresence} from "framer-motion";
 
 import {Text} from "/imports/ui/components/Text";
 import {Card} from "/imports/ui/components/Card";
+import List from "/imports/ui/components/List";
 
 interface MemberContainerProps {
     title: ReactNode;
@@ -14,12 +14,16 @@ interface MemberContainerProps {
 const MemberContainer: React.FC<MemberContainerProps> = (
     {title, children}
 ) => (
-    children ? <motion.div>
+    children ? <>
         <Text.sub>{title}</Text.sub>
-        <Card className={styles.card}>
-            {children}
-        </Card>
-    </motion.div> : null
+        <AnimatePresence initial={false}>
+            {Children.count(children) > 0 && <Card>
+                <List>
+                    {children}
+                </List>
+            </Card>}
+        </AnimatePresence>
+    </> : null
 );
 
 export default MemberContainer;

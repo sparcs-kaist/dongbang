@@ -1,11 +1,11 @@
 import React from "react";
-import {Outlet} from "react-router-dom";
 
 import {SessionTitle, SessionItem} from "/imports/ui/pages/sessions/components";
 import {Text} from "/imports/ui/components/Text";
 
 import {Session} from "/imports/db/sessions";
 import List from "/imports/ui/components/List";
+import AnimatedOutlet from "/imports/ui/layouts/AnimatedOutlet";
 
 interface SessionsProps {
     sessions?: Session[];
@@ -55,7 +55,7 @@ const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => 
                 />
             )}
         </List>
-        <Outlet/>
+        <AnimatedOutlet/>
     </>)
 }
 

@@ -1,15 +1,3 @@
-.root {
-    position: relative;
-}
-
-.item {
-    padding: var(--card-vertical-padding) var(--card-horizontal-padding);
-}
-
-.location {
-    padding: 0 0 10px;
-    color: var(--theme-red);
-}
 
 .title {
     font-size: 16px;
@@ -25,37 +13,4 @@
     margin-top: 5px;
 }
 
-.controls {
-    pointer-events: none;
-    position: absolute;
-    display: flex;
-    /*width: 100%;*/
-    flex-direction: row;
-    /*justify-content: flex-end;*/
 
-    opacity: 0;
-    /*display: none;*/
-    bottom: 18px;
-    right: 22px;
-    transition: opacity .2s ease;
-}
-
-.show .controls {
-    pointer-events: auto;
-    cursor: pointer;
-    display: flex;
-    opacity: 1;
-}
-
-.controlSpace {
-    height: 0;
-    transition: height .2s ease;
-}
-
-.show .controlSpace {
-    height: 26px;
-}
-
-/*.show {*/
-/*    height: 26px;*/
-/*}*/

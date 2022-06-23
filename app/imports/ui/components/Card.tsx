@@ -1,32 +1,113 @@
 import React from "react";
-import styles from "./Card.module.css";
-import {componentGenerator} from "./helpers/componentGenerator";
-import {ButtonProps, DivProps, HeadingProps, PProps} from "react-html-props";
-import classNames from "classnames";
+import styled from "styled-components";
+import Fade from "/imports/ui/components/animate/Fade";
 
 
-export const Card = componentGenerator<DivProps, { primary?: boolean }>(
-    "div",
-    styles.card,
-    ({primary, className, ...props}) => ({
-        ...props,
-        className: classNames({[styles.primary]: primary}, className),
-    }),
-);
+interface CardProps {
+    primary?: boolean;
+}
 
-export const CardClickable = componentGenerator<DivProps>("div", styles.clickable);
+export const Card = styled(Fade)<CardProps>`
+  --color: ${props => props.primary
+          ? "var(--grey-900)"
+          : "var(--grey-100)"
+  };
+  --color-sub: ${props => props.primary
+          ? "rgba(var(--grey-900_w), 0.8)"
+          : "rgba(var(--grey-100_w), 0.6)"
+  };
+  --color-location: ${props => props.primary
+          ? "var(--color-sub)"
+          : "var(--theme-red)"
+  };
+  --color-button: ${props => props.primary
+          ? "var(--grey-900)"
+          : "var(--grey-650)"
+  };
+  color: var(--color);
+  background-color: var(--${props => props.primary ? "theme-500" : "grey-780"});
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+`;
+
+export const CardBody = styled(Fade)`
+  position: relative;
+  padding: var(--card-vertical-padding) var(--card-horizontal-padding);
+
+  &:before {
+    content: "";
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    transition: background-color 0.2s ease;
+    background-color: transparent;
+  }
+
+  &:not(:first-child):before {
+    background-color: var(--grey-750);
+  }
+`
+
+export const CardAction = styled.div<{
+    mobile?: boolean;
+}>`
+  transition: background-color .05s ease;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  @media ${({mobile}) => mobile ? "(any-hover: none)" : "all"}{
+    &, & > * {
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: rgba(var(--grey-000_w), 0.1);
+    }
+  }
+`;
 
 
-export const CardButton = componentGenerator<ButtonProps, { transparent?: boolean }>(
-    "button",
-    styles.button,
-    ({transparent, className, ...props}) => ({
-        ...props,
-        className: classNames({[styles.transparent]: transparent}, className),
-    }),
-);
+export const CardButton = styled.button<{
+    transparent?: boolean;
+}>`
+  z-index: 10;
+  cursor: pointer;
+  color: var(--color-button);
+  font-size: 13px;
+  height: 26px;
+  padding: 0 20px;
+  margin-left: 5px;
+  border-radius: 13px;
+  border: none;
+  background-color: ${props => props.transparent
+          ? "transparent"
+          : "rgba(var(--grey-900_w), 0.4)"
+  };
+`;
+
 
 export const CardText = {
-    main: componentGenerator<HeadingProps>("h2", styles.mainText),
-    sub: componentGenerator<PProps>("p", styles.subText),
+    main: styled(Fade)`
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    `,
+    sub: styled(Fade)<{
+        location?: boolean;
+    }>`
+      color: ${props => props.location
+              ? "var(--color-location)"
+              : "var(--color-sub)"
+      };
+      font-size: 13px;
+      font-weight: 400;
+      padding-top: 5px;
+    `,
 }

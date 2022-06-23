@@ -57,8 +57,8 @@ const CreateSession: React.FC = () => {
             <div>
                 <Text.sub>장소</Text.sub>
                 <Select value={location} onChange={v => setLocation(v as Location)}>
-                    <SelectItem valueFor={Location.A_SITE}>A SITE</SelectItem>
-                    <SelectItem valueFor={Location.B_SITE}>B SITE</SelectItem>
+                    <SelectItem value={Location.A_SITE}>A SITE</SelectItem>
+                    <SelectItem value={Location.B_SITE}>B SITE</SelectItem>
                     <SelectItem>없음</SelectItem>
                 </Select>
                 <Text.sub className={classNames(styles.desc, {[styles.show]: location})}

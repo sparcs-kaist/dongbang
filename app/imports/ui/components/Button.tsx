@@ -1,7 +1,24 @@
 import React from "react";
-import styles from "./Button.module.css";
+import styled from "styled-components";
 
-import {componentGenerator} from "/imports/ui/components/helpers/componentGenerator";
-import {ButtonProps} from "react-html-props";
+export const Button = styled.button`
+  background-color: var(--theme-500);
+  height: 48px;
+  border-radius: 24px;
+  color: var(--grey-900);
+  font-size: 17px;
+  font-weight: 400;
+  padding: 0 20px;
+  min-width: 140px;
+  border: none;
+  margin: 0 auto;
 
-export const Button = componentGenerator<ButtonProps>("button", styles.button);
+  &:active {
+    background-color: var(--theme-500-shadow);
+  }
+
+  &:disabled {
+    background-color: var(--grey-750);
+  }
+`;
+

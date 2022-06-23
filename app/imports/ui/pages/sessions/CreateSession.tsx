@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import styles from "./CreateSession.module.css";
 import classNames from "classnames";
 
-import Drawer from "/imports/ui/components/Drawer";
+import {Drawer} from "/imports/ui/components/Drawer";
 import {Text} from "/imports/ui/components/Text";
 import {Input} from "/imports/ui/components/Input";
 import {Button} from "/imports/ui/components/Button";
@@ -43,7 +43,7 @@ const CreateSession: React.FC = () => {
     
     
     return (
-        <Drawer close={close} className={styles.root}>
+        <Drawer>
             <Text.main>세션 열기</Text.main>
             <div>
                 <Text.sub>세션 이름</Text.sub>

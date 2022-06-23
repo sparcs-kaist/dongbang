@@ -1,51 +1,76 @@
-import React, {useEffect, useState} from "react";
-import styles from "./Drawer.module.css";
+import React, {useCallback} from "react";
 
 import {useNavigate} from "react-router-dom";
-import {DivProps} from "react-html-props";
-import classNames from "classnames";
 
-interface DrawerProps extends DivProps {
-    close?: boolean;
-}
+import {motion, PanInfo} from "framer-motion";
+import styled from "styled-components";
 
-const Drawer: React.FC<DrawerProps> = ({children, close, className, ...props}) => {
+const Container = styled(motion.div)`
+  z-index: 51;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--grey-900);
+  border-radius: 20px 20px 0 0;
+  padding: 30px calc(var(--page-margin) + 5px) calc(env(safe-area-inset-bottom, 0) + 30px);
+  
+  &:after {
+    content: "";
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    background-color: var(--grey-900);
+    height: 100vh;
+  }
+`;
+
+const Backdrop = styled(motion.div)`
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000;
+`;
+
+export const Drawer: React.FC = ({children, ...props}) => {
     const navigate = useNavigate();
     
-    type State = typeof styles.open | typeof styles.close | null;
-    const [animationState, setAnimationState] = useState<State>(styles.open);
+    const close = useCallback(() => {
+        navigate("..");
+    }, [navigate]);
     
-    
-    
-    
-    const onAnimationEnd = () => {
-        switch (animationState) {
-            case styles.open:
-                setAnimationState(null);
-                break;
-            case styles.close:
-                navigate("..", {replace: true})
-                break;
+    const onDragEnd = (
+        event: MouseEvent | TouchEvent | PointerEvent,
+        info: PanInfo,
+    ): void => {
+        const shouldClose =
+            info.velocity.y > 20 || (info.velocity.y >= 0 && info.point.y > 45);
+        if (shouldClose) {
+            close();
         }
     }
     
-    useEffect(() => {
-        if (close) setAnimationState(styles.close);
-    }, [close]);
-    
-    return (<div className={animationState} >
-        <div
-            className={classNames(styles.drawer, className)}
-            onAnimationEnd={onAnimationEnd}
+    return (<>
+        <Container
+            drag="y"
+            onDragEnd={onDragEnd}
+            dragConstraints={{top: 0}}
+            initial={{y: "100%"}}
+            animate={{y: 0}}
+            exit={{y: "100%"}}
             {...props}
         >
             {children}
-        </div>
-        <div
-            className={styles.backdrop}
-            onClick={() => setAnimationState(styles.close)}
+        </Container>
+        <Backdrop
+            initial={{opacity: 0}}
+            animate={{opacity: 0.5}}
+            exit={{opacity: 0}}
+            onClick={close}
         />
-    </div>)
+    </>)
 }
-
-export default Drawer;

@@ -36,7 +36,6 @@ export const App = () => {
                         element={<Sessions.Page sessions={sessions} currentSessionId={user?.session?._id}/>}
                     >
                         <Route path="create" element={<Sessions.Inlet/>}/>
-                        <Route path=":id"/>
                     </Route>
                     <Route path="schedules">
                     

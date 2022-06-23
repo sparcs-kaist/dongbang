@@ -1,9 +1,9 @@
 import SessionsPage from "./SessionsPage";
-import CreateSessionOverlay from "./CreateSessionOverlay";
+import CreateSession from "./CreateSession";
 
 const Sessions = {
     Page: SessionsPage,
-    Inlet: CreateSessionOverlay,
+    Inlet: CreateSession,
 };
 
 export default Sessions;

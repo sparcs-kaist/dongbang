@@ -1,9 +1,9 @@
 import MembersPage from "./MembersPage";
-import MemberOverlay from "./MemberOverlay";
+import MemberDetail from "./MemberDetail";
 
 const Members = {
     Page: MembersPage,
-    Inlet: MemberOverlay,
+    Inlet: MemberDetail,
 };
 
 export default Members;

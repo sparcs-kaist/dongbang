@@ -1,6 +1,4 @@
 import React, {useCallback, useEffect, useState} from "react";
-import styles from "./CreateSession.module.css";
-import classNames from "classnames";
 
 import {Drawer} from "/imports/ui/components/Drawer";
 import {Text} from "/imports/ui/components/Text";
@@ -13,6 +11,8 @@ import useInput from "../../common/hooks/useInput";
 
 import {Location, LOCATION_NAME} from "/imports/db/sessions";
 import {LocationIcon} from "/imports/assets/Icons";
+import Collapse from "/imports/ui/components/animate/Collapse";
+import {Spacer} from "/imports/ui/components/Spacer";
 
 const CreateSession: React.FC = () => {
     const [close, setClose] = useState<boolean>(false);
@@ -61,16 +61,27 @@ const CreateSession: React.FC = () => {
                     <SelectItem value={Location.B_SITE}>B SITE</SelectItem>
                     <SelectItem>없음</SelectItem>
                 </Select>
-                <Text.sub className={classNames(styles.desc, {[styles.show]: location})}
-                          style={{display: "flex", alignItems: "center", gap: 1}}>
+                <Collapse show={!!location}>
+                    <Text.sub style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
+                    }}>
                     <span style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: 4
+                        gap: 4,
+                        color: "var(--theme-red)"
                     }}><LocationIcon/>{locationName}</span>를 예약합니다
-                </Text.sub>
+                    </Text.sub>
+                </Collapse>
             </div>
-            <div className={styles.buttonContainer}>
+            <Spacer y={10}/>
+            <div style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+            }}>
                 <Button onClick={create} disabled={!validate()}>열기</Button>
             </div>
         </Drawer>

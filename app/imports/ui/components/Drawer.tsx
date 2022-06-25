@@ -48,7 +48,8 @@ export const Drawer: React.FC = ({children, ...props}) => {
         info: PanInfo,
     ): void => {
         const shouldClose =
-            info.velocity.y > 20 || (info.velocity.y >= 0 && info.point.y > 45);
+            info.velocity.y > 20
+            || (info.velocity.y >= 0 && info.offset.y > 100);
         if (shouldClose) {
             close();
         }
@@ -58,6 +59,7 @@ export const Drawer: React.FC = ({children, ...props}) => {
         <Container
             drag="y"
             onDragEnd={onDragEnd}
+            dragSnapToOrigin
             dragConstraints={{top: 0}}
             initial={{y: "100%"}}
             animate={{y: 0}}

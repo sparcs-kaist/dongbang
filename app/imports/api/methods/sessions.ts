@@ -136,7 +136,7 @@ export const joinSession = new ValidatedMethod<string, JoinSession>({
     mixins: [cleanup, active],
     validate: new SimpleSchema({
         sessionId: String,
-    }).validator(),
+    }).validator({clean: true, trimStrings: true}),
     run({sessionId}) {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized.");

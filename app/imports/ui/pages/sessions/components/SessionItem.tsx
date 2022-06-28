@@ -33,6 +33,7 @@ const SessionItem: React.FC<SessionItemProps> = ({session, joined}) => {
             key={session._id}
             layoutId={session._id}
             primary={joined}
+            onClick={() => setShowControls(true)}
             onMouseEnter={() => setShowControls(true)}
             onMouseLeave={() => setShowControls(false)}
         >

@@ -83,7 +83,13 @@ const Login: React.FC = () => {
                             />
                         </div>
         
-                        {error && <Text.sub className={styles.error}>아이디 또는 비밀번호가 올바르지 않습니다</Text.sub>}
+                        {error && <Text.sub style={{
+                            color: "var(--theme-red)",
+                            width: "100%",
+                            padding: 0
+                        }}>
+                            아이디 또는 비밀번호가 올바르지 않습니다
+                        </Text.sub>}
                         
                         <button type="submit" className={styles.button}>로그인</button>
                     </form>

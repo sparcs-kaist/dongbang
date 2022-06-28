@@ -63,9 +63,3 @@
 .button:active {
     background-color: var(--theme-500-shadow);
 }
-
-.error {
-    color: var(--theme-red);
-    width: 100%;
-    padding: 0;
-}

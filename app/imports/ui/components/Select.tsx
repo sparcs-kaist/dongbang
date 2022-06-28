@@ -21,7 +21,7 @@ export const Select = styled(UnstyledSelect)`
   flex-direction: row;
   background-color: var(--grey-800);
   color: var(--grey-650);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   width: 100%;
   height: 50px;
   font-size: 15px;

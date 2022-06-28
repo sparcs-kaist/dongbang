@@ -1,6 +1,6 @@
 import React from 'react';
 import "./index.css";
-import "./theme.css";
+import "./themes";
 
 import {BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
 

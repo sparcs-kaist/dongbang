@@ -13,6 +13,8 @@ import {CloseIcon} from "/imports/assets/Icons";
 import {Logo} from "/imports/assets";
 import {Input} from "/imports/ui/components/Input";
 import {Text} from "/imports/ui/components/Text";
+import {Button} from "/imports/ui/components/Button";
+import {Spacer} from "/imports/ui/components/Spacer";
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
@@ -83,9 +85,15 @@ const Login: React.FC = () => {
                             />
                         </div>
         
-                        {error && <Text.sub className={styles.error}>아이디 또는 비밀번호가 올바르지 않습니다</Text.sub>}
-                        
-                        <button type="submit" className={styles.button}>로그인</button>
+                        {error && <Text.sub style={{
+                            color: "var(--theme-red)",
+                            width: "100%",
+                            padding: 0
+                        }}>
+                            아이디 또는 비밀번호가 올바르지 않습니다
+                        </Text.sub>}
+                        <Spacer y={0}/>
+                        <Button type="submit">로그인</Button>
                     </form>
                 }
             </div>

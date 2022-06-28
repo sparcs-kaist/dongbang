@@ -1,0 +1,11 @@
+button {
+    cursor: pointer;
+    transition: background-color .05s ease;
+    border: none;
+    outline: none;
+}
+
+input {
+    border: none;
+    outline: none;
+}

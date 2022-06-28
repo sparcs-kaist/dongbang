@@ -26,7 +26,7 @@ export const Card = styled(Fade)<CardProps>`
   };
   color: var(--color);
   background-color: var(--${props => props.primary ? "theme-500" : "grey-780"});
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   overflow: hidden;
   margin-bottom: 10px;
 `;

@@ -26,12 +26,12 @@ const CreateSession: React.FC = () => {
     }, [location]);
     
     const validate = useCallback(() => (
-        !close && (name.value.length > 0)
+        !close && (name.value.trim().length > 0)
     ), [name.value, close]);
     
     
     const create = () => {
-        startSession.call({name: name.value, location}, (err, res) => {
+        startSession.call({name: name.value.trim(), location}, (err, res) => {
             if (err) alert(err)
             else {
                 console.log(res);
@@ -51,6 +51,7 @@ const CreateSession: React.FC = () => {
                     type="text"
                     placeholder="세션 이름"
                     name="name"
+                    maxLength={50}
                     {...name}
                 />
             </div>

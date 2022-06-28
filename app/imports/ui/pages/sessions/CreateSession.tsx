@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 import {Drawer} from "/imports/ui/components/Drawer";
 import {Text} from "/imports/ui/components/Text";
@@ -15,10 +16,10 @@ import Collapse from "/imports/ui/components/animate/Collapse";
 import {Spacer} from "/imports/ui/components/Spacer";
 
 const CreateSession: React.FC = () => {
-    const [close, setClose] = useState<boolean>(false);
+    const navigate = useNavigate();
+    
     const {input: name} = useInput("");
     const [location, setLocation] = useState<Location | undefined>(undefined);
-    
     const [locationName, setLocationName] = useState<string>("");
     
     useEffect(() => {
@@ -26,9 +27,8 @@ const CreateSession: React.FC = () => {
     }, [location]);
     
     const validate = useCallback(() => (
-        !close && (name.value.trim().length > 0)
+        name.value.trim().length > 0
     ), [name.value, close]);
-    
     
     const create = () => {
         startSession.call({name: name.value.trim(), location}, (err, res) => {
@@ -36,11 +36,9 @@ const CreateSession: React.FC = () => {
             else {
                 console.log(res);
             }
-        })
-        
-        setClose(true);
+        });
+        navigate("..", {replace: true});
     }
-    
     
     return (
         <Drawer>

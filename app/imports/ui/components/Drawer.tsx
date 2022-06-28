@@ -13,7 +13,20 @@ const Container = styled(motion.div)`
   bottom: 0;
   background-color: var(--grey-900);
   border-radius: 20px 20px 0 0;
-  padding: 30px calc(var(--page-margin) + 5px) calc(env(safe-area-inset-bottom, 0) + 30px);
+  padding: 40px calc(var(--page-margin) + 5px) calc(env(safe-area-inset-bottom, 0) + 30px);
+  
+  &:before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--grey-750);
+    width: 15%;
+    margin: auto;
+  }
   
   &:after {
     content: "";

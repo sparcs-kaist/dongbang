@@ -48,18 +48,3 @@
     height: 60px;
     width: 70%;
 }
-
-.button {
-    width: 100%;
-    background-color: var(--theme-500);
-    border-radius: 10px;
-    height: 60px;
-    margin: 5px 0 20px;
-    color: var(--grey-900);
-    font-weight: 500;
-    font-size: 17px;
-}
-
-.button:active {
-    background-color: var(--theme-500-shadow);
-}

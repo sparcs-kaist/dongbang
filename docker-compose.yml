@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  app:
+    image: snowsuno/dongbang:latest
+    ports:
+      - '${EXTERNAL_PORT-3000}:3000'
+    depends_on:
+      - mongo
+    environment:
+      ROOT_URL: ${APP_ROOT_URL:-http://localhost}
+      MONGO_URL: mongodb://mongo:27017/meteor
+      PORT: 3000
+      MEMVERS_ROOT: ${MEMVERS_ROOT-}
+      MEMVERS_CREDENTIALS_UN: ${MEMVERS_CREDENTIALS_UN-}
+      MEMVERS_CREDENTIALS_PW: ${MEMVERS_CREDENTIALS_PW-}
+
+  mongo:
+    image: mongo:4.4.10
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:

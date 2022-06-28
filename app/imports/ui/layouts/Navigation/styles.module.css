@@ -1,0 +1,38 @@
+.nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(var(--theme-background_w), 0.8);
+    padding: 0 var(--page-margin) env(safe-area-inset-bottom, 0);
+    overflow: hidden;
+}
+
+.container {
+    height: var(--nav-height);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container > a {
+    flex: 1;
+    height: 100%;
+}
+
+.container svg {
+    width: 32px;
+    height: 32px;
+}
+
+.active svg {
+    fill: var(--theme-500);
+}

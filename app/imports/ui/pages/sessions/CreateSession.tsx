@@ -77,13 +77,13 @@ const CreateSession: React.FC = () => {
                     </Text.sub>
                 </Collapse>
             </div>
-            <Spacer y={10}/>
+            <Spacer y={12}/>
             <div style={{
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
             }}>
-                <Button onClick={create} disabled={!validate()}>열기</Button>
+                <Button onClick={create} disabled={!validate()} style={{zIndex: 10}}>열기</Button>
             </div>
         </Drawer>
     )

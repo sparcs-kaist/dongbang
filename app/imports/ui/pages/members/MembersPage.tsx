@@ -4,9 +4,8 @@ import React from "react";
 
 
 import {Text} from "/imports/ui/components/Text";
-import {MemberItem, MemberContainer, RequireLogin} from "./components";
+import {MemberItem, MemberContainer, RequireLogin, DeviceRegister} from "./components";
 
-import {LayoutGroup} from "framer-motion";
 import AnimatedOutlet from "/imports/ui/layouts/AnimatedOutlet";
 
 interface MembersProps {
@@ -19,21 +18,20 @@ const MembersPage: React.FC<MembersProps> = ({user, members}) => {
     
     return (<>
         <Text.main>멤버</Text.main>
-        <LayoutGroup>
-            <MemberContainer title={"내 프로필"}>
-                {user
-                    ? <MemberItem member={user}/>
-                    : <RequireLogin/>}
-            </MemberContainer>
-            <MemberContainer title={`동방 ${members?.length || 0}`}>
-                {otherMembers?.map(member =>
-                    <MemberItem
-                        key={member._id}
-                        member={member}
-                    />
-                )}
-            </MemberContainer>
-        </LayoutGroup>
+        <DeviceRegister/>
+        <MemberContainer title={"내 프로필"} key="me">
+            {user
+                ? <MemberItem member={user}/>
+                : <RequireLogin/>}
+        </MemberContainer>
+        <MemberContainer title={`동방 ${members?.length || 0}`} key="members">
+            {otherMembers?.map(member =>
+                <MemberItem
+                    key={member._id}
+                    member={member}
+                />
+            )}
+        </MemberContainer>
         
         <AnimatedOutlet/>
     </>)

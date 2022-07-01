@@ -13,8 +13,8 @@ export const Card = styled(Fade)<CardProps>`
           : "var(--grey-100)"
   };
   --color-sub: ${props => props.primary
-          ? "rgba(var(--grey-900_w), 0.8)"
-          : "rgba(var(--grey-100_w), 0.6)"
+          ? "rgba(var(--grey-900_w), 0.7)"
+          : "rgba(var(--grey-100_w), 0.35)"
   };
   --color-location: ${props => props.primary
           ? "var(--color-sub)"

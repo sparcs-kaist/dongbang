@@ -62,7 +62,7 @@ const Login: React.FC = () => {
                 <Logo className={styles.logo}/>
                 
                 {user
-                    ? <button onClick={logout} className={styles.button}>로그아웃</button>
+                    ? <Button onClick={logout}>로그아웃</Button>
                     : <form onSubmit={login}>
                         <div>
                             <Text.sub>아이디</Text.sub>

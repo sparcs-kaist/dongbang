@@ -13,16 +13,16 @@ export interface Device extends DeviceCreate {
     user: Meteor.User;
 }
 
-export const DeviceCollection = new Mongo.Collection<DeviceCreate, Device>("devices");
+export const DevicesCollection = new Mongo.Collection<DeviceCreate, Device>("devices");
 
-DeviceCollection.schema = new SimpleSchema({
+DevicesCollection.schema = new SimpleSchema({
     macAddress: String,
     userId: String,
 });
 
-DeviceCollection.attachSchema(DeviceCollection.schema);
+DevicesCollection.attachSchema(DevicesCollection.schema);
 
-DeviceCollection.addLinks({
+DevicesCollection.addLinks({
     "user": {
         type: "one",
         collection: Meteor.users,

@@ -13,12 +13,13 @@ export const Button = styled.button`
   border: none;
   margin: 0 auto;
 
-  &:active {
+  &:not(:disabled):active {
     background-color: var(--theme-500-shadow);
   }
 
   &:disabled {
     background-color: var(--grey-750);
+    color: var(--grey-700);
   }
 `;
 

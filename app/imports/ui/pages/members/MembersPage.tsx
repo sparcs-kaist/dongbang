@@ -18,7 +18,7 @@ const MembersPage: React.FC<MembersProps> = ({user, members}) => {
     
     return (<>
         <Text.main>멤버</Text.main>
-        <DeviceRegister/>
+        {!!user && <DeviceRegister/>}
         <MemberContainer title={"내 프로필"} key="me">
             {user
                 ? <MemberItem member={user}/>

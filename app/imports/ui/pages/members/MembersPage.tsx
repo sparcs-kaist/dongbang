@@ -2,11 +2,11 @@ import {Meteor} from "meteor/meteor";
 
 import React from "react";
 
-
 import {Text} from "/imports/ui/components/Text";
 import {MemberItem, MemberContainer, RequireLogin, DeviceRegister} from "./components";
 
 import AnimatedOutlet from "/imports/ui/layouts/AnimatedOutlet";
+import {LayoutGroup} from "framer-motion";
 
 interface MembersProps {
     user?: Meteor.User;
@@ -24,14 +24,16 @@ const MembersPage: React.FC<MembersProps> = ({user, members}) => {
                 ? <MemberItem member={user}/>
                 : <RequireLogin/>}
         </MemberContainer>
-        <MemberContainer title={`동방 ${members?.length || 0}`} key="members">
-            {otherMembers?.map(member =>
-                <MemberItem
-                    key={member._id}
-                    member={member}
-                />
-            )}
-        </MemberContainer>
+        <LayoutGroup>
+            <MemberContainer title={`동방 ${members?.length || 0}`} key="members">
+                {otherMembers?.map(member =>
+                    <MemberItem
+                        key={member._id}
+                        member={member}
+                    />
+                )}
+            </MemberContainer>
+        </LayoutGroup>
         
         <AnimatedOutlet/>
     </>)

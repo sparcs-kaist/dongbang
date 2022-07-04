@@ -5,6 +5,7 @@ import {status, device} from "./routes";
 
 export const initApp = () => {
     const app = express();
+    app.use(express.json());
     
     app.use("/status", status.router);
     app.use("/device", device.router);

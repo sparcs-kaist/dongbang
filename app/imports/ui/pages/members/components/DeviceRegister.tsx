@@ -49,7 +49,7 @@ const useDeviceRegister = () => {
                 setMacAddress(macAddress);
                 setError(error);
             })
-            .catch();
+            .catch(() => {});
     }, [setMacAddress, setError]);
     
     

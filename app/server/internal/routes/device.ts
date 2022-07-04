@@ -1,5 +1,5 @@
 import express from "express";
-import {DevicesCollection} from "/imports/db/device";
+import {DevicesCollection} from "/imports/db/devices";
 
 const router = express.Router();
 

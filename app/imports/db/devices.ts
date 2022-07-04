@@ -8,12 +8,12 @@ export interface DeviceCreate {
     userId: string;
 }
 
-export interface Device extends DeviceCreate {
+export interface Devices extends DeviceCreate {
     _id: string;
     user: Meteor.User;
 }
 
-export const DevicesCollection = new Mongo.Collection<DeviceCreate, Device>("devices");
+export const DevicesCollection = new Mongo.Collection<DeviceCreate, Devices>("devices");
 
 DevicesCollection.schema = new SimpleSchema({
     macAddress: String,

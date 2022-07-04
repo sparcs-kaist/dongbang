@@ -1,7 +1,7 @@
 import {Meteor} from "meteor/meteor";
 import {ValidatedMethod} from "meteor/mdg:validated-method";
 import SimpleSchema from "simpl-schema";
-import {DevicesCollection} from "/imports/db/device";
+import {DevicesCollection} from "/imports/db/devices";
 
 type RegisterDevice = (device: {
     macAddress: string;

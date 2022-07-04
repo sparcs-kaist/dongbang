@@ -3,6 +3,7 @@ import {Card, CardBody, CardText} from "/imports/ui/components/Card";
 import {AnimatePresence} from "framer-motion";
 import {Button} from "/imports/ui/components/Button";
 import {Spacer} from "/imports/ui/components/Spacer";
+import {registerDevice} from "/imports/api/methods/devices";
 
 
 const DeviceRegister: React.FC = () => {
@@ -55,6 +56,7 @@ const useDeviceRegister = () => {
     const register = () => {
         if (macAddress) {
             // Do something
+            registerDevice.call({macAddress});
             
             setMacAddress(undefined);
         }
@@ -74,7 +76,7 @@ interface Data {
 }
 
 const fetchData = async (): Promise<Data> => {
-    const res = await fetch("http://172.30.113.37:57463/dongbang");
+    const res = await fetch("http://192.168.0.74:57463/dongbang");
     
     if (res.status !== 200) throw new Error(res.statusText);
     

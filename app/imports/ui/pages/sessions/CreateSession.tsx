@@ -10,7 +10,7 @@ import {Select, SelectItem} from "/imports/ui/components/Select";
 import {startSession} from "/imports/api/methods/sessions";
 import useInput from "../../common/hooks/useInput";
 
-import {Location, LOCATION_NAME} from "/imports/db/sessions";
+import {Location, LOCATION_NAME} from "/imports/collections/sessions";
 import {LocationIcon} from "/imports/assets/Icons";
 import Collapse from "/imports/ui/components/animate/Collapse";
 import {Spacer} from "/imports/ui/components/Spacer";

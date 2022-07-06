@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styles from "./SessionItem.module.css";
 
-import {LOCATION_NAME, Session} from "/imports/db/sessions";
+import {LOCATION_NAME, Session} from "/imports/collections/sessions";
 
 import {Card, CardAction, CardText, CardButton, CardBody} from "/imports/ui/components/Card";
 import {renderProfileText} from "/imports/ui/components/Text";

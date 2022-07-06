@@ -1,6 +1,6 @@
 import {Meteor} from "meteor/meteor";
 import {ValidatedMethod} from "meteor/mdg:validated-method";
-import {Location, SessionCollection, Session} from "/imports/db/sessions";
+import {Location, SessionsCollection, Session} from "/imports/collections/sessions";
 import SimpleSchema from "simpl-schema";
 import {Enum, Optional} from "/imports/custom/simpl-schema";
 
@@ -34,13 +34,13 @@ function cleanup(options: any) {
         
         if (!sessionId) return res;
         
-        const memberCount = SessionCollection
+        const memberCount = SessionsCollection
             .getLink<Meteor.User>(sessionId, "members")
             .find()
             .count();
         
         if (memberCount === 0) {
-            SessionCollection.remove(sessionId);
+            SessionsCollection.remove(sessionId);
         }
         
         return res;
@@ -96,13 +96,13 @@ export const startSession = new ValidatedMethod<string, StartSession>({
         //     throw new Meteor.Error("Leave current session first to create new session")
         // }
         
-        const sessionId = SessionCollection.insert({
+        const sessionId = SessionsCollection.insert({
             name: session.name,
             location: session.location,
             creatorId: this.userId,
         });
         
-        SessionCollection
+        SessionsCollection
             .getLink<Meteor.User>(sessionId, "members")
             .set(this.userId);
     }
@@ -125,7 +125,7 @@ export const endSession = new ValidatedMethod<string, () => void>({
             throw new Meteor.Error("A session can be ended only by its creator")
         }
         
-        SessionCollection.remove(currentSession._id);
+        SessionsCollection.remove(currentSession._id);
     }
 });
 
@@ -142,7 +142,7 @@ export const joinSession = new ValidatedMethod<string, JoinSession>({
             throw new Meteor.Error("Not authorized.");
         }
         
-        SessionCollection
+        SessionsCollection
             .getLink<Meteor.User>(sessionId, "members")
             .set(this.userId);
     }

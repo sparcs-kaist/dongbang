@@ -1,7 +1,7 @@
 import SimpleSchema from "simpl-schema";
 import {ValidatedMethod} from "meteor/mdg:validated-method";
 import {Meteor} from "meteor/meteor";
-import {Session} from "/imports/db/sessions";
+import {Session} from "/imports/collections/sessions";
 
 type UpdateStatusMethod = (status: {
     isActive?: boolean;

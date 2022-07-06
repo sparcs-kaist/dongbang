@@ -1,7 +1,7 @@
 import {Meteor} from "meteor/meteor";
 
 import express from "express";
-import {DevicesCollection} from "/imports/db/devices";
+import {DevicesCollection} from "/imports/collections/devices";
 
 const router = express.Router();
 

@@ -2,7 +2,7 @@
 /// <reference path="../node_modules/@types/meteor-mdg-validated-method/index.d.ts" />
 
 
-import {UserExtension as UserExtend} from "/imports/db/users";
+import {UserExtension as UserExtend} from "/imports/collections/users";
 
 
 declare module "meteor/meteor" {

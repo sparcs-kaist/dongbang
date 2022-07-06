@@ -25,17 +25,17 @@ export interface Session extends SessionCreate {
     members: Meteor.User[];
 }
 
-export const SessionCollection = new Mongo.Collection<SessionCreate, Session>("sessions");
+export const SessionsCollection = new Mongo.Collection<SessionCreate, Session>("sessions");
 
-SessionCollection.schema = new SimpleSchema({
+SessionsCollection.schema = new SimpleSchema({
     name: String,
     location: Optional(Enum(Location)),
     creatorId: String,
 });
 
-SessionCollection.attachSchema(SessionCollection.schema);
+SessionsCollection.attachSchema(SessionsCollection.schema);
 
-SessionCollection.addLinks({
+SessionsCollection.addLinks({
     "members": {
         collection: Meteor.users,
         inversedBy: "session",

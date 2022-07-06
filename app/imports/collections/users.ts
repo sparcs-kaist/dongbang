@@ -2,7 +2,7 @@ import {Meteor} from "meteor/meteor";
 import SimpleSchema from "simpl-schema";
 import {Optional} from "/imports/custom/simpl-schema";
 
-import {Session, SessionCollection} from "/imports/db/sessions";
+import {Session, SessionsCollection} from "/imports/collections/sessions";
 
 
 export interface UserExtension {
@@ -42,7 +42,7 @@ Meteor.users.attachSchema(Meteor.users.schema);
 Meteor.users.addLinks({
     "session": {
         type: "one",
-        collection: SessionCollection,
+        collection: SessionsCollection,
         field: "sessionId"
     }
 });

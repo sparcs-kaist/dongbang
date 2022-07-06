@@ -4,7 +4,7 @@ import React from "react";
 import classNames from "classnames";
 import styles from "./MemberStatus.module.css";
 
-import {LOCATION_NAME} from "/imports/db/sessions";
+import {LOCATION_NAME} from "/imports/collections/sessions";
 
 interface MemberStatusProps {
     member: Meteor.User;

@@ -1,3 +1,3 @@
-import "./db";
+import "./collections";
 import "./auth";
 import "./api";

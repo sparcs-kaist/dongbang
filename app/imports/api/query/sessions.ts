@@ -1,7 +1,7 @@
-import {SessionCollection} from "/imports/db/sessions";
+import {SessionsCollection} from "/imports/collections/sessions";
 import {expose} from "./helpers/expose";
 
-export const sessionsQuery = SessionCollection.createQuery("session", {
+export const sessionsQuery = SessionsCollection.createQuery("session", {
     name: 1,
     location: 1,
     creator: {

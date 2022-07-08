@@ -47,7 +47,7 @@ declare module "meteor/mongo" {
         }
         
         interface DirectLinkOptions<T> {
-            type?: "one" | "many";
+            type: "one" | "many";
             collection: Partial<Collection<T>>;
             field: string;
         }

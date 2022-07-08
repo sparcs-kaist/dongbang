@@ -22,13 +22,23 @@ router.post("/", (req, res) => {
 
 
 const changeStatus = Meteor.bindEnvironment((macAddress: string, isActive: boolean) => {
-    const userId = DevicesCollection.findOne({macAddress})?.userId;
+    const device = DevicesCollection.findOne({macAddress});
     
-    if (userId) {
-        Meteor.users.update(userId, {
-            $set: {isActive},
-        });
-    }
+    // try {
+    //     if (device) {
+    //         DevicesCollection
+    //             .findOne({macAddress})
+    //             .getLink<Meteor.User>(device, "user")
+    //             .set({isActive});
+    //     }
+    // } catch (e) {
+    //     console.error(e?.errInfo.details.schemaRulesNotSatisfied)
+    // }
+    // if (userId) {
+    //     Meteor.users.update(userId, {
+    //         $set: {isActive},
+    //     });
+    // }
 });
 
 export default {router};

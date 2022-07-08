@@ -14,6 +14,7 @@
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
+    "strictPropertyInitialization": false,
 
     /* Additional Checks */
     "noUnusedLocals": false,
@@ -31,9 +32,13 @@
     "resolveJsonModule": true,
     "types": ["node", "mocha", "meteor"],
     "esModuleInterop": true,
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+
+    /* Decorator options */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
-//  "include": [
+  //  "include": [
 //    "src",
 //    "**/*.ts",
 //    "@types/**/*.d.ts",
@@ -43,6 +48,6 @@
   "exclude": [
     "./.meteor/**",
     "./packages/**"
-  ],
+  ]
 
 }

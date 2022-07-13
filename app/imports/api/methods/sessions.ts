@@ -1,8 +1,9 @@
 import {Meteor} from "meteor/meteor";
 import {ValidatedMethod} from "meteor/mdg:validated-method";
-import {Location, SessionsCollection, Session} from "/imports/collections/sessions";
+import {Location, SessionsCollection} from "/imports/collections/sessions";
 import SimpleSchema from "simpl-schema";
 import {Enum, Optional} from "/imports/custom/simpl-schema";
+import {UsersCollection} from "/imports/collections/users";
 
 
 
@@ -26,7 +27,7 @@ function cleanup(options: any) {
     const run = options.run;
     
     options.run = function (...args: any[]) {
-        const sessionId = Meteor.users
+        const sessionId = UsersCollection
             .findOne(this.userId, {fields: {sessionId: 1}})
             ?.sessionId;
         
@@ -35,7 +36,7 @@ function cleanup(options: any) {
         if (!sessionId) return res;
         
         const memberCount = SessionsCollection
-            .getLink<Meteor.User>(sessionId, "members")
+            .getLink(sessionId, "members")
             .find()
             .count();
         
@@ -103,7 +104,7 @@ export const startSession = new ValidatedMethod<string, StartSession>({
         });
         
         SessionsCollection
-            .getLink<Meteor.User>(sessionId, "members")
+            .getLink(sessionId, "members")
             .set(this.userId);
     }
 });
@@ -117,8 +118,8 @@ export const endSession = new ValidatedMethod<string, () => void>({
             throw new Meteor.Error("Not authorized.");
         }
         
-        const currentSession = Meteor.users
-            .getLink<Session>(this.userId, "session")
+        const currentSession = UsersCollection
+            .getLink(this.userId, "session")
             .fetch();
         
         if (currentSession.creatorId !== this.userId) {
@@ -143,7 +144,7 @@ export const joinSession = new ValidatedMethod<string, JoinSession>({
         }
         
         SessionsCollection
-            .getLink<Meteor.User>(sessionId, "members")
+            .getLink(sessionId, "members")
             .set(this.userId);
     }
 });
@@ -165,8 +166,8 @@ export const leaveSession = new ValidatedMethod<string, () => void>({
         //     throw new Meteor.Error("Not in session")
         // }
         
-        Meteor.users
-            .getLink<Session>(this.userId, "session")
+        UsersCollection
+            .getLink(this.userId, "session")
             .unset();
         
         // const memberCount = SessionCollection

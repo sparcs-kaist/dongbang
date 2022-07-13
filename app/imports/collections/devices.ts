@@ -1,31 +1,15 @@
-import {Meteor} from "meteor/meteor";
+import {IsNotEmpty} from "class-validator";
+import {LinkOne} from "/imports/modules/collections/decorators/links";
+import {One} from "/imports/modules/collections/types";
+import {User} from "/imports/collections/users";
+import {createCollection} from "/imports/modules/collections";
 
-import {Mongo} from "meteor/mongo";
-import SimpleSchema from "simpl-schema";
-
-export interface DeviceCreate {
+export class Device {
+    @IsNotEmpty()
     macAddress: string;
-    userId: string;
+    
+    @LinkOne("User")
+    user: One<User>;
 }
 
-export interface Devices extends DeviceCreate {
-    _id: string;
-    user: Meteor.User;
-}
-
-export const DevicesCollection = new Mongo.Collection<DeviceCreate, Devices>("devices");
-
-DevicesCollection.schema = new SimpleSchema({
-    macAddress: String,
-    userId: String,
-});
-
-DevicesCollection.attachSchema(DevicesCollection.schema);
-
-DevicesCollection.addLinks({
-    "user": {
-        type: "one",
-        collection: Meteor.users,
-        field: "userId"
-    }
-});
+export const DevicesCollection = createCollection(Device);

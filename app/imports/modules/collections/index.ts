@@ -1,3 +1,3 @@
-import {createCollection, bindCollection} from "./schema";
+import {createCollection, bindCollection} from "./collection";
 
 export {createCollection, bindCollection}

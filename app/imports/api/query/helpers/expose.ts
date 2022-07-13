@@ -1,7 +1,7 @@
 import {Meteor} from "meteor/meteor";
-import {Mongo} from "meteor/mongo";
+import {Grapher} from "meteor/cultofcoders:grapher";
 
-export const expose = (query: Mongo.GraphQuery<any, any>) => {
+export const expose = (query: Grapher.Query<any, any>) => {
     if (Meteor.isServer) {
         Meteor.startup(() => query.expose());
     }

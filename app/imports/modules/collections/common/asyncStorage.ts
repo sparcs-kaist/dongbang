@@ -4,13 +4,20 @@ export class AsyncKeyValueStorage<T> {
     private readonly _storage: Map<T>;
     private readonly _pending: Map<Resolver<T>[]>;
     
-    constructor() {
+    private readonly _timeout: number;
+    
+    constructor(timeout?: number) {
         this._storage = {};
         this._pending = {};
+        
+        this._timeout = timeout || 1000;
     }
+
     
     getAsync(key: string): Promise<T> {
-        return new Promise<T>(resolve => {
+        return new Promise<T>((resolve, reject) => {
+            setTimeout(() => reject(`Invalid Key "${key}"`), this._timeout)
+            
             if (key in this._storage) {
                 return resolve(this._storage[key]);
             }
@@ -22,13 +29,15 @@ export class AsyncKeyValueStorage<T> {
     }
     
     get(key: string): T {
-        console.log(this._storage);
-        
         if (!(key in this._storage)) {
             throw new Error(`Invalid Key "${key}"`);
         }
         
         return this._storage[key];
+    }
+    
+    contains(key: string): boolean {
+        return key in this._storage;
     }
     
     set(key: string, value: T): void {

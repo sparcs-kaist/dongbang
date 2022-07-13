@@ -1,33 +1,33 @@
 import "reflect-metadata";
-import {ClassConstructor} from "class-transformer";
 import {IsOptional, IsString} from "class-validator";
 
 import {metaStorage} from "../metaStorage";
 import {sync} from "../common/asyncWrapper";
 
-const checkTypes = (target: Object, propertyKey: string | symbol, expectedType: ClassConstructor<any>, expectedTypeName?: string) => {
+const checkTypes = (target: Object, propertyKey: string | symbol, expectedType: string, expectedTypeName?: string) => {
     const type = Reflect.getMetadata("design:type", target, propertyKey);
     
-    if (type !== expectedType) {
+    if (type.name !== expectedType) {
         console.warn(
             "[warning]",
-            `Wrong type "${type.name}" of property "${String(propertyKey)}". Consider changing it to "${expectedTypeName || expectedType.name}".`
+            `Wrong type "${type.name}" of property "${String(propertyKey)}". Consider changing it to "${expectedTypeName || expectedType}".`
         );
     }
 }
 
-const registerIdField = (target:Object, relatedField: string | symbol) => {
+const registerIdField = (target: Object, relatedField: string | symbol) => {
     IsString()(target, `${String(relatedField)}Id`);
     IsOptional()(target, `${String(relatedField)}Id`);
 }
 
 
-export const LinkOne = <T>(relation: ClassConstructor<T>): PropertyDecorator => sync(async (target, propertyKey) => {
+export const LinkOne = <T>(relation: string): PropertyDecorator => sync(async (target, propertyKey) => {
     registerIdField(target, `${String(propertyKey)}Id`);
-    checkTypes(target, propertyKey, relation);
+    // checkTypes(target, propertyKey, relation);
+    
     
     const collection = await metaStorage.collections.getAsync(target.constructor.name);
-    const relatedCollection = await metaStorage.collections.getAsync(relation.name);
+    const relatedCollection = await metaStorage.collections.getAsync(relation);
     
     collection.addLinks<T>({
         [String(propertyKey)]: {
@@ -36,14 +36,16 @@ export const LinkOne = <T>(relation: ClassConstructor<T>): PropertyDecorator => 
             field: `${String(propertyKey)}Id`,
         }
     });
+    
+    metaStorage.links.set(`${target.constructor.name}.${String(propertyKey)}`, "Qwer");
 });
 
-export const LinkMany = <T>(relation: ClassConstructor<T>): PropertyDecorator => sync(async (target, propertyKey) => {
+export const LinkMany = <T>(relation: string): PropertyDecorator => sync(async (target, propertyKey) => {
     registerIdField(target, `${String(propertyKey)}Id`);
-    checkTypes(target, propertyKey, Array, `${relation.name}[]`);
+    // checkTypes(target, propertyKey, "Array", `${relation}[]`);
     
     const collection = await metaStorage.collections.getAsync(target.constructor.name);
-    const relatedCollection = await metaStorage.collections.getAsync(relation.name);
+    const relatedCollection = await metaStorage.collections.getAsync(relation);
     
     collection.addLinks<T>({
         [String(propertyKey)]: {
@@ -55,16 +57,18 @@ export const LinkMany = <T>(relation: ClassConstructor<T>): PropertyDecorator =>
 });
 
 export const InverseLink = <T>(fieldKey: `${string}.${string}`): PropertyDecorator => sync(async (target, propertyKey) => {
-    const [relatedSchemaName, relatedFieldName] = fieldKey.split(".", 2);
-    checkTypes(target, propertyKey, Array, `${relatedSchemaName}[]`)
+    const [relation, field] = fieldKey.split(".", 2);
+    // checkTypes(target, propertyKey, "Array", `${relation}[]`)
     
-    const relatedCollection = await metaStorage.collections.getAsync(relatedSchemaName);
+    const relatedCollection = await metaStorage.collections.getAsync(relation);
     const collection = await metaStorage.collections.getAsync(target.constructor.name);
+    
+    await metaStorage.links.getAsync(fieldKey);
     
     collection.addLinks<T>({
         [String(propertyKey)]: {
             collection: relatedCollection,
-            inversedBy: relatedFieldName
+            inversedBy: field
         }
     });
 });

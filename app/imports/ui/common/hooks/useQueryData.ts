@@ -1,8 +1,8 @@
 import {useTracker} from "meteor/react-meteor-data";
-import {Mongo} from "meteor/mongo";
+import {Grapher} from "meteor/cultofcoders:grapher";
 
 export const useQueryData = <T, U = T>(
-    query: Mongo.GraphQuery<T, U>,
+    query: Grapher.Query<T, U>,
     options?: Object
 ): U[] | undefined =>
     useTracker(() => {

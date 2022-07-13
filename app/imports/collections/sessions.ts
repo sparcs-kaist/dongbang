@@ -1,66 +1,29 @@
-import {Meteor} from "meteor/meteor";
-
-import {Mongo} from "meteor/mongo";
-import SimpleSchema from "simpl-schema";
-import {Enum, Optional} from "/imports/custom/simpl-schema";
-import {Collection} from "/imports/modules/collections/decorators/collection";
-import {IsEnum, IsOptional, IsString} from "class-validator";
+import {IsEnum, IsNotEmpty, IsOptional} from "class-validator";
 import {InverseLink, LinkOne} from "/imports/modules/collections/decorators/links";
-import {User} from "/imports/collections/users";
-import {getCollection} from "/imports/modules/collections/schema";
+import {User} from "./internal";
+import {createCollection} from "/imports/modules/collections/collection";
+
+import {Inverse, One, Query} from "/imports/modules/collections/types";
 
 export enum Location {
     A_SITE = "A SITE",
     B_SITE = "B SITE",
 }
-//
-// export const LOCATION_NAME = {
-//     [Location.A_SITE]: "A SITE",
-//     [Location.B_SITE]: "B SITE",
-// } as const;
-//
-// interface SessionCreate {
-//     name: string;
-//     location?: Location;
-//     creatorId: string;
-// }
-//
-// export interface Session extends SessionCreate {
-//     _id: string;
-//     members: Meteor.User[];
-// }
 
-@Collection()
-export class Session {
-    @IsString()
+export class SessionSchema {
+    @IsNotEmpty()
     name: string;
     
     @IsEnum(Location) @IsOptional()
     location?: Location;
     
-    // @LinkOne(User)
-    // creator: User;
+    @LinkOne("User")
+    creator: One<User>;
     
     @InverseLink("User.session")
-    members: User[];
+    members: Inverse<User>;
 }
 
+export type Session = Query<SessionSchema>;
 
-// export const SessionsCollection = new Mongo.Collection<SessionCreate, Session>("sessions");
-export const SessionsCollection = getCollection(Session);
-
-//
-// SessionsCollection.schema = new SimpleSchema({
-//     name: String,
-//     location: Optional(Enum(Location)),
-//     creatorId: String,
-// });
-//
-// SessionsCollection.attachSchema(SessionsCollection.schema);
-//
-// SessionsCollection.addLinks({
-//     "members": {
-//         collection: Meteor.users,
-//         inversedBy: "session",
-//     }
-// });
+export const SessionsCollection = createCollection(SessionSchema);

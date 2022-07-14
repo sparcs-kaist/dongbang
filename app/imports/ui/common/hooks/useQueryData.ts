@@ -1,10 +1,11 @@
 import {useTracker} from "meteor/react-meteor-data";
 import {Grapher} from "meteor/cultofcoders:grapher";
+import {Mutation, Query} from "/imports/modules/collections/types";
 
-export const useQueryData = <T, U = T>(
-    query: Grapher.Query<T, U>,
+export const useQueryData = <T>(
+    query: Grapher.Query<Mutation<T>, Query<T>>,
     options?: Object
-): U[] | undefined =>
+): Query<T>[] | undefined =>
     useTracker(() => {
         const clientQuery = query.clone({...options});
         const handler = clientQuery.subscribe();

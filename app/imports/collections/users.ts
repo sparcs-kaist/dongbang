@@ -7,7 +7,7 @@ import {bindCollection} from "/imports/modules/collections";
 import {One} from "/imports/modules/collections/types";
 
 
-export class User {
+export class UserSchema {
     @IsString()
     name: string;
 
@@ -27,4 +27,4 @@ export class User {
     session: One<Session>;
 }
 
-export const UsersCollection = bindCollection(Meteor.users, User);
+export const UsersCollection = bindCollection(Meteor.users, UserSchema);

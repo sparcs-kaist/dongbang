@@ -4,7 +4,6 @@ import {expose} from "./helpers/expose";
 // import {createQuery} from 'meteor/cultofcoders:grapher';
 
 export const sessionsQuery = SessionsCollection.createQuery("session", {
-    Session: {
         name: 1,
         location: 1,
         creator: {
@@ -15,6 +14,6 @@ export const sessionsQuery = SessionsCollection.createQuery("session", {
             username: 1,
         },
     }
-});
+);
 
 expose(sessionsQuery);

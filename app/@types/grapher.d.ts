@@ -1,6 +1,7 @@
 declare module "meteor/cultofcoders:grapher" {
-    import {SchemaCollection} from "/imports/modules/collections/types";
+    import {Mongo} from "meteor/mongo";
     export module Grapher {
+        
         type QueryBody<T> = any;
         
         interface QueryOptions {
@@ -48,12 +49,12 @@ declare module "meteor/cultofcoders:grapher" {
         
         interface DirectLinkOptions<T> {
             type: "one" | "many";
-            collection: Partial<SchemaCollection<T>>;
+            collection: Partial<Mongo.SchemaCollection<T>>;
             field: string;
         }
         
         interface InverseLinkOptions<T> {
-            collection: Partial<SchemaCollection<T>>;
+            collection: Partial<Mongo.SchemaCollection<T>>;
             inversedBy: string;
         }
         

@@ -1,21 +1,24 @@
-import {Meteor} from "meteor/meteor";
-
-import React from "react";
+import * as React from "react";
 import styles from "./MemberOverlay.module.css";
 
 import {useParams} from "react-router-dom";
 
-import {Text, renderProfileText} from "/imports/ui/components/Text";
-import {Button} from "/imports/ui/components/Button";
-import MemberStatus from "/imports/ui/pages/members/components/MemberStatus";
+import {
+    Button,
+    Drawer,
+    Text,
+    renderProfileText,
+} from "../../components";
 
-import {updateStatus} from "/imports/api/methods/members";
-import {Drawer} from "/imports/ui/components/Drawer";
+import MemberStatus from "./components/MemberStatus";
+
+import {updateStatus} from "../../../api/methods/members";
+import {User} from "../../../collections/users";
 
 
 interface MemberProps {
-    user?: Meteor.User;
-    members?: Meteor.User[];
+    user?: User;
+    members?: User[];
 }
 
 const MemberDetail: React.FC<MemberProps> = ({user, members}) => {

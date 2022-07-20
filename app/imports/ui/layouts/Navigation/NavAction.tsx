@@ -1,4 +1,5 @@
-import React, {ReactNode} from "react";
+import * as React from "react";
+import {ReactNode} from "react";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 

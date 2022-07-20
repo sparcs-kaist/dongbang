@@ -1,18 +1,26 @@
-import React from "react";
+import * as React from "react";
 
-import {SessionTitle, SessionItem} from "/imports/ui/pages/sessions/components";
-import {Text} from "/imports/ui/components/Text";
+// import {SessionTitle, SessionItem} from "/imports/ui/pages/sessions/components";
+import {
+    SessionTitle,
+    SessionItem,
+} from "./components";
 
-import {Session} from "/imports/collections/sessions";
-import List from "/imports/ui/components/List";
-import AnimatedOutlet from "/imports/ui/layouts/AnimatedOutlet";
+import {
+    Text,
+    List,
+} from "../../components";
+
+import AnimatedOutlet from "../../layouts/AnimatedOutlet";
+import { Session } from "../../../collections/sessions";
+import { Query } from "../../../modules/collections/types";
 
 interface SessionsProps {
-    sessions?: Session[];
+    sessions?: Query<Session>[];
     currentSessionId?: string;
 }
 
-const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => {
+const SessionsPage: React.FC<SessionsProps> = ({ sessions, currentSessionId }) => {
     const sessionGroups = sortSession(sessions, currentSessionId);
     
     return (<>
@@ -28,7 +36,7 @@ const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => 
                     session={session}
                     key={session._id}
                     joined
-                />
+                />,
             )}
             
             <SessionTitle
@@ -40,7 +48,7 @@ const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => 
                 <SessionItem
                     session={session}
                     key={session._id}
-                />
+                />,
             )}
             
             <SessionTitle
@@ -52,28 +60,28 @@ const SessionsPage: React.FC<SessionsProps> = ({sessions, currentSessionId}) => 
                 <SessionItem
                     session={session}
                     key={session._id}
-                />
+                />,
             )}
         </List>
         <AnimatedOutlet/>
-    </>)
-}
+    </>);
+};
 
 interface SessionGroup {
-    current: Session[];
-    important: Session[];
-    common: Session[];
+    current: Query<Session>[];
+    important: Query<Session>[];
+    common: Query<Session>[];
 }
 
-const sortSession = (sessions: Session[] | undefined, currentSessionId: string | undefined) => {
-    const filter = (session: Session): keyof SessionGroup => (
+const sortSession = (sessions: Query<Session>[] | undefined, currentSessionId: string | undefined) => {
+    const filter = (session: Query<Session>): keyof SessionGroup => (
         currentSessionId === session._id ? "current"
             : session.location ? "important" : "common"
     );
     
-    const group: SessionGroup = {current: [], important: [], common: []};
+    const group: SessionGroup = { current: [], important: [], common: [] };
     sessions?.forEach(session => group[filter(session)].push(session));
     return group;
-}
+};
 
 export default SessionsPage;

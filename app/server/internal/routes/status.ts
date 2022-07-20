@@ -1,7 +1,7 @@
-import {Meteor} from "meteor/meteor";
+import { Meteor } from "meteor/meteor";
 
-import express from "express";
-import {DevicesCollection} from "/imports/collections/devices";
+import * as express from "express";
+import { DevicesCollection } from "../../../imports/collections/devices";
 
 const router = express.Router();
 
@@ -16,13 +16,12 @@ router.post("/", (req, res) => {
     
     query.entered.forEach(macAddress => changeStatus(macAddress, true));
     query.exited.forEach(macAddress => changeStatus(macAddress, false));
-
+    
     res.status(204).send();
 });
 
-
 const changeStatus = Meteor.bindEnvironment((macAddress: string, isActive: boolean) => {
-    const device = DevicesCollection.findOne({macAddress});
+    const device = DevicesCollection.findOne({ macAddress });
     
     // try {
     //     if (device) {
@@ -41,4 +40,4 @@ const changeStatus = Meteor.bindEnvironment((macAddress: string, isActive: boole
     // }
 });
 
-export default {router};
+export default { router };

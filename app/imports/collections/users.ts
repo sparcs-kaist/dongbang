@@ -1,25 +1,24 @@
-import {Meteor} from "meteor/meteor";
-import {Session} from "./internal";
+import { Meteor } from "meteor/meteor";
+import { Session } from "./init";
 
-import {IsBoolean, IsObject, IsOptional, IsString} from "class-validator";
-import {LinkOne} from "/imports/modules/collections/decorators/links";
-import {bindCollection} from "/imports/modules/collections";
-import {One} from "/imports/modules/collections/types";
+import { IsBoolean, IsObject, IsOptional, IsString } from "class-validator";
+import { LinkOne } from "/imports/modules/collections/decorators/links";
+import { bindCollection } from "/imports/modules/collections";
+import { One } from "/imports/modules/collections/types";
 
-
-export class UserSchema {
+export class User {
     @IsString()
     name: string;
-
+    
     @IsString()
     username: string;
-
+    
     @IsBoolean()
     isActive: boolean;
-
+    
     @IsOptional() @IsString()
     statusMsg?: string;
-
+    
     @IsOptional() @IsObject()
     services?: object;
     
@@ -27,4 +26,4 @@ export class UserSchema {
     session: One<Session>;
 }
 
-export const UsersCollection = bindCollection(Meteor.users, UserSchema);
+export const UsersCollection = bindCollection(Meteor.users, User);

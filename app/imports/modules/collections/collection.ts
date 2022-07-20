@@ -1,7 +1,7 @@
 import {Mongo} from "meteor/mongo";
 
 import {ClassConstructor} from "class-transformer";
-import {metaStorage} from "/imports/modules/collections/metaStorage";
+import {metaStorage} from "./metaStorage";
 
 import {SchemaObject} from "openapi3-ts";
 import {targetConstructorToSchema} from "class-validator-jsonschema";

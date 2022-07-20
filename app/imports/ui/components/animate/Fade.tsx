@@ -1,8 +1,7 @@
-import React from "react";
+import * as React from "react";
 import {motion, HTMLMotionProps} from "framer-motion";
 
-
-const Fade: React.FC<HTMLMotionProps<"div">> = (props) => (
+export const Fade: React.FC<HTMLMotionProps<"div">> = (props) => (
     <motion.div
         layout
         initial={{opacity: 0}}
@@ -10,7 +9,4 @@ const Fade: React.FC<HTMLMotionProps<"div">> = (props) => (
         exit={{opacity: 0}}
         {...props}
     />
-)
-
-
-export default Fade;
+);

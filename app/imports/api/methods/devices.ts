@@ -1,7 +1,8 @@
-import {Meteor} from "meteor/meteor";
-import {ValidatedMethod} from "meteor/mdg:validated-method";
+import { Meteor } from "meteor/meteor";
+import { ValidatedMethod } from "meteor/mdg:validated-method";
 import SimpleSchema from "simpl-schema";
-import {DevicesCollection} from "/imports/collections/devices";
+
+import { DevicesCollection } from "../../collections/devices";
 
 type RegisterDevice = (device: {
     macAddress: string;
@@ -10,9 +11,9 @@ type RegisterDevice = (device: {
 export const registerDevice = new ValidatedMethod<string, RegisterDevice>({
     name: "device.register",
     validate: new SimpleSchema({
-        macAddress: String
+        macAddress: String,
     }).validator(),
-    run(device) {
+    run (device) {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized");
         }
@@ -20,5 +21,5 @@ export const registerDevice = new ValidatedMethod<string, RegisterDevice>({
             macAddress: device.macAddress,
             userId: this.userId,
         });
-    }
+    },
 });

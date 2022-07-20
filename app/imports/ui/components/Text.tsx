@@ -1,7 +1,7 @@
-import {Meteor} from "meteor/meteor";
-
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
+
+import {User} from "../../collections/users";
 
 export const Text = {
     main: styled.h1`
@@ -23,7 +23,7 @@ const Username = styled.span`
   opacity: 0.5;
 `;
 
-export const renderProfileText = (member: Meteor.User) =>
+export const renderProfileText = (member: User) =>
     <>
         <span>{member.name}</span>
         <Username>{member.username}</Username>

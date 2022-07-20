@@ -1,9 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {Card, CardBody, CardText} from "/imports/ui/components/Card";
+import * as React from "react";
+import {useEffect, useState} from "react";
+
 import {AnimatePresence} from "framer-motion";
-import {Button} from "/imports/ui/components/Button";
-import {Spacer} from "/imports/ui/components/Spacer";
-import {registerDevice} from "/imports/api/methods/devices";
+
+import {
+    Card,
+    CardBody,
+    CardText,
+    Button,
+    Spacer,
+} from "../../../components";
+
+import {registerDevice} from "../../../../api/methods/devices";
 
 
 const DeviceRegister: React.FC = () => {

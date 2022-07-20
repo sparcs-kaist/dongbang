@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
-import Fade from "/imports/ui/components/animate/Fade";
+import {Fade} from "./animate";
 
 
 interface CardProps {

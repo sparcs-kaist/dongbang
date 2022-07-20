@@ -1,15 +1,17 @@
-import React from "react";
-import styles from "./AppLayout.module.css";
+import * as React from "react";
+// import styles from "./AppLayout.module.css";
 
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-import Header from "/imports/ui/layouts/Header";
-import Navigation from "/imports/ui/layouts/Navigation";
-
+import { Header } from "./Header";
+import Navigation from "./Navigation";
 
 const AppLayout: React.FC = () => <>
     <Header/>
-    <main className={styles.content}>
+    <main style={{
+        padding: "var(--header-height) var(--page-margin) var(--nav-height)",
+        minHeight: "100%",
+    }}>
         <Outlet/>
     </main>
     <Navigation/>

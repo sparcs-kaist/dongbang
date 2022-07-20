@@ -1,13 +1,15 @@
-import React from "react";
+import * as React from "react";
 import styles from "./styles.module.css";
 
+import {
+    Logo,
+    MemberIcon,
+    CreateIcon,
+} from "../../../assets";
 
-import {Logo} from "/imports/assets/Logo";
-import {MemberIcon, CreateIcon} from "/imports/assets/NavIcons";
+import HeaderAction from "./HeaderAction";
 
-import HeaderAction from "/imports/ui/layouts/Header/HeaderAction";
-
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
     
     
     return (
@@ -24,6 +26,4 @@ const Header: React.FC = () => {
         
         </header>
     )
-}
-
-export default Header;
+};

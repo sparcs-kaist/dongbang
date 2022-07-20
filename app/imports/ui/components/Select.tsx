@@ -1,4 +1,5 @@
-import React, {Children, cloneElement, isValidElement} from "react";
+import * as React from "react";
+import {Children, cloneElement, isValidElement} from "react";
 import {ButtonProps, DivProps} from "react-html-props";
 import styled from "styled-components";
 

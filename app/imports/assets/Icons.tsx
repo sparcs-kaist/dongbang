@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {SVGProps} from "react-html-props";
 
 export const LocationIcon: React.FC<SVGProps> = React.memo((props) =>

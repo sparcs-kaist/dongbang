@@ -1,11 +1,11 @@
-import React from "react";
+import * as React from "react";
 import {motion, HTMLMotionProps} from "framer-motion";
 
 interface CollapseProps extends HTMLMotionProps<"div"> {
     show: boolean;
 }
 
-const Collapse: React.FC<CollapseProps> = ({show, ...props}) => (
+export const Collapse: React.FC<CollapseProps> = ({show, ...props}) => (
     <motion.div
         initial="hidden"
         variants={{
@@ -22,5 +22,3 @@ const Collapse: React.FC<CollapseProps> = ({show, ...props}) => (
         {...props}
     />
 );
-
-export default Collapse;

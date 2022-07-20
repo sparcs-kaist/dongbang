@@ -1,7 +1,7 @@
 /// <reference path="../node_modules/@types/meteor/meteor.d.ts" />
-//// <reference path="../node_modules/@types/meteor-mdg-validated-method/index.d.ts" />
+//// <reference path="../node_modules/types/meteor-mdg-validated-method/index.d.ts" />
 
-import {UserSchema} from "/imports/collections/users";
+import {User as UserExtend} from "/imports/collections/users";
 import {Query} from "/imports/modules/collections/types";
 
 declare module "meteor/meteor" {
@@ -10,7 +10,7 @@ declare module "meteor/meteor" {
         
         function loginAsLDAP(username: string, password: string, callback?: (error: Meteor.Error) => void): void;
         
-        interface User extends Query<UserSchema> {}
+        interface User extends Query<UserExtend> {}
     }
 }
 

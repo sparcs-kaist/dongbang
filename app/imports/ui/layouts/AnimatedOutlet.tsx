@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {AnimatePresence, AnimatePresenceProps} from "framer-motion";
 import {useOutlet} from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import  "./users";
+import "./users";
 import {SessionsCollection} from "./sessions";
 import {DevicesCollection} from "./devices";
 

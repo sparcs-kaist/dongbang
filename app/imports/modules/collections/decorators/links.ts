@@ -29,7 +29,7 @@ export const LinkOne = <T>(relation: string): PropertyDecorator => sync(async (t
     const collection = await metaStorage.collections.getAsync(target.constructor.name);
     const relatedCollection = await metaStorage.collections.getAsync(relation);
     
-    collection.addLinks<T>({
+    collection.addLinks({
         [String(propertyKey)]: {
             type: "one",
             collection: relatedCollection,
@@ -47,7 +47,7 @@ export const LinkMany = <T>(relation: string): PropertyDecorator => sync(async (
     const collection = await metaStorage.collections.getAsync(target.constructor.name);
     const relatedCollection = await metaStorage.collections.getAsync(relation);
     
-    collection.addLinks<T>({
+    collection.addLinks({
         [String(propertyKey)]: {
             type: "many",
             collection: relatedCollection,
@@ -65,7 +65,7 @@ export const InverseLink = <T>(fieldKey: `${string}.${string}`): PropertyDecorat
     
     await metaStorage.links.getAsync(fieldKey);
     
-    collection.addLinks<T>({
+    collection.addLinks({
         [String(propertyKey)]: {
             collection: relatedCollection,
             inversedBy: field

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import styled from "styled-components";
 
 export const Input = styled.input`
@@ -11,7 +11,7 @@ export const Input = styled.input`
   width: 100%;
   height: 40px;
   font-size: 15px;
-  
+
   &::placeholder {
     color: var(--grey-650);
   }

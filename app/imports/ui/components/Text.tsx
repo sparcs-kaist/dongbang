@@ -1,7 +1,8 @@
-import * as React from "react";
+import React from "react";
 import styled from "styled-components";
 
-import {User} from "../../collections/users";
+import type { User } from "../../collections/users";
+import type { Query } from "/imports/modules/collections/types";
 
 export const Text = {
     main: styled.h1`
@@ -16,15 +17,14 @@ export const Text = {
       font-weight: 400;
       padding: 5px 0;
     `,
-}
+};
 
 const Username = styled.span`
   margin-left: 0.3em;
   opacity: 0.5;
 `;
 
-export const renderProfileText = (member: User) =>
-    <>
-        <span>{member.name}</span>
-        <Username>{member.username}</Username>
-    </>
+export const renderProfileText = (member: Query<User>) => <>
+    <span>{member.name}</span>
+    <Username>{member.username}</Username>
+</>;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 // import styles from "./AppLayout.module.css";
 
 import { Outlet } from "react-router-dom";

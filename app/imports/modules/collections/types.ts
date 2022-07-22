@@ -10,12 +10,10 @@ export type KeysUnmatching<T, V> = {
 type PickMatch<T, V> = Pick<T, KeysMatching<T, V>>;
 type OmitMatch<T, V> = Pick<T, KeysUnmatching<T, V>>;
 
-
 // IO types
 type BaseIO<T> = OmitMatch<T, Link> & LinkKeys<T>
 export type Mutation<T> = BaseIO<T> & { _id?: string };
 export type Query<T> = BaseIO<T> & LinkedData<T>;
-
 
 // Link types
 type BaseLink<TSchema, Vtype extends "one" | "many" | "inverse"> = {
@@ -29,7 +27,6 @@ export type Inverse<T> = BaseLink<T, "inverse">;
 type LinkWithId = One<any> | Many<any>;
 export type Link = One<any> | Many<any> | Inverse<any>;
 
-
 // Helpers
 type Id<T extends object> = `${keyof T extends string ? keyof T : never}Id`;
 type LinkKeys<T> = {
@@ -39,8 +36,8 @@ type LinkKeys<T> = {
 type LinkedData<T> = {
     [P in keyof PickMatch<T, Link>]: T[P] extends Link
         ? T[P] extends One<any>
-            ? LinkedData<T[P]["schema"]> | undefined
-            : LinkedData<T[P]["schema"]>[]
+            ? Query<T[P]["schema"]> | undefined
+            : Query<T[P]["schema"]>[]
         : never
 } & { _id: string };
 

@@ -1,8 +1,8 @@
-import * as React from "react";
+import React from "react";
 import { useState } from "react";
 import styles from "./SessionItem.module.css";
 
-import { Session } from "../../../../collections/sessions";
+import { Session } from "/imports/collections/sessions";
 // import {LOCATION_NAME, Session} from "/imports/collections/sessions";
 
 import {
@@ -24,7 +24,6 @@ import {
 
 import { LocationIcon } from "../../../../assets";
 import { Query } from "../../../../modules/collections/types";
-
 
 interface SessionItemProps {
     session: Query<Session>;

@@ -1,2 +1,2 @@
-export {Collapse} from "./Collapse";
-export {Fade} from "./Fade";
+export { Collapse } from "./Collapse";
+export { Fade } from "./Fade";

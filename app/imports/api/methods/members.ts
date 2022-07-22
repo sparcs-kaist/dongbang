@@ -1,7 +1,7 @@
 import SimpleSchema from "simpl-schema";
-import {ValidatedMethod} from "meteor/mdg:validated-method";
-import {Meteor} from "meteor/meteor";
-import {UsersCollection} from "../../collections/users";
+import { ValidatedMethod } from "meteor/mdg:validated-method";
+import { Meteor } from "meteor/meteor";
+import { UsersCollection } from "../../collections/users";
 
 type UpdateStatusMethod = (status: {
     isActive?: boolean;
@@ -16,13 +16,13 @@ export const updateStatus = new ValidatedMethod<string, UpdateStatusMethod>({
     }, {
         requiredByDefault: false,
     }).validator(),
-    run(status) {
+    run (status) {
         if (!this.userId) {
-            throw new Meteor.Error('Not authorized.');
+            throw new Meteor.Error("Not authorized.");
         }
         
         UsersCollection.update(this.userId, {
-            $set: {...status}
+            $set: { ...status },
         });
         
         if (!status.isActive) {
@@ -30,5 +30,5 @@ export const updateStatus = new ValidatedMethod<string, UpdateStatusMethod>({
                 .getLink(this.userId, "session")
                 .unset();
         }
-    }
+    },
 });

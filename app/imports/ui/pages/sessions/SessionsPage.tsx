@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 // import {SessionTitle, SessionItem} from "/imports/ui/pages/sessions/components";
 import {

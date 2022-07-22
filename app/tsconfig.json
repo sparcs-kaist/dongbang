@@ -49,9 +49,9 @@
     //    ]
   },
   "include": [
-    "app",
-    "types/**/*.d.ts",
-    "node_modules/@types/**/*.d.ts"
+    "../app",
+    "./types/**/*.d.ts",
+    "./node_modules/@types/**/*.d.ts"
   ],
   "exclude": [
     "./.meteor/**",

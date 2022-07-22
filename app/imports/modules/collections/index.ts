@@ -1,3 +1,3 @@
-import {createCollection, bindCollection} from "./collection";
+import { createCollection, bindCollection } from "./collection";
 
-export {createCollection, bindCollection}
+export { createCollection, bindCollection };

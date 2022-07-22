@@ -1,10 +1,9 @@
-import * as React from "react";
-import {AnimatePresence, LayoutGroup} from "framer-motion";
+import React from "react";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
 
-
-export const List: React.FC = ({children, ...props}) => (
+export const List: React.FC = ({ children, ...props }) => (
     <div
-        style={{display: "flex", flexDirection: "column"}}
+        style={{ display: "flex", flexDirection: "column" }}
         {...props}
     >
         <LayoutGroup>
@@ -13,4 +12,4 @@ export const List: React.FC = ({children, ...props}) => (
             </AnimatePresence>
         </LayoutGroup>
     </div>
-)
+);

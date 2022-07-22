@@ -1,16 +1,15 @@
-require("dotenv").config({path: "../../../../../.env"});
+require("dotenv").config({ path: "../../../../../.env" });
 
-import {Meteor} from "meteor/meteor";
+import { Meteor } from "meteor/meteor";
 
 import axios from "axios";
-import {asyncToSync} from "/imports/custom/asyncToSync";
+import { asyncToSync } from "/imports/custom/asyncToSync";
 
 const {
     MEMVERS_ROOT,
     MEMVERS_CREDENTIALS_UN,
     MEMVERS_CREDENTIALS_PW,
 } = process.env;
-
 
 if (!(MEMVERS_ROOT && MEMVERS_CREDENTIALS_UN && MEMVERS_CREDENTIALS_PW)) {
     throw new Error("Missing env variables");
@@ -52,15 +51,15 @@ axios.defaults.withCredentials = true;
 
 class MemversClient {
     private readonly root: string;
-    private readonly credentials: {un: string, pw: string};
+    private readonly credentials: { un: string, pw: string };
     private cookie?: string;
     
-    constructor(root: string, un: string, pw: string) {
+    constructor (root: string, un: string, pw: string) {
         this.root = root;
-        this.credentials = {un, pw};
+        this.credentials = { un, pw };
     }
     
-    private async refreshSession() {
+    private async refreshSession () {
         const response = await axios.post(this.root + "login", this.credentials);
         
         if (!response.data?.success) {
@@ -70,12 +69,12 @@ class MemversClient {
         this.cookie = response.headers["set-cookie"]?.[0];
     }
     
-    async get(url: string) {
+    async get (url: string) {
         if (!this.cookie) throw new Error("Not authenticated");
-        return await axios.get(this.root + url, {headers: {Cookie: this.cookie}});
+        return await axios.get(this.root + url, { headers: { Cookie: this.cookie } });
     }
     
-    private async fetchUserData(username: string, retry: boolean): Promise<UserData> {
+    private async fetchUserData (username: string, retry: boolean): Promise<UserData> {
         try {
             const apiData = await this.get("nugu/" + username);
             const userData = apiData.data as NuguAPIData;
@@ -92,7 +91,7 @@ class MemversClient {
         }
     }
     
-    async getUserDataAsync(username: string) {
+    async getUserDataAsync (username: string) {
         return this.fetchUserData(username, true);
     }
 }
@@ -103,8 +102,7 @@ export const memversClient = new MemversClient(
     MEMVERS_CREDENTIALS_PW,
 );
 
-
 export const getMemberData = asyncToSync(async (username: string) => {
     if (Meteor.isClient) throw new Meteor.Error("Not allowed");
     return await memversClient.getUserDataAsync(username);
-})
+});

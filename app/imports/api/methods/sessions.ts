@@ -1,34 +1,31 @@
-import {Meteor} from "meteor/meteor";
-import {ValidatedMethod} from "meteor/mdg:validated-method";
-import {Location, SessionsCollection} from "/imports/collections/sessions";
+import { Meteor } from "meteor/meteor";
+import { ValidatedMethod } from "meteor/mdg:validated-method";
+import { Location, SessionsCollection } from "/imports/collections/sessions";
 import SimpleSchema from "simpl-schema";
-import {Enum, Optional} from "/imports/custom/simpl-schema";
-import {UsersCollection} from "/imports/collections/users";
+import { Enum, Optional } from "/imports/custom/simpl-schema";
+import { UsersCollection } from "/imports/collections/users";
 
-
-
-function authenticate(options: any) {
+function authenticate (options: any) {
     // console.log(this.userId)
     const run = options.run;
     
     options.run = function (...args: any[]) {
         console.log(this.userId);
-        if (!this.userId) throw new Meteor.Error("qwer")
+        if (!this.userId) throw new Meteor.Error("qwer");
         
         run.call(this, ...args);
         
-        
-    }
+    };
     
-    return options
+    return options;
 }
 
-function cleanup(options: any) {
+function cleanup (options: any) {
     const run = options.run;
     
     options.run = function (...args: any[]) {
         const sessionId = UsersCollection
-            .findOne(this.userId, {fields: {sessionId: 1}})
+            .findOne(this.userId, { fields: { sessionId: 1 } })
             ?.sessionId;
         
         const res = run.call(this, ...args);
@@ -45,9 +42,9 @@ function cleanup(options: any) {
         }
         
         return res;
-    }
+    };
     
-    return options
+    return options;
 }
 
 function active (options: any) {
@@ -57,16 +54,14 @@ function active (options: any) {
         const res = run.call(this, ...args);
         
         Meteor.users.update(this.userId, {
-            $set: {isActive: true}
+            $set: { isActive: true },
         });
         
         return res;
-    }
+    };
     
-    return options
+    return options;
 }
-
-
 
 type StartSession = (session: {
     name: string;
@@ -84,7 +79,7 @@ export const startSession = new ValidatedMethod<string, StartSession>({
         },
         location: Optional(Enum(Location)),
     }).validator(),
-    run(session) {
+    run (session) {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized.");
         }
@@ -106,14 +101,13 @@ export const startSession = new ValidatedMethod<string, StartSession>({
         SessionsCollection
             .getLink(sessionId, "members")
             .set(this.userId);
-    }
+    },
 });
-
 
 export const endSession = new ValidatedMethod<string, () => void>({
     name: "session.end",
-    validate: v => {if (v !== undefined) throw new Error()},
-    run() {
+    validate: v => {if (v !== undefined) throw new Error();},
+    run () {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized.");
         }
@@ -123,22 +117,22 @@ export const endSession = new ValidatedMethod<string, () => void>({
             .fetch();
         
         if (currentSession.creatorId !== this.userId) {
-            throw new Meteor.Error("A session can be ended only by its creator")
+            throw new Meteor.Error("A session can be ended only by its creator");
         }
         
         SessionsCollection.remove(currentSession._id);
-    }
+    },
 });
 
-type JoinSession = (session: {sessionId: string}) => void;
+type JoinSession = (session: { sessionId: string }) => void;
 
 export const joinSession = new ValidatedMethod<string, JoinSession>({
     name: "session.join",
     mixins: [cleanup, active],
     validate: new SimpleSchema({
         sessionId: String,
-    }).validator({clean: true, trimStrings: true}),
-    run({sessionId}) {
+    }).validator({ clean: true, trimStrings: true }),
+    run ({ sessionId }) {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized.");
         }
@@ -146,14 +140,14 @@ export const joinSession = new ValidatedMethod<string, JoinSession>({
         SessionsCollection
             .getLink(sessionId, "members")
             .set(this.userId);
-    }
+    },
 });
 
 export const leaveSession = new ValidatedMethod<string, () => void>({
     name: "session.leave",
     mixins: [cleanup],
     validate: null,
-    run() {
+    run () {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized.");
         }
@@ -178,5 +172,5 @@ export const leaveSession = new ValidatedMethod<string, () => void>({
         // if (memberCount === 0) {
         //     SessionCollection.remove(sessionId);
         // }
-    }
+    },
 });

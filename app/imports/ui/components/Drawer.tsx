@@ -1,9 +1,8 @@
-import * as React from "react";
-import {useCallback} from "react";
+import React, { useCallback } from "react";
 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import {motion, PanInfo} from "framer-motion";
+import { motion, PanInfo } from "framer-motion";
 import styled from "styled-components";
 
 const Container = styled(motion.div)`
@@ -15,7 +14,7 @@ const Container = styled(motion.div)`
   background-color: var(--grey-900);
   border-radius: 20px 20px 0 0;
   padding: 40px calc(var(--page-margin) + 5px) calc(env(safe-area-inset-bottom, 0) + 30px);
-  
+
   &:before {
     content: "";
     position: absolute;
@@ -28,7 +27,7 @@ const Container = styled(motion.div)`
     width: 15%;
     margin: auto;
   }
-  
+
   &:after {
     content: "";
     position: absolute;
@@ -50,7 +49,7 @@ const Backdrop = styled(motion.div)`
   background-color: #000;
 `;
 
-export const Drawer: React.FC = ({children, ...props}) => {
+export const Drawer: React.FC = ({ children, ...props }) => {
     const navigate = useNavigate();
     
     const close = useCallback(() => {
@@ -67,26 +66,26 @@ export const Drawer: React.FC = ({children, ...props}) => {
         if (shouldClose) {
             close();
         }
-    }
+    };
     
     return (<>
         <Container
             drag="y"
             onDragEnd={onDragEnd}
             dragSnapToOrigin
-            dragConstraints={{top: 0}}
-            initial={{y: "100%"}}
-            animate={{y: 0}}
-            exit={{y: "100%"}}
+            dragConstraints={{ top: 0 }}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
             {...props}
         >
             {children}
         </Container>
         <Backdrop
-            initial={{opacity: 0}}
-            animate={{opacity: 0.5}}
-            exit={{opacity: 0}}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            exit={{ opacity: 0 }}
             onClick={close}
         />
-    </>)
-}
+    </>);
+};

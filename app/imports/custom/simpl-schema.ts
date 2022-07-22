@@ -1,4 +1,3 @@
-
 export const Enum = (enumObj: Object) => (
     new RegExp(`^${
         Object
@@ -18,5 +17,5 @@ type Field = BooleanConstructor
     | string
 
 export const Optional = (field: Field) => (
-    {type: field, optional: true}
-)
+    { type: field, optional: true }
+);

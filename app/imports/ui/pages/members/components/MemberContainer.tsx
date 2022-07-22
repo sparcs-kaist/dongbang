@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Children, ReactNode } from "react";
 
 import { AnimatePresence } from "framer-motion";

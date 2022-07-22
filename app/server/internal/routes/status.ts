@@ -1,7 +1,7 @@
-import {Meteor} from "meteor/meteor";
+import { Meteor } from "meteor/meteor";
 
-import express from "express";
-import {DevicesCollection} from "/imports/db/devices";
+import * as express from "express";
+import { DevicesCollection } from "../../../imports/collections/devices";
 
 const router = express.Router();
 
@@ -16,19 +16,28 @@ router.post("/", (req, res) => {
     
     query.entered.forEach(macAddress => changeStatus(macAddress, true));
     query.exited.forEach(macAddress => changeStatus(macAddress, false));
-
+    
     res.status(204).send();
 });
 
-
 const changeStatus = Meteor.bindEnvironment((macAddress: string, isActive: boolean) => {
-    const userId = DevicesCollection.findOne({macAddress})?.userId;
+    const device = DevicesCollection.findOne({ macAddress });
     
-    if (userId) {
-        Meteor.users.update(userId, {
-            $set: {isActive},
-        });
-    }
+    // try {
+    //     if (device) {
+    //         DevicesCollection
+    //             .findOne({macAddress})
+    //             .getLink<Meteor.User>(device, "user")
+    //             .set({isActive});
+    //     }
+    // } catch (e) {
+    //     console.error(e?.errInfo.details.schemaRulesNotSatisfied)
+    // }
+    // if (userId) {
+    //     Meteor.users.update(userId, {
+    //         $set: {isActive},
+    //     });
+    // }
 });
 
-export default {router};
+export default { router };

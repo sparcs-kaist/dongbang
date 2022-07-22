@@ -13,10 +13,6 @@
     background-color: var(--theme-400);
 }
 
-.logo {
-    height: 35px;
-    width: 220px;
-}
 
 .content {
     height: calc(var(--header-height) - 5px);

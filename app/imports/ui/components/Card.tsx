@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Fade from "/imports/ui/components/animate/Fade";
-
+import { Fade } from "./animate";
 
 interface CardProps {
     primary?: boolean;
@@ -49,7 +48,7 @@ export const CardBody = styled(Fade)`
   &:not(:first-child):before {
     background-color: var(--grey-750);
   }
-`
+`;
 
 export const CardAction = styled.div<{
     mobile?: boolean;
@@ -62,7 +61,7 @@ export const CardAction = styled.div<{
   left: 0;
   right: 0;
 
-  @media ${({mobile}) => mobile ? "(any-hover: none)" : "all"}{
+  @media ${({ mobile }) => mobile ? "(any-hover: none)" : "all"} {
     &, & > * {
       cursor: pointer;
     }
@@ -72,7 +71,6 @@ export const CardAction = styled.div<{
     }
   }
 `;
-
 
 export const CardButton = styled.button<{
     transparent?: boolean;
@@ -92,7 +90,6 @@ export const CardButton = styled.button<{
   };
 `;
 
-
 export const CardText = {
     main: styled(Fade)`
       font-size: 16px;
@@ -110,4 +107,4 @@ export const CardText = {
       font-weight: 400;
       padding-top: 5px;
     `,
-}
+};

@@ -1,32 +1,36 @@
-import {Meteor} from "meteor/meteor";
-
 import React from "react";
 import styles from "./MemberOverlay.module.css";
 
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import {Text, renderProfileText} from "/imports/ui/components/Text";
-import {Button} from "/imports/ui/components/Button";
-import MemberStatus from "/imports/ui/pages/members/components/MemberStatus";
+import {
+    Button,
+    Drawer,
+    Text,
+    renderProfileText,
+} from "../../components";
 
-import {updateStatus} from "/imports/api/methods/members";
-import {Drawer} from "/imports/ui/components/Drawer";
+import MemberStatus from "./components/MemberStatus";
 
+import { updateStatus } from "../../../api/methods/members";
+
+import type { Query } from "/imports/modules/collections/types";
+import type { User } from "../../../collections/users";
 
 interface MemberProps {
-    user?: Meteor.User;
-    members?: Meteor.User[];
+    user?: Query<User>;
+    members?: Query<User>[];
 }
 
-const MemberDetail: React.FC<MemberProps> = ({user, members}) => {
-    const {username} = useParams();
+const MemberDetail: React.FC<MemberProps> = ({ user, members }) => {
+    const { username } = useParams();
     const isSelf = user?.username === username;
     
     const toggleStatus = () => {
         updateStatus.call({
             isActive: !user?.isActive,
         });
-    }
+    };
     
     const member = isSelf
         ? user
@@ -49,7 +53,7 @@ const MemberDetail: React.FC<MemberProps> = ({user, members}) => {
     </Drawer> : <>
     
     
-    </>)
-}
+    </>);
+};
 
 export default MemberDetail;

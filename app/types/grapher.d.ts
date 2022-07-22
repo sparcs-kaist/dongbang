@@ -1,42 +1,43 @@
-/// <reference path="../node_modules/@types/meteor/mongo.d.ts" />
-
-
-import SimpleSchema from "simpl-schema";
-
-declare module "meteor/mongo" {
-    export module Mongo {
+declare module "meteor/cultofcoders:grapher" {
+    import {Mongo} from "meteor/mongo";
+    export module Grapher {
+        
         type QueryBody<T> = any;
         
         interface QueryOptions {
         
         }
         
-        export interface GraphQuery<T, U> extends Mongo.Cursor<T, U> {
+        export interface Query<T, U> extends Mongo.Cursor<T, U> {
             expose(options?: {
                 firewall?(userId: string, params: any): void,
                 embody?: {
-                    $filter?({filters, params}: {filters: any, params: any}): void
+                    $filter?({filters, params}: { filters: any, params: any }): void
                 },
             }): void;
-            clone(options?: any): GraphQuery<T, U>;
-            subscribe(): GraphQueryHandler;
+            
+            clone(options?: any): Query<T, U>;
+            
+            subscribe(): QueryHandler;
+            
             fetchOne(): U | undefined;
         }
         
-        export interface GraphQueryHandler {
+        interface QueryHandler {
             ready(): boolean;
         }
         
         type CreateQuery<T, U> = (
             body?: QueryBody<T>, options?: QueryOptions
-        ) => GraphQuery<T, U>;
+        ) => Query<T, U>;
         
         type CreateNamedQuery<T, U> = (
             name: string, body?: QueryBody<T>, options?: QueryOptions
-        ) => GraphQuery<T, U>;
+        ) => Query<T, U>;
         
         interface ExposeConfig {
             firewall?(filters: any, options: any, userId: string): void;
+            
             publication?: boolean;
             method?: boolean;
             blocking?: boolean;
@@ -47,13 +48,13 @@ declare module "meteor/mongo" {
         }
         
         interface DirectLinkOptions<T> {
-            type?: "one" | "many";
-            collection: Partial<Collection<T>>;
+            type: "one" | "many";
+            collection: Partial<Mongo.SchemaCollection<T>>;
             field: string;
         }
         
         interface InverseLinkOptions<T> {
-            collection: Partial<Collection<T>>;
+            collection: Partial<Mongo.SchemaCollection<T>>;
             inversedBy: string;
         }
         
@@ -63,24 +64,18 @@ declare module "meteor/mongo" {
         
         interface Link<T, L> {
             find(filters?: any, options?: any): Link<T, L>;
-            fetch(filters?: any, options?: any): L;
-            count(): number;
-            set(objectOrId: ObjectOrId<L>): void;
-            unset(): void;
-            add(objectOrIds: ObjectOrId<L> | ObjectOrId<L>[]): void;
-            remove(objectOrIds: ObjectOrId<L> | ObjectOrId<L>[]): void;
-        }
-        
-        interface Collection<T, U = T> extends CollectionStatic {
-            // Methods injected by "aldeed:collection2"
-            schema: SimpleSchema;
-            attachSchema(schema: SimpleSchema): void;
             
-            // Methods injected by "cultofcoders:grapher"
-            createQuery: CreateQuery<T, U> | CreateNamedQuery<T, U>;
-            addLinks<T>(links: {[key: string]: LinkOptions<T>}): void;
-            expose(config?: ExposeConfig): void;
-            getLink<L>(objectOrId: ObjectOrId<L>, name: string): Link<T, L>;
+            fetch(filters?: any, options?: any): L;
+            
+            count(): number;
+            
+            set(objectOrId: ObjectOrId<L>): void;
+            
+            unset(): void;
+            
+            add(objectOrIds: ObjectOrId<L> | ObjectOrId<L>[]): void;
+            
+            remove(objectOrIds: ObjectOrId<L> | ObjectOrId<L>[]): void;
         }
     }
 }

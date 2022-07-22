@@ -1,12 +1,13 @@
-import {useTracker} from "meteor/react-meteor-data";
-import {Mongo} from "meteor/mongo";
+import { useTracker } from "meteor/react-meteor-data";
+import { Grapher } from "meteor/cultofcoders:grapher";
+import { Mutation, Query } from "/imports/modules/collections/types";
 
-export const useQueryData = <T, U = T>(
-    query: Mongo.GraphQuery<T, U>,
-    options?: Object
-): U[] | undefined =>
+export const useQueryData = <T> (
+    query: Grapher.Query<Mutation<T>, Query<T>>,
+    options?: Object,
+): Query<T>[] | undefined =>
     useTracker(() => {
-        const clientQuery = query.clone({...options});
+        const clientQuery = query.clone({ ...options });
         const handler = clientQuery.subscribe();
         
         if (!handler.ready()) {

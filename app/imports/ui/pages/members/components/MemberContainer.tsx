@@ -1,10 +1,9 @@
-import React, {Children, ReactNode} from "react";
+import React from "react";
+import { Children, ReactNode } from "react";
 
-import {AnimatePresence} from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
-import {Text} from "/imports/ui/components/Text";
-import {Card} from "/imports/ui/components/Card";
-import List from "/imports/ui/components/List";
+import { Text, Card, List } from "../../../components";
 
 interface MemberContainerProps {
     title: ReactNode;
@@ -12,7 +11,7 @@ interface MemberContainerProps {
 }
 
 const MemberContainer: React.FC<MemberContainerProps> = (
-    {title, children}
+    { title, children },
 ) => (
     children ? <>
         <Text.sub>{title}</Text.sub>

@@ -1,6 +1,5 @@
-import {Meteor} from "meteor/meteor";
-import {Accounts} from "meteor/accounts-base";
-
+import { Meteor } from "meteor/meteor";
+import { Accounts } from "meteor/accounts-base";
 
 if (Meteor.isClient) {
     Meteor.loginAsLDAP = function (username, password, callback) {
@@ -11,6 +10,6 @@ if (Meteor.isClient) {
                 password: password,
             }],
             userCallback: callback,
-        })
-    }
+        });
+    };
 }

@@ -1,20 +1,27 @@
-import React, {useEffect, useState} from "react";
-import {Card, CardBody, CardText} from "/imports/ui/components/Card";
-import {AnimatePresence} from "framer-motion";
-import {Button} from "/imports/ui/components/Button";
-import {Spacer} from "/imports/ui/components/Spacer";
-import {registerDevice} from "/imports/api/methods/devices";
+import React from "react";
+import { useEffect, useState } from "react";
 
+import { AnimatePresence } from "framer-motion";
+
+import {
+    Card,
+    CardBody,
+    CardText,
+    Button,
+    Spacer,
+} from "../../../components";
+
+import { registerDevice } from "/imports/api/methods/devices";
 
 const DeviceRegister: React.FC = () => {
-    const {active, register, error} = useDeviceRegister();
+    const { active, register, error } = useDeviceRegister();
     
     return (
         <AnimatePresence>
             {active && <Card
-                initial={{opacity: 0, height: 0, marginBottom: 0}}
-                animate={{opacity: 1, height: "auto", marginBottom: 10}}
-                exit={{opacity: 0, height: 0, marginBottom: 0}}
+                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                animate={{ opacity: 1, height: "auto", marginBottom: 10 }}
+                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
             >
                 <CardBody>
                     {error ? <>
@@ -36,8 +43,8 @@ const DeviceRegister: React.FC = () => {
                 </CardBody>
             </Card>}
         </AnimatePresence>
-    )
-}
+    );
+};
 
 const useDeviceRegister = () => {
     const [macAddress, setMacAddress] = useState<string | undefined>();
@@ -45,30 +52,28 @@ const useDeviceRegister = () => {
     
     useEffect(() => {
         fetchData()
-            .then(({macAddress, error}) => {
+            .then(({ macAddress, error }) => {
                 setMacAddress(macAddress);
                 setError(error);
             })
             .catch(() => {});
     }, [setMacAddress, setError]);
     
-    
     const register = () => {
         if (macAddress) {
             // Do something
-            registerDevice.call({macAddress});
+            registerDevice.call({ macAddress });
             
             setMacAddress(undefined);
         }
-    }
+    };
     
     return {
         active: !!macAddress || error,
         register,
         error,
     };
-}
-
+};
 
 interface Data {
     macAddress?: string;
@@ -85,10 +90,10 @@ const fetchData = async (): Promise<Data> => {
     
     if (data?.hello !== "dongbang") throw new Error("Invalid response");
     
-    if (typeof data?.error === "string") return {error: data.error};
-    if (typeof data?.macAddress === "string") return {macAddress: data.macAddress};
+    if (typeof data?.error === "string") return { error: data.error };
+    if (typeof data?.macAddress === "string") return { macAddress: data.macAddress };
     
     throw new Error("Invalid response");
-}
+};
 
 export default DeviceRegister;

@@ -1,7 +1,7 @@
-import express from "express";
-import {DevicesCollection} from "/imports/db/devices";
+import {Router} from "express";
+import {DevicesCollection} from "../../../imports/collections/devices";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/:mac", (req, res) => {
     const device = DevicesCollection.findOne({macAddress: req.params.mac});

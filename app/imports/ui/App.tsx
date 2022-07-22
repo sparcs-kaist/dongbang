@@ -1,19 +1,20 @@
-import React from 'react';
+import * as React from "react";
+
 import "./index.css";
 import "./themes";
 
-import {BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
-import AppLayout from "/imports/ui/layouts/AppLayout";
+import AppLayout from "./layouts/AppLayout";
 
-import Members from "/imports/ui/pages/members";
-import Sessions from "/imports/ui/pages/sessions";
-import Login from "/imports/ui/pages/Login";
+import Members from "./pages/members";
+import Sessions from "./pages/sessions";
+import Login from "./pages/Login";
 
-import {useUser} from "./common/hooks/useUser";
-import {useQueryData} from "./common/hooks/useQueryData";
-import {membersQuery} from "/imports/api/query/members";
-import {sessionsQuery} from "/imports/api/query/sessions";
+import { useUser } from "./common/hooks/useUser";
+import { useQueryData } from "./common/hooks/useQueryData";
+import { membersQuery } from "../api/query/members";
+import { sessionsQuery } from "../api/query/sessions";
 
 export const App = () => {
     const user = useUser();
@@ -44,5 +45,5 @@ export const App = () => {
                 <Route path="/login" element={<Login/>}/>
             </Routes>
         </Router>
-    )
+    );
 };

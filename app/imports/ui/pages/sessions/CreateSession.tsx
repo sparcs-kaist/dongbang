@@ -1,29 +1,33 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import {Drawer} from "/imports/ui/components/Drawer";
-import {Text} from "/imports/ui/components/Text";
-import {Input} from "/imports/ui/components/Input";
-import {Button} from "/imports/ui/components/Button";
-import {Select, SelectItem} from "/imports/ui/components/Select";
+import {
+    Drawer,
+    Text,
+    Input,
+    Button,
+    Select,
+    SelectItem,
+    Spacer,
+} from "../../components";
+import { Collapse } from "../../components/animate";
 
-import {startSession} from "/imports/api/methods/sessions";
+import { startSession } from "../../../api/methods/sessions";
 import useInput from "../../common/hooks/useInput";
 
-import {Location, LOCATION_NAME} from "/imports/db/sessions";
-import {LocationIcon} from "/imports/assets/Icons";
-import Collapse from "/imports/ui/components/animate/Collapse";
-import {Spacer} from "/imports/ui/components/Spacer";
+import { Location } from "../../../collections/sessions";
+import { LocationIcon } from "../../../assets";
 
 const CreateSession: React.FC = () => {
     const navigate = useNavigate();
     
-    const {input: name} = useInput("");
+    const { input: name } = useInput("");
     const [location, setLocation] = useState<Location | undefined>(undefined);
     const [locationName, setLocationName] = useState<string>("");
     
     useEffect(() => {
-        if (location) setLocationName(LOCATION_NAME[location]);
+        if (location) setLocationName(location);
     }, [location]);
     
     const validate = useCallback(() => (
@@ -31,14 +35,14 @@ const CreateSession: React.FC = () => {
     ), [name.value, close]);
     
     const create = () => {
-        startSession.call({name: name.value.trim(), location}, (err, res) => {
-            if (err) alert(err)
+        startSession.call({ name: name.value.trim(), location }, (err, res) => {
+            if (err) alert(err);
             else {
                 console.log(res);
             }
         });
-        navigate("..", {replace: true});
-    }
+        navigate("..", { replace: true });
+    };
     
     return (
         <Drawer>
@@ -70,7 +74,7 @@ const CreateSession: React.FC = () => {
                         display: "inline-flex",
                         alignItems: "center",
                         gap: 4,
-                        color: "var(--theme-red)"
+                        color: "var(--theme-red)",
                     }}><LocationIcon/>{locationName}</span>를 예약합니다
                     </Text.sub>
                 </Collapse>
@@ -81,10 +85,10 @@ const CreateSession: React.FC = () => {
                 display: "flex",
                 justifyContent: "center",
             }}>
-                <Button onClick={create} disabled={!validate()} style={{zIndex: 10}}>열기</Button>
+                <Button onClick={create} disabled={!validate()} style={{ zIndex: 10 }}>열기</Button>
             </div>
         </Drawer>
-    )
-}
+    );
+};
 
 export default CreateSession;

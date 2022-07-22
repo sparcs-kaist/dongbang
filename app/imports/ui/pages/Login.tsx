@@ -1,26 +1,33 @@
-import {Meteor} from "meteor/meteor";
+import { Meteor } from "meteor/meteor";
 
-import React, {FormEvent, useState} from "react";
+import React from "react";
+import { FormEvent, useState } from "react";
 import classNames from "classnames";
 import styles from "./Login.module.css";
 import headerStyles from "../layouts/Header/styles.module.css";
 
-import {useNavigate} from "react-router-dom";
-import {useTracker} from "meteor/react-meteor-data";
-import useInput from "/imports/ui/common/hooks/useInput";
+import { useNavigate } from "react-router-dom";
+import { useTracker } from "meteor/react-meteor-data";
 
-import {CloseIcon} from "/imports/assets/Icons";
-import {Logo} from "/imports/assets";
-import {Input} from "/imports/ui/components/Input";
-import {Text} from "/imports/ui/components/Text";
-import {Button} from "/imports/ui/components/Button";
-import {Spacer} from "/imports/ui/components/Spacer";
+import useInput from "../common/hooks/useInput";
+
+import {
+    Input,
+    Text,
+    Button,
+    Spacer,
+} from "../components";
+
+import {
+    CloseIcon,
+    Logo,
+} from "../../assets";
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
     
-    const {input: username} = useInput("");
-    const {input: password, setValue: setPassword} = useInput("");
+    const { input: username } = useInput("");
+    const { input: password, setValue: setPassword } = useInput("");
     const [error, setError] = useState(false);
     
     const user = useTracker(() => Meteor.user());
@@ -28,7 +35,7 @@ const Login: React.FC = () => {
     const alertLoginFail = () => {
         setPassword("");
         setError(true);
-    }
+    };
     
     const login = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -44,7 +51,7 @@ const Login: React.FC = () => {
                 }
             });
         
-    }
+    };
     
     const logout = () => Meteor.logout();
     
@@ -62,7 +69,7 @@ const Login: React.FC = () => {
                 <Logo className={styles.logo}/>
                 
                 {user
-                    ? <button onClick={logout} className={styles.button}>로그아웃</button>
+                    ? <Button onClick={logout}>로그아웃</Button>
                     : <form onSubmit={login}>
                         <div>
                             <Text.sub>아이디</Text.sub>
@@ -84,11 +91,11 @@ const Login: React.FC = () => {
                                 {...password}
                             />
                         </div>
-        
+                        
                         {error && <Text.sub style={{
                             color: "var(--theme-red)",
                             width: "100%",
-                            padding: 0
+                            padding: 0,
                         }}>
                             아이디 또는 비밀번호가 올바르지 않습니다
                         </Text.sub>}
@@ -98,7 +105,7 @@ const Login: React.FC = () => {
                 }
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Login;

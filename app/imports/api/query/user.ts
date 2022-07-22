@@ -1,5 +1,5 @@
-import {Meteor} from "meteor/meteor";
-import {expose} from "/imports/api/query/helpers/expose";
+import { Meteor } from "meteor/meteor";
+import { expose } from "/imports/api/query/helpers/expose";
 
 export const userQuery = Meteor.users.createQuery("user", {
     // $filters({filters, params}) {
@@ -12,7 +12,7 @@ export const userQuery = Meteor.users.createQuery("user", {
     //     _id: "x5f5t29XG9xHYEid9"
     // },
     $options: {
-        sort: {name: 1}
+        sort: { name: 1 },
     },
     name: 1,
     username: 1,
@@ -21,7 +21,7 @@ export const userQuery = Meteor.users.createQuery("user", {
     statusMsg: 1,
     session: {
         name: 1,
-        location: 1
+        location: 1,
     },
 });
 

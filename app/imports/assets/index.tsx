@@ -1,5 +1,3 @@
-import {Logo} from "/imports/assets/Logo";
-
-export {
-    Logo,
-}
+export * from "./Icons";
+export * from "./Logo";
+export * from "./NavIcons";

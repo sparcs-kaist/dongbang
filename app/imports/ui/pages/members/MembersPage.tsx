@@ -1,5 +1,3 @@
-import { Meteor } from "meteor/meteor";
-
 import React from "react";
 
 import { Text } from "/imports/ui/components/Text";
@@ -7,10 +5,12 @@ import { MemberItem, MemberContainer, RequireLogin, DeviceRegister } from "./com
 
 import AnimatedOutlet from "/imports/ui/layouts/AnimatedOutlet";
 import { LayoutGroup } from "framer-motion";
+import { Query } from "../../../modules/collections/types";
+import { User } from "../../../collections/users";
 
 interface MembersProps {
-    user?: Meteor.User;
-    members?: Meteor.User[];
+    user?: Query<User>;
+    members?: Query<User>[];
 }
 
 const MembersPage: React.FC<MembersProps> = ({ user, members }) => {

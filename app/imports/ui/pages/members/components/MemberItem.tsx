@@ -1,5 +1,3 @@
-import { Meteor } from "meteor/meteor";
-
 import React from "react";
 
 import { CardAction, CardBody, CardText } from "/imports/ui/components/Card";
@@ -7,9 +5,11 @@ import { renderProfileText } from "/imports/ui/components/Text";
 import MemberStatus from "./MemberStatus";
 
 import { useNavigate } from "react-router-dom";
+import { Query } from "../../../../modules/collections/types";
+import { User } from "../../../../collections/users";
 
 interface MemberItemProps {
-    member: Meteor.User;
+    member: Query<User>;
 }
 
 const MemberItem: React.FC<MemberItemProps> = ({ member }) => {

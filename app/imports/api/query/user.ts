@@ -1,7 +1,7 @@
-import { Meteor } from "meteor/meteor";
 import { expose } from "/imports/api/query/helpers/expose";
+import { UsersCollection } from "../../collections/users";
 
-export const userQuery = Meteor.users.createQuery("user", {
+export const userQuery = UsersCollection.createQuery("user", {
     // $filters({filters, params}) {
     //     // "status.type": {$ne: UserStatus.OFFLINE}
     //     // isActive: true

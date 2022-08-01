@@ -7,19 +7,27 @@ import { SchemaObject } from "openapi3-ts";
 import { targetConstructorToSchema } from "class-validator-jsonschema";
 import { Mutation, Query } from "./types";
 
-export const createCollection = <T> (schema: ClassConstructor<T>): Mongo.SchemaCollection<T> => {
+export const createCollection = <T> (
+    schema: ClassConstructor<T>,
+): Mongo.SchemaCollection<T> => {
     if (metaStorage.collections.contains(schema.name)) {
         return metaStorage.collections.get(schema.name);
     }
     
-    const collection: Mongo.SchemaCollection<T> = new Mongo.Collection<Mutation<T>, Query<T>>(schema.name) as Mongo.SchemaCollection<T>;
+    const collection: Mongo.SchemaCollection<T> = new Mongo.Collection<
+        Mutation<T>,
+        Query<T>
+        >(schema.name) as Mongo.SchemaCollection<T>;
     addSchema(collection, targetConstructorToSchema(schema));
     
     metaStorage.collections.set(schema.name, collection);
     return collection;
 };
 
-export const bindCollection = <T> (collection: Mongo.Collection<any>, schema: ClassConstructor<T>): Mongo.SchemaCollection<T> => {
+export const bindCollection = <T> (
+    collection: Mongo.Collection<any>,
+    schema: ClassConstructor<T>,
+): Mongo.SchemaCollection<T> => {
     addSchema(collection, targetConstructorToSchema(schema));
     
     metaStorage.collections.set(schema.name, collection);

@@ -14,7 +14,6 @@ export class AsyncKeyValueStorage<K, V> {
     }
     
     getAsync(key: K): Promise<V> {
-        console.log(`Getting key "${key}" async`);
         return new Promise<V>((resolve, reject) => {
             setTimeout(() => reject(`Invalid Key "${key}"`), this._timeout);
             
@@ -30,7 +29,6 @@ export class AsyncKeyValueStorage<K, V> {
     }
     
     get(key: K): V | undefined {
-        console.log(`Getting key "${key}"`);
         return this._storage.get(key);
     }
     
@@ -39,7 +37,6 @@ export class AsyncKeyValueStorage<K, V> {
     }
     
     set(key: K, value: V): void {
-        console.log(`Setting key "${key}" to value "${value}"`);
         if (key in this._storage) {
             throw new Error(`Duplicate Key "${key}"`);
         }

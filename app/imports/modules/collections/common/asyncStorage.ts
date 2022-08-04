@@ -1,4 +1,5 @@
-import { Map, Resolver } from "./types";
+type Resolver<T> = (value: T | PromiseLike<T>) => void;
+type Map<T> = { [key: string]: T };
 
 export class AsyncKeyValueStorage<T> {
     private readonly _storage: Map<T>;

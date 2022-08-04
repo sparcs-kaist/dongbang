@@ -7,10 +7,17 @@ import { SchemaObject } from "openapi3-ts";
 import { targetConstructorToSchema } from "class-validator-jsonschema";
 import { Mutation } from "./types";
 
-const registerCollection = (schema: ClassConstructor<any>, bind?: Mongo.Collection<any>) => {
+const registerCollection = <T>(
+    schema: ClassConstructor<T>,
+    bind?: Mongo.Collection<any>,
+): Mongo.SchemaCollection<T> => {
     const schemaName = metaStorage.schemas.get(schema.name);
     if (!schemaName) {
         throw new Error(`Schema "${schema.name}" is not registered. Try decorating it with @Schema`);
+    }
+    
+    if (metaStorage.collections.contains(schemaName)) {
+        return metaStorage.collections.get(schemaName) as Mongo.SchemaCollection<T>;
     }
     
     const collection = bind || new Mongo.Collection(schemaName);
@@ -19,22 +26,22 @@ const registerCollection = (schema: ClassConstructor<any>, bind?: Mongo.Collecti
     metaStorage.collections.set(schemaName, collection);
     
     return collection;
-}
+};
 
-export const createCollection = <T> (
+export const createCollection = <T>(
     schema: ClassConstructor<T>,
 ): Mongo.SchemaCollection<T> => {
     return registerCollection(schema);
 };
 
-export const bindCollection = <T> (
+export const bindCollection = <T>(
     collection: Mongo.Collection<any>,
     schema: ClassConstructor<T>,
 ): Mongo.SchemaCollection<T> => {
     return registerCollection(schema, collection);
 };
 
-const addSchema = <T> (collection: Mongo.SchemaCollection<T>, jsonSchema: SchemaObject) => {
+const addSchema = <T>(collection: Mongo.SchemaCollection<T>, jsonSchema: SchemaObject) => {
     if (Meteor.isServer) {
         const _addSchema = async () => {
             await collection.rawDatabase().command({
@@ -56,7 +63,7 @@ const addSchema = <T> (collection: Mongo.SchemaCollection<T>, jsonSchema: Schema
     }
 };
 
-const forceCreate = <T> (collection: Mongo.SchemaCollection<T>) => {
+const forceCreate = <T>(collection: Mongo.SchemaCollection<T>) => {
     collection.remove(
         collection.insert({} as unknown as Mongo.OptionalId<Mutation<T>>),
     );

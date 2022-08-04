@@ -1,8 +1,8 @@
 type Resolver<T> = (value: T | PromiseLike<T>) => void;
 
-export class AsyncKeyValueStorage<T> {
-    private readonly _storage: Map<string, T>;
-    private readonly _pending: Map<string, Resolver<T>[]>;
+export class AsyncKeyValueStorage<K, V> {
+    private readonly _storage: Map<K, V>;
+    private readonly _pending: Map<K, Resolver<V>[]>;
     
     private readonly _timeout: number;
     
@@ -13,9 +13,9 @@ export class AsyncKeyValueStorage<T> {
         this._timeout = timeout || 1000;
     }
     
-    getAsync(key: string): Promise<T> {
+    getAsync(key: K): Promise<V> {
         console.log(`Getting key "${key}" async`);
-        return new Promise<T>((resolve, reject) => {
+        return new Promise<V>((resolve, reject) => {
             setTimeout(() => reject(`Invalid Key "${key}"`), this._timeout);
             
             const value = this._storage.get(key);
@@ -29,16 +29,16 @@ export class AsyncKeyValueStorage<T> {
         });
     }
     
-    get(key: string): T | undefined {
+    get(key: K): V | undefined {
         console.log(`Getting key "${key}"`);
         return this._storage.get(key);
     }
     
-    contains(key: string): boolean {
+    contains(key: K): boolean {
         return this._storage.has(key);
     }
     
-    set(key: string, value: T): void {
+    set(key: K, value: V): void {
         console.log(`Setting key "${key}" to value "${value}"`);
         if (key in this._storage) {
             throw new Error(`Duplicate Key "${key}"`);

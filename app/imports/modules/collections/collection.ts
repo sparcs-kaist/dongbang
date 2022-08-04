@@ -11,7 +11,7 @@ const registerCollection = <T>(
     schema: ClassConstructor<T>,
     bind?: Mongo.Collection<any>,
 ): Mongo.SchemaCollection<T> => {
-    const schemaName = metaStorage.schemas.get(schema.name);
+    const schemaName = metaStorage.schemas.get(schema);
     if (!schemaName) {
         throw new Error(`Schema "${schema.name}" is not registered. Try decorating it with @Schema`);
     }

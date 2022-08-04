@@ -30,7 +30,7 @@ export const Link = (relation: string): PropertyDecorator => sync(async (target,
         throw new Error(`Type of relational field "${String(propertyKey)}" must be One, Many or Inverse`);
     }
     
-    const schemaName = await metaStorage.schemas.getAsync(target.constructor.name);
+    const schemaName = await metaStorage.schemas.getAsync(target.constructor);
     const collection = await metaStorage.collections.getAsync(schemaName);
     
     if (linkType !== "inverse") {

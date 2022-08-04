@@ -17,7 +17,7 @@ declare module "meteor/mongo" {
         }
         
         export interface SchemaCollection<T> extends Collection<Linkr.Mutation<T>, Linkr.Query<T>> {
-            getLink<V extends Linkr.KeysMatching<T, Linkr.Link>>(
+            getLink<V extends Linkr.KeysMatching<T, Linkr.LinkField>>(
                 objectorId: Grapher.ObjectOrId<Linkr.RelatedQuery<T, V>>,
                 name: V
             ): Grapher.Link<Linkr.Mutation<T>, Linkr.RelatedQuery<T, V>>;

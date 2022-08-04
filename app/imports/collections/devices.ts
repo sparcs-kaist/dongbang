@@ -1,20 +1,24 @@
 import { IsNotEmpty } from "class-validator";
-import { LinkOne } from "../modules/collections/decorators/links";
-import { One } from "../modules/collections/types";
-import { createCollection } from "../modules/collections";
+import {
+    Link,
+    One,
+    createCollection,
+    Schema,
+} from "../modules/collections";
 
-import { User } from "./init";
+import type { User } from "./users";
 
 // import {LinkOne} from "/imports/modules/collections/decorators/links";
 // import {One} from "/imports/modules/collections/types";
 // import {User} from "/imports/collections/users";
 // import {createCollection} from "/imports/modules/collections";
 
+@Schema("device")
 export class Device {
     @IsNotEmpty()
     macAddress: string;
     
-    @LinkOne("User")
+    @Link("user")
     user: One<User>;
 }
 

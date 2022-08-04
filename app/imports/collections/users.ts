@@ -1,16 +1,28 @@
 import { Meteor } from "meteor/meteor";
-import { Session } from "./init";
 
-import { IsBoolean, IsObject, IsOptional, IsString } from "class-validator";
-import { LinkOne } from "/imports/modules/collections/decorators/links";
-import { bindCollection } from "/imports/modules/collections";
-import { One } from "/imports/modules/collections/types";
+import {
+    IsBoolean,
+    IsObject,
+    IsOptional,
+    IsNotEmpty,
+    IsString,
+} from "class-validator";
 
+import {
+    Link,
+    Schema,
+    One,
+    bindCollection
+} from "../modules/collections";
+
+import type { Session } from "./sessions";
+
+@Schema("user")
 export class User {
-    @IsString()
+    @IsNotEmpty()
     name: string;
     
-    @IsString()
+    @IsNotEmpty()
     username: string;
     
     @IsBoolean()
@@ -22,7 +34,7 @@ export class User {
     @IsOptional() @IsObject()
     services?: object;
     
-    @LinkOne("Session")
+    @Link("session")
     session: One<Session>;
 }
 

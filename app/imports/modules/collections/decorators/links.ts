@@ -3,70 +3,65 @@ import { IsOptional, IsString } from "class-validator";
 
 import { metaStorage } from "../metaStorage";
 import { sync } from "../common/asyncWrapper";
+import { Inverse, Many, One } from "../types";
 
-const checkTypes = (target: Object, propertyKey: string | symbol, expectedType: string, expectedTypeName?: string) => {
-    const type = Reflect.getMetadata("design:type", target, propertyKey);
-    
-    if (type.name !== expectedType) {
-        console.warn(
-            "[warning]",
-            `Wrong type "${type.name}" of property "${String(propertyKey)}". Consider changing it to "${expectedTypeName || expectedType}".`,
-        );
-    }
-};
+type LinkConstructorType = typeof One | typeof Many | typeof Inverse;
+type LinkType = "one" | "many" | "inverse";
+const linkMap = new Map<LinkConstructorType, LinkType>([
+    [One, "one"],
+    [Many, "many"],
+    [Inverse, "inverse"],
+] as const);
 
 const registerIdField = (target: Object, relatedField: string | symbol) => {
     IsString()(target, `${String(relatedField)}Id`);
     IsOptional()(target, `${String(relatedField)}Id`);
 };
 
-export const LinkOne = <T> (relation: string): PropertyDecorator => sync(async (target, propertyKey) => {
-    registerIdField(target, `${String(propertyKey)}Id`);
-    // checkTypes(target, propertyKey, relation);
-    
-    const collection = await metaStorage.collections.getAsync(target.constructor.name);
-    const relatedCollection = await metaStorage.collections.getAsync(relation);
-    
-    collection.addLinks({
-        [String(propertyKey)]: {
-            type: "one",
-            collection: relatedCollection,
-            field: `${String(propertyKey)}Id`,
-        },
-    });
-    
-    metaStorage.links.set(`${target.constructor.name}.${String(propertyKey)}`, "Qwer");
-});
 
-export const LinkMany = <T> (relation: string): PropertyDecorator => sync(async (target, propertyKey) => {
-    registerIdField(target, `${String(propertyKey)}Id`);
-    // checkTypes(target, propertyKey, "Array", `${relation}[]`);
+export const Link = (relation: string): PropertyDecorator => sync(async (target, propertyKey) => {
+    const linkType = linkMap.get(Reflect.getMetadata(
+        "design:type",
+        target,
+        propertyKey,
+    ));
     
-    const collection = await metaStorage.collections.getAsync(target.constructor.name);
-    const relatedCollection = await metaStorage.collections.getAsync(relation);
+    if (!linkType) {
+        throw new Error(`Type of relational field "${String(propertyKey)}" must be One, Many or Inverse`);
+    }
     
-    collection.addLinks({
-        [String(propertyKey)]: {
-            type: "many",
-            collection: relatedCollection,
-            field: `${String(propertyKey)}Id`,
-        },
-    });
-});
-
-export const InverseLink = <T> (fieldKey: `${string}.${string}`): PropertyDecorator => sync(async (target, propertyKey) => {
-    const [relation, field] = fieldKey.split(".", 2);
-    // checkTypes(target, propertyKey, "Array", `${relation}[]`)
+    const schemaName = await metaStorage.schemas.getAsync(target.constructor.name);
+    const collection = await metaStorage.collections.getAsync(schemaName);
     
-    const relatedCollection = await metaStorage.collections.getAsync(relation);
-    const collection = await metaStorage.collections.getAsync(target.constructor.name);
-    
-    await metaStorage.links.getAsync(fieldKey);
-    
-    collection.addLinks({
-        [String(propertyKey)]: {
-            collection: relatedCollection,
-            inversedBy: field,
-        },
-    });
+    if (linkType !== "inverse") {
+        registerIdField(target, `${String(propertyKey)}Id`);
+        
+        const relatedCollection = await metaStorage.collections.getAsync(relation);
+        
+        collection.addLinks({
+            [String(propertyKey)]: {
+                type: linkType,
+                collection: relatedCollection,
+                field: `${String(propertyKey)}Id`,
+            },
+        });
+        
+        metaStorage.links.set(`${schemaName}.${String(propertyKey)}`);
+    } else {
+        const [relatedSchemaName, field] = relation.split(".", 2);
+        
+        if (!relatedSchemaName || !field) {
+            throw new Error(`Inverse link must be in format "collectionName.field"`);
+        }
+        
+        const relatedCollection = await metaStorage.collections.getAsync(relatedSchemaName);
+        await metaStorage.links.getAsync(relation);
+        
+        collection.addLinks({
+            [String(propertyKey)]: {
+                collection: relatedCollection,
+                inversedBy: field,
+            },
+        });
+    }
 });

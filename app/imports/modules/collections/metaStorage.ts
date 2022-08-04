@@ -4,5 +4,6 @@ import { AsyncKeyValueStorage } from "./common/asyncStorage";
 
 export const metaStorage = {
     collections: new AsyncKeyValueStorage<Mongo.SchemaCollection<any>>(),
-    links: new AsyncKeyValueStorage<string>(),
+    schemas: new AsyncKeyValueStorage<string>(),
+    links: new AsyncKeyValueStorage<void>(),
 } as const;

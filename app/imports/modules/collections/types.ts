@@ -11,7 +11,7 @@ type PickMatch<T, V> = Pick<T, KeysMatching<T, V>>;
 type OmitMatch<T, V> = Pick<T, KeysUnmatching<T, V>>;
 
 // IO types
-type BaseIO<T> = OmitMatch<T, Link> & LinkKeys<T>
+type BaseIO<T> = OmitMatch<T, LinkField> & LinkKeys<T>
 export type Mutation<T> = BaseIO<T> & { _id?: string };
 export type Query<T> = BaseIO<T> & LinkedData<T>;
 
@@ -20,12 +20,27 @@ type BaseLink<TSchema, Vtype extends "one" | "many" | "inverse"> = {
     schema: TSchema,
     type: Vtype,
 }
-export type One<T> = BaseLink<T, "one">;
-export type Many<T> = BaseLink<T, "many">;
-export type Inverse<T> = BaseLink<T, "inverse">;
+
+// export type One<T> = BaseLink<T, "one">;
+export class One<T> implements BaseLink<T, "one"> {
+    schema: T;
+    type: "one";
+}
+
+// export type Many<T> = BaseLink<T, "many">;
+export class Many<T> implements BaseLink<T, "many"> {
+    schema: T;
+    type: "many";
+}
+
+// export type Inverse<T> = BaseLink<T, "inverse">;
+export class Inverse<T> implements BaseLink<T, "inverse"> {
+    schema: T;
+    type: "inverse";
+}
 
 type LinkWithId = One<any> | Many<any>;
-export type Link = One<any> | Many<any> | Inverse<any>;
+export type LinkField = One<any> | Many<any> | Inverse<any>;
 
 // Helpers
 type Id<T extends object> = `${keyof T extends string ? keyof T : never}Id`;
@@ -34,7 +49,7 @@ type LinkKeys<T> = {
 };
 
 type LinkedData<T> = {
-    [P in keyof PickMatch<T, Link>]: T[P] extends Link
+    [P in keyof PickMatch<T, LinkField>]: T[P] extends LinkField
         ? T[P] extends One<any>
             ? Query<T[P]["schema"]> | undefined
             : Query<T[P]["schema"]>[]

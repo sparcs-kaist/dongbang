@@ -5,33 +5,33 @@ import { metaStorage } from "./metaStorage";
 
 import { SchemaObject } from "openapi3-ts";
 import { targetConstructorToSchema } from "class-validator-jsonschema";
-import { Mutation, Query } from "./types";
+import { Mutation } from "./types";
+
+const registerCollection = (schema: ClassConstructor<any>, bind?: Mongo.Collection<any>) => {
+    const schemaName = metaStorage.schemas.get(schema.name);
+    if (!schemaName) {
+        throw new Error(`Schema "${schema.name}" is not registered. Try decorating it with @Schema`);
+    }
+    
+    const collection = bind || new Mongo.Collection(schemaName);
+    
+    addSchema(collection, targetConstructorToSchema(schema));
+    metaStorage.collections.set(schemaName, collection);
+    
+    return collection;
+}
 
 export const createCollection = <T> (
     schema: ClassConstructor<T>,
 ): Mongo.SchemaCollection<T> => {
-    if (metaStorage.collections.contains(schema.name)) {
-        return metaStorage.collections.get(schema.name);
-    }
-    
-    const collection: Mongo.SchemaCollection<T> = new Mongo.Collection<
-        Mutation<T>,
-        Query<T>
-        >(schema.name) as Mongo.SchemaCollection<T>;
-    addSchema(collection, targetConstructorToSchema(schema));
-    
-    metaStorage.collections.set(schema.name, collection);
-    return collection;
+    return registerCollection(schema);
 };
 
 export const bindCollection = <T> (
     collection: Mongo.Collection<any>,
     schema: ClassConstructor<T>,
 ): Mongo.SchemaCollection<T> => {
-    addSchema(collection, targetConstructorToSchema(schema));
-    
-    metaStorage.collections.set(schema.name, collection);
-    return collection;
+    return registerCollection(schema, collection);
 };
 
 const addSchema = <T> (collection: Mongo.SchemaCollection<T>, jsonSchema: SchemaObject) => {

@@ -1,15 +1,23 @@
 import { IsEnum, IsNotEmpty, IsOptional } from "class-validator";
-import { InverseLink, LinkOne } from "/imports/modules/collections/decorators/links";
-import { User } from "./init";
-import { createCollection } from "/imports/modules/collections/collection";
+// import { InverseLink, LinkOne } from "/imports/modules/collections/decorators/links";
 
-import { Inverse, One } from "/imports/modules/collections/types";
+
+import {
+    One,
+    Inverse,
+    Schema,
+    createCollection,
+    Link
+} from "../modules/collections";
+
+import type { User } from "./users";
 
 export enum Location {
     A_SITE = "A SITE",
     B_SITE = "B SITE",
 }
 
+@Schema("session")
 export class Session {
     @IsNotEmpty()
     name: string;
@@ -17,10 +25,10 @@ export class Session {
     @IsEnum(Location) @IsOptional()
     location?: Location;
     
-    @LinkOne("User")
+    @Link("user")
     creator: One<User>;
     
-    @InverseLink("User.session")
+    @Link("user.session")
     members: Inverse<User>;
 }
 

@@ -46,7 +46,7 @@ export const Link = (relation: string): PropertyDecorator => sync(async (target,
             },
         });
         
-        metaStorage.links.set(`${schemaName}.${String(propertyKey)}`);
+        metaStorage.links.set(`${schemaName}.${String(propertyKey)}`, true);
     } else {
         const [relatedSchemaName, field] = relation.split(".", 2);
         

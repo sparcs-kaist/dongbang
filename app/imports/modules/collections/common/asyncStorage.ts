@@ -1,15 +1,14 @@
 type Resolver<T> = (value: T | PromiseLike<T>) => void;
-type Map<T> = { [key: string]: T };
 
 export class AsyncKeyValueStorage<T> {
-    private readonly _storage: Map<T>;
-    private readonly _pending: Map<Resolver<T>[]>;
+    private readonly _storage: Map<string, T>;
+    private readonly _pending: Map<string, Resolver<T>[]>;
     
     private readonly _timeout: number;
     
     constructor (timeout?: number) {
-        this._storage = {};
-        this._pending = {};
+        this._storage = new Map();
+        this._pending = new Map();
         
         this._timeout = timeout || 1000;
     }
@@ -18,26 +17,27 @@ export class AsyncKeyValueStorage<T> {
         return new Promise<T>((resolve, reject) => {
             setTimeout(() => reject(`Invalid Key "${key}"`), this._timeout);
             
-            if (key in this._storage) {
-                return resolve(this._storage[key]);
+            const value = this._storage.get(key);
+            if (value) return resolve(value);
+            
+            if (!this._pending.has(key)) {
+                this._pending.set(key, []);
             }
             
-            this._pending[key]
-                ? this._pending[key].push(resolve)
-                : (this._pending[key] = [resolve]);
+            this._pending.get(key)?.push(resolve);
         });
     }
     
     get (key: string): T {
-        if (!(key in this._storage)) {
+        const value = this._storage.get(key);
+        if (!value) {
             throw new Error(`Invalid Key "${key}"`);
         }
-        
-        return this._storage[key];
+        return value;
     }
     
     contains (key: string): boolean {
-        return key in this._storage;
+        return this._storage.has(key);
     }
     
     set (key: string, value: T): void {
@@ -45,8 +45,10 @@ export class AsyncKeyValueStorage<T> {
             throw new Error(`Duplicate Key "${key}"`);
         }
         
-        this._storage[key] = value;
-        this._pending[key]?.forEach(resolve => resolve(value));
-        delete this._pending[key];
+        this._storage.set(key, value);
+        this._pending
+            .get(key)
+            ?.forEach(resolve => resolve(value));
+        this._pending.delete(key);
     }
 }

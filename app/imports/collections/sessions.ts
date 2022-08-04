@@ -1,14 +1,5 @@
 import { IsEnum, IsNotEmpty, IsOptional } from "class-validator";
-// import { InverseLink, LinkOne } from "/imports/modules/collections/decorators/links";
-
-
-import {
-    One,
-    Inverse,
-    Schema,
-    createCollection,
-    Link
-} from "../modules/collections";
+import { One, Inverse, Schema, Link } from "../modules/collections";
 
 import type { User } from "./users";
 
@@ -31,5 +22,3 @@ export class Session {
     @Link("user.session")
     members: Inverse<User>;
 }
-
-export const SessionsCollection = createCollection(Session);

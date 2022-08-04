@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 import SimpleSchema from "simpl-schema";
 
-import { DevicesCollection } from "../../collections/devices";
+import { collections } from "../../collections";
 
 type RegisterDevice = (device: {
     macAddress: string;
@@ -17,7 +17,7 @@ export const registerDevice = new ValidatedMethod<string, RegisterDevice>({
         if (!this.userId) {
             throw new Meteor.Error("Not authorized");
         }
-        DevicesCollection.insert({
+        collections.devices.insert({
             macAddress: device.macAddress,
             userId: this.userId,
         });

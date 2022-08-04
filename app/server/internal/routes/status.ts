@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
+import express from "express";
 
-import * as express from "express";
-import { DevicesCollection } from "../../../imports/collections/devices";
+import { collections } from "../../../imports/collections";
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.post("/", (req, res) => {
 });
 
 const changeStatus = Meteor.bindEnvironment((macAddress: string, isActive: boolean) => {
-    const device = DevicesCollection.findOne({ macAddress });
+    const device = collections.devices.findOne({ macAddress });
     
     // try {
     //     if (device) {

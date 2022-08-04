@@ -1,15 +1,12 @@
-import "./users";
-import { SessionsCollection } from "./sessions";
-import { DevicesCollection } from "./devices";
+import { Meteor } from "meteor/meteor";
+import { bindCollection, createCollection } from "../modules/collections";
 
-// import "./test";
-// import "./test2";
-// export {
-//     users,
-//     Session,
-// }
+import { User } from "./users";
+import { Session } from "./sessions";
+import { Device } from "./devices";
 
-export default {
-    sessions: SessionsCollection,
-    devices: DevicesCollection,
+export const collections = {
+    users: bindCollection(Meteor.users, User),
+    sessions: createCollection(Session),
+    devices: createCollection(Device),
 };

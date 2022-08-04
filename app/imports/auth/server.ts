@@ -4,6 +4,7 @@ import { Meteor } from "meteor/meteor";
 import { Client } from "ldapts";
 import { getMemberData } from "/imports/lib/memvers";
 import { asyncToSync } from "/imports/custom/asyncToSync";
+import { collections } from "../collections";
 
 if (Meteor.isServer) {
     Accounts.registerLoginHandler("ldap", function (loginRequest) {
@@ -58,7 +59,7 @@ const sanitize = (string: string): string => {
 
 const initializeUser = (username: string): string => {
     const userData = getMemberData(username);
-    return Meteor.users.insert({
+    return collections.users.insert({
         name: userData.name,
         username: username,
         isActive: false,

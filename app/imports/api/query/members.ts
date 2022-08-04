@@ -1,7 +1,7 @@
 import { expose } from "./helpers/expose";
-import { UsersCollection } from "/imports/collections/users";
+import { collections } from "../../collections";
 
-export const membersQuery = UsersCollection.createQuery("members", {
+export const membersQuery = collections.users.createQuery("members", {
     $filters: {
         // "status.type": {$ne: UserStatus.OFFLINE}
         isActive: true,

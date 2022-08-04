@@ -1,9 +1,7 @@
-import { SessionsCollection } from "/imports/collections/sessions";
 import { expose } from "./helpers/expose";
+import { collections } from "../../collections";
 
-// import {createQuery} from 'meteor/cultofcoders:grapher';
-
-export const sessionsQuery = SessionsCollection.createQuery("session", {
+export const sessionsQuery = collections.sessions.createQuery("session", {
         name: 1,
         location: 1,
         creator: {

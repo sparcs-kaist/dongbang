@@ -1,12 +1,12 @@
 import { Meteor } from "meteor/meteor";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
-import { Location, SessionsCollection } from "/imports/collections/sessions";
 import SimpleSchema from "simpl-schema";
 import { Enum, Optional } from "/imports/custom/simpl-schema";
-import { UsersCollection } from "/imports/collections/users";
+
+import { Location } from "../../collections/sessions";
+import { collections } from "../../collections";
 
 function authenticate (options: any) {
-    // console.log(this.userId)
     const run = options.run;
     
     options.run = function (...args: any[]) {
@@ -24,7 +24,7 @@ function cleanup (options: any) {
     const run = options.run;
     
     options.run = function (...args: any[]) {
-        const sessionId = UsersCollection
+        const sessionId = collections.users
             .findOne(this.userId, { fields: { sessionId: 1 } })
             ?.sessionId;
         
@@ -32,13 +32,13 @@ function cleanup (options: any) {
         
         if (!sessionId) return res;
         
-        const memberCount = SessionsCollection
+        const memberCount = collections.sessions
             .getLink(sessionId, "members")
             .find()
             .count();
         
         if (memberCount === 0) {
-            SessionsCollection.remove(sessionId);
+            collections.sessions.remove(sessionId);
         }
         
         return res;
@@ -92,13 +92,13 @@ export const startSession = new ValidatedMethod<string, StartSession>({
         //     throw new Meteor.Error("Leave current session first to create new session")
         // }
         
-        const sessionId = SessionsCollection.insert({
+        const sessionId = collections.sessions.insert({
             name: session.name,
             location: session.location,
             creatorId: this.userId,
         });
         
-        SessionsCollection
+        collections.sessions
             .getLink(sessionId, "members")
             .set(this.userId);
     },
@@ -112,7 +112,7 @@ export const endSession = new ValidatedMethod<string, () => void>({
             throw new Meteor.Error("Not authorized.");
         }
         
-        const currentSession = UsersCollection
+        const currentSession = collections.users
             .getLink(this.userId, "session")
             .fetch();
         
@@ -120,7 +120,7 @@ export const endSession = new ValidatedMethod<string, () => void>({
             throw new Meteor.Error("A session can be ended only by its creator");
         }
         
-        SessionsCollection.remove(currentSession._id);
+        collections.sessions.remove(currentSession._id);
     },
 });
 
@@ -137,7 +137,7 @@ export const joinSession = new ValidatedMethod<string, JoinSession>({
             throw new Meteor.Error("Not authorized.");
         }
         
-        SessionsCollection
+        collections.sessions
             .getLink(sessionId, "members")
             .set(this.userId);
     },
@@ -160,7 +160,7 @@ export const leaveSession = new ValidatedMethod<string, () => void>({
         //     throw new Meteor.Error("Not in session")
         // }
         
-        UsersCollection
+        collections.users
             .getLink(this.userId, "session")
             .unset();
         

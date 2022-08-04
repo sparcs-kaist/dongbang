@@ -1,19 +1,5 @@
-import { Meteor } from "meteor/meteor";
-
-import {
-    IsBoolean,
-    IsObject,
-    IsOptional,
-    IsNotEmpty,
-    IsString,
-} from "class-validator";
-
-import {
-    Link,
-    Schema,
-    One,
-    bindCollection
-} from "../modules/collections";
+import { IsBoolean, IsObject, IsOptional, IsNotEmpty, IsString } from "class-validator";
+import { Link, Schema, One } from "../modules/collections";
 
 import type { Session } from "./sessions";
 
@@ -37,5 +23,3 @@ export class User {
     @Link("session")
     session: One<Session>;
 }
-
-export const UsersCollection = bindCollection(Meteor.users, User);

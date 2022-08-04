@@ -2,7 +2,7 @@ import { Accounts } from "meteor/accounts-base";
 import { Meteor } from "meteor/meteor";
 
 import { Client } from "ldapts";
-import { getMemberData } from "/imports/lib/memvers";
+import { getMemberData } from "../modules/external/memvers";
 import { asyncToSync } from "/imports/custom/asyncToSync";
 import { collections } from "../collections";
 

@@ -14,6 +14,7 @@ export class AsyncKeyValueStorage<T> {
     }
     
     getAsync(key: string): Promise<T> {
+        console.log(`Getting key "${key}" async`);
         return new Promise<T>((resolve, reject) => {
             setTimeout(() => reject(`Invalid Key "${key}"`), this._timeout);
             
@@ -29,11 +30,8 @@ export class AsyncKeyValueStorage<T> {
     }
     
     get(key: string): T | undefined {
-        const value = this._storage.get(key);
-        if (!value) {
-            throw new Error(`Invalid Key "${key}"`);
-        }
-        return value;
+        console.log(`Getting key "${key}"`);
+        return this._storage.get(key);
     }
     
     contains(key: string): boolean {
@@ -41,6 +39,7 @@ export class AsyncKeyValueStorage<T> {
     }
     
     set(key: string, value: T): void {
+        console.log(`Setting key "${key}" to value "${value}"`);
         if (key in this._storage) {
             throw new Error(`Duplicate Key "${key}"`);
         }

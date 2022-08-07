@@ -12,10 +12,10 @@ import {
 
 import MemberStatus from "./components/MemberStatus";
 
-import { updateStatus } from "../../../api/methods/members";
+import { methods } from "/imports/api/methods";
 
 import type { Query } from "/imports/modules/collections/types";
-import type { User } from "../../../collections/users";
+import type { User } from "/imports/collections/users";
 
 interface MemberProps {
     user?: Query<User>;
@@ -27,9 +27,9 @@ const MemberDetail: React.FC<MemberProps> = ({ user, members }) => {
     const isSelf = user?.username === username;
     
     const toggleStatus = () => {
-        updateStatus.call({
+        methods.members.updateStatus({
             isActive: !user?.isActive,
-        });
+        }).then();
     };
     
     const member = isSelf

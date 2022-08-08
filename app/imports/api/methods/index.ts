@@ -1,8 +1,9 @@
 import * as members from "./members";
-
-export * from "./sessions";
-export * from "./devices";
+import * as sessions from "./sessions";
+import * as devices from "./devices";
 
 export const methods = {
     members,
+    sessions,
+    devices,
 };

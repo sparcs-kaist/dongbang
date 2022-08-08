@@ -1,16 +1,8 @@
-require("dotenv").config({ path: "../../../../../.env" });
-
 import { Meteor } from "meteor/meteor";
-
 import axios from "axios";
+
+import config from "/server/core/config";
 import { asyncToSync } from "/imports/custom/asyncToSync";
-
-const { MEMVERS_ROOT, MEMVERS_CREDENTIALS_UN, MEMVERS_CREDENTIALS_PW } =
-    process.env;
-
-if (!(MEMVERS_ROOT && MEMVERS_CREDENTIALS_UN && MEMVERS_CREDENTIALS_PW)) {
-    throw new Error("Missing env variables");
-}
 
 interface UserData {
     battlenet_id: string | null;
@@ -102,9 +94,9 @@ class MemversClient {
 }
 
 export const memversClient = new MemversClient(
-    MEMVERS_ROOT,
-    MEMVERS_CREDENTIALS_UN,
-    MEMVERS_CREDENTIALS_PW,
+    config.MEMVERS_ROOT,
+    config.MEMVERS_CREDENTIALS_UN,
+    config.MEMVERS_CREDENTIALS_PW,
 );
 
 export const getMemberData = asyncToSync(async (username: string) => {

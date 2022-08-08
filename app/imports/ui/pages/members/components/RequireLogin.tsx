@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const RequireLogin: React.FC = () => {
     const navigate = useNavigate();
-    
+
     return (
         <CardBody>
             <CardAction

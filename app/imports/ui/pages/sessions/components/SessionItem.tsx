@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import styles from "./SessionItem.module.css";
 
-import { Session } from "/imports/collections/sessions";
 // import {LOCATION_NAME, Session} from "/imports/collections/sessions";
 
 import {
@@ -17,13 +16,12 @@ import {
 
 import { Collapse } from "../../../components/animate";
 
-import {
-    joinSession,
-    leaveSession,
-} from "../../../../api/methods/sessions";
+import { joinSession, leaveSession } from "../../../../api/methods/sessions";
 
 import { LocationIcon } from "../../../../assets";
-import { Query } from "../../../../modules/collections/types";
+
+import type { Query } from "/imports/modules/collections";
+import type { Session } from "/imports/collections/sessions";
 
 interface SessionItemProps {
     session: Query<Session>;
@@ -32,15 +30,15 @@ interface SessionItemProps {
 
 const SessionItem: React.FC<SessionItemProps> = ({ session, joined }) => {
     const [showControls, setShowControls] = useState<boolean>(false);
-    
+
     const join = () => {
         joinSession.call({ sessionId: session._id });
     };
-    
+
     const leave = () => {
         leaveSession.call();
     };
-    
+
     return (
         <Card
             key={session._id}
@@ -51,39 +49,52 @@ const SessionItem: React.FC<SessionItemProps> = ({ session, joined }) => {
             onMouseLeave={() => setShowControls(false)}
         >
             <CardBody>
-                <CardAction mobile/>
-                {session.location &&
+                <CardAction mobile />
+                {session.location && (
                     <CardText.sub
                         location
-                        style={{ display: "flex", alignItems: "center", gap: 5, paddingBottom: 10 }}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 5,
+                            paddingBottom: 10,
+                        }}
                     >
-                        <LocationIcon/>
+                        <LocationIcon />
                         <span>{session.location}</span>
                     </CardText.sub>
-                }
+                )}
                 <CardText.main className={styles.title}>
                     {session.name}
                 </CardText.main>
-                
+
                 <List>
-                    {session.members.map(member =>
+                    {session.members.map((member) => (
                         <CardText.sub key={member._id}>
                             {renderProfileText(member)}
-                        </CardText.sub>,
-                    )}
+                        </CardText.sub>
+                    ))}
                 </List>
-                
+
                 <Collapse
                     show={showControls}
-                    style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", zIndex: 5 }}
+                    style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "center",
+                        zIndex: 5,
+                    }}
                 >
-                    {joined
-                        ? <CardButton onClick={leave} disabled={!showControls}>나가기</CardButton>
-                        : <CardButton onClick={join} disabled={!showControls}>참여</CardButton>
-                    }
+                    {joined ? (
+                        <CardButton onClick={leave} disabled={!showControls}>
+                            나가기
+                        </CardButton>
+                    ) : (
+                        <CardButton onClick={join} disabled={!showControls}>
+                            참여
+                        </CardButton>
+                    )}
                 </Collapse>
-            
-            
             </CardBody>
         </Card>
     );

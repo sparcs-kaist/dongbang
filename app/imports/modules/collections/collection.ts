@@ -13,19 +13,21 @@ const registerCollection = <T>(
 ): Mongo.SchemaCollection<T> => {
     const schemaName = metaStorage.schemas.get(schema);
     if (!schemaName) {
-        throw new Error(`Schema "${schema.name}" is not registered. Try decorating it with @Schema`);
+        throw new Error(
+            `Schema "${schema.name}" is not registered. Try decorating it with @Schema`,
+        );
     }
-    
+
     const schemaCollection = metaStorage.collections.get(schemaName);
     if (schemaCollection) {
         return schemaCollection as Mongo.SchemaCollection<T>;
     }
-    
+
     const collection = bind || new Mongo.Collection(schemaName);
-    
+
     addSchema(collection, targetConstructorToSchema(schema));
     metaStorage.collections.set(schemaName, collection);
-    
+
     return collection;
 };
 
@@ -42,7 +44,10 @@ export const bindCollection = <T>(
     return registerCollection(schema, collection);
 };
 
-const addSchema = <T>(collection: Mongo.SchemaCollection<T>, jsonSchema: SchemaObject) => {
+const addSchema = <T>(
+    collection: Mongo.SchemaCollection<T>,
+    jsonSchema: SchemaObject,
+) => {
     if (Meteor.isServer) {
         const _addSchema = async () => {
             await collection.rawDatabase().command({
@@ -52,13 +57,15 @@ const addSchema = <T>(collection: Mongo.SchemaCollection<T>, jsonSchema: SchemaO
                 },
             });
         };
-        
-        _addSchema().catch(e => {
-            const { name, code } = e as { name: string, code: number };
-            
+
+        _addSchema().catch((e) => {
+            const { name, code } = e as { name: string; code: number };
+
             if (name === "MongoServerError" && code === 26) {
                 forceCreate(collection);
-                _addSchema().catch(e => {throw e;});
+                _addSchema().catch((e) => {
+                    throw e;
+                });
             }
         });
     }
@@ -69,4 +76,3 @@ const forceCreate = <T>(collection: Mongo.SchemaCollection<T>) => {
         collection.insert({} as unknown as Mongo.OptionalId<Mutation<T>>),
     );
 };
-

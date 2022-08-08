@@ -1,6 +1,6 @@
 button {
     cursor: pointer;
-    transition: background-color .05s ease;
+    transition: background-color 0.05s ease;
     border: none;
     outline: none;
 }

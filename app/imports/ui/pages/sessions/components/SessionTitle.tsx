@@ -8,11 +8,12 @@ interface SessionContainerProps {
     numSessions: number;
 }
 
-const SessionTitle: React.FC<SessionContainerProps> = (
-    { title, numSessions },
-) => {
-    return (
-        numSessions > 0 ? <motion.div
+const SessionTitle: React.FC<SessionContainerProps> = ({
+    title,
+    numSessions,
+}) => {
+    return numSessions > 0 ? (
+        <motion.div
             layout
             key={title}
             initial={{ opacity: 0 }}
@@ -20,9 +21,8 @@ const SessionTitle: React.FC<SessionContainerProps> = (
             exit={{ opacity: 0 }}
         >
             <Text.sub>{title}</Text.sub>
-        </motion.div> : null
-    
-    );
+        </motion.div>
+    ) : null;
 };
 
 export default SessionTitle;

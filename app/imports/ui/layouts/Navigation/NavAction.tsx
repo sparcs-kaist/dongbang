@@ -11,11 +11,12 @@ interface NavActionProps {
 }
 
 const NavAction: React.FC<NavActionProps> = ({ to, icon }) => {
-    
     return (
         <NavLink
             to={to}
-            className={({ isActive }) => classNames({ [styles.active]: isActive })}
+            className={({ isActive }) =>
+                classNames({ [styles.active]: isActive })
+            }
         >
             {icon}
         </NavLink>

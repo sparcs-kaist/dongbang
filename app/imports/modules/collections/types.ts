@@ -1,25 +1,25 @@
 // Essencial Generics
 export type KeysMatching<T, V> = {
-    [K in keyof T]-?: T[K] extends V ? K : never
-}[keyof T]
+    [K in keyof T]-?: T[K] extends V ? K : never;
+}[keyof T];
 
 export type KeysUnmatching<T, V> = {
-    [K in keyof T]-?: T[K] extends V ? never : K
+    [K in keyof T]-?: T[K] extends V ? never : K;
 }[keyof T];
 
 type PickMatch<T, V> = Pick<T, KeysMatching<T, V>>;
 type OmitMatch<T, V> = Pick<T, KeysUnmatching<T, V>>;
 
 // IO types
-type BaseIO<T> = OmitMatch<T, LinkField> & LinkKeys<T>
+type BaseIO<T> = OmitMatch<T, LinkField> & LinkKeys<T>;
 export type Mutation<T> = BaseIO<T> & { _id?: string };
 export type Query<T> = BaseIO<T> & LinkedData<T>;
 
 // Link types
 type BaseLink<TSchema, Vtype extends "one" | "many" | "inverse"> = {
-    schema: TSchema,
-    type: Vtype,
-}
+    schema: TSchema;
+    type: Vtype;
+};
 
 // export type One<T> = BaseLink<T, "one">;
 export class One<T> implements BaseLink<T, "one"> {
@@ -53,11 +53,12 @@ type LinkedData<T> = {
         ? T[P] extends One<any>
             ? Query<T[P]["schema"]> | undefined
             : Query<T[P]["schema"]>[]
-        : never
+        : never;
 } & { _id: string };
 
 // Collections
 export type RelatedQuery<T, V extends keyof Query<T>> = V extends keyof T
     ? T[V] extends BaseLink<any, any>
-        ? Query<T[V]["schema"]> : never
+        ? Query<T[V]["schema"]>
+        : never
     : never;

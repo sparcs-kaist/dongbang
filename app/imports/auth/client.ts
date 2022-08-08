@@ -4,11 +4,13 @@ import { Accounts } from "meteor/accounts-base";
 if (Meteor.isClient) {
     Meteor.loginAsLDAP = function (username, password, callback) {
         Accounts.callLoginMethod({
-            methodArguments: [{
-                type: "ldap",
-                username: username,
-                password: password,
-            }],
+            methodArguments: [
+                {
+                    type: "ldap",
+                    username: username,
+                    password: password,
+                },
+            ],
             userCallback: callback,
         });
     };

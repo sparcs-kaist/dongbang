@@ -11,66 +11,55 @@ import { useTracker } from "meteor/react-meteor-data";
 
 import useInput from "../common/hooks/useInput";
 
-import {
-    Input,
-    Text,
-    Button,
-    Spacer,
-} from "../components";
+import { Input, Text, Button, Spacer } from "../components";
 
-import {
-    CloseIcon,
-    Logo,
-} from "../../assets";
+import { CloseIcon, Logo } from "../../assets";
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
-    
+
     const { input: username } = useInput("");
     const { input: password, setValue: setPassword } = useInput("");
     const [error, setError] = useState(false);
-    
+
     const user = useTracker(() => Meteor.user());
-    
+
     const alertLoginFail = () => {
         setPassword("");
         setError(true);
     };
-    
+
     const login = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
-        Meteor.loginAsLDAP(
-            username.value,
-            password.value,
-            (err) => {
-                if (err) {
-                    alertLoginFail();
-                } else {
-                    navigate("/");
-                }
-            });
-        
+
+        Meteor.loginAsLDAP(username.value, password.value, (err) => {
+            if (err) {
+                alertLoginFail();
+            } else {
+                navigate("/");
+            }
+        });
     };
-    
+
     const logout = () => Meteor.logout();
-    
+
     return (
         <div className={styles.root}>
-            <div className={styles.topBorder}/>
+            <div className={styles.topBorder} />
             <div
                 className={classNames(headerStyles.action, styles.close)}
                 onClick={() => navigate("/")}
             >
-                <CloseIcon/>
+                <CloseIcon />
             </div>
-            
+
             <div className={styles.main}>
-                <Logo className={styles.logo}/>
-                
-                {user
-                    ? <Button onClick={logout}>로그아웃</Button>
-                    : <form onSubmit={login}>
+                <Logo className={styles.logo} />
+
+                {user ? (
+                    <Button onClick={logout}>로그아웃</Button>
+                ) : (
+                    <form onSubmit={login}>
                         <div>
                             <Text.sub>아이디</Text.sub>
                             <Input
@@ -91,18 +80,22 @@ const Login: React.FC = () => {
                                 {...password}
                             />
                         </div>
-                        
-                        {error && <Text.sub style={{
-                            color: "var(--theme-red)",
-                            width: "100%",
-                            padding: 0,
-                        }}>
-                            아이디 또는 비밀번호가 올바르지 않습니다
-                        </Text.sub>}
-                        <Spacer y={0}/>
+
+                        {error && (
+                            <Text.sub
+                                style={{
+                                    color: "var(--theme-red)",
+                                    width: "100%",
+                                    padding: 0,
+                                }}
+                            >
+                                아이디 또는 비밀번호가 올바르지 않습니다
+                            </Text.sub>
+                        )}
+                        <Spacer y={0} />
                         <Button type="submit">로그인</Button>
                     </form>
-                }
+                )}
             </div>
         </div>
     );

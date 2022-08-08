@@ -5,8 +5,8 @@ import { renderProfileText } from "/imports/ui/components/Text";
 import MemberStatus from "./MemberStatus";
 
 import { useNavigate } from "react-router-dom";
-import { Query } from "../../../../modules/collections/types";
-import { User } from "../../../../collections/users";
+import type { Query } from "/imports/modules/collections";
+import type { User } from "/imports/collections/users";
 
 interface MemberItemProps {
     member: Query<User>;
@@ -14,18 +14,13 @@ interface MemberItemProps {
 
 const MemberItem: React.FC<MemberItemProps> = ({ member }) => {
     const navigate = useNavigate();
-    
+
     return (
-        <CardBody
-            layout
-            key={member._id}
-        >
-            <CardAction onClick={() => navigate(`${member.username}`)}/>
-            <CardText.main>
-                {renderProfileText(member)}
-            </CardText.main>
+        <CardBody layout key={member._id}>
+            <CardAction onClick={() => navigate(`${member.username}`)} />
+            <CardText.main>{renderProfileText(member)}</CardText.main>
             <CardText.sub>
-                <MemberStatus member={member}/>
+                <MemberStatus member={member} />
             </CardText.sub>
         </CardBody>
     );

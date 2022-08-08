@@ -55,6 +55,6 @@
     --theme-red: rgb(var(--theme-red_w));
     --theme-green_w: 48, 201, 107;
     --theme-green: rgb(var(--theme-green_w));
-    --shadow-400: 0 0 15px 0 rgba(var(--grey-000_w), .15);
-    --shadow-500: 0 2px 20px 0 rgba(var(--grey-000_w), .15);
+    --shadow-400: 0 0 15px 0 rgba(var(--grey-000_w), 0.15);
+    --shadow-500: 0 2px 20px 0 rgba(var(--grey-000_w), 0.15);
 }

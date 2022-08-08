@@ -1,21 +1,18 @@
-export const Enum = (enumObj: Object) => (
-    new RegExp(`^${
-        Object
-            .values(enumObj)
-            .map(v => `(${v})`)
-            .join("|")
-    }$`)
-);
+export const Enum = (enumObj: object) =>
+    new RegExp(
+        `^${Object.values(enumObj)
+            .map((v) => `(${v})`)
+            .join("|")}$`,
+    );
 
-type Field = BooleanConstructor
+type Field =
+    | BooleanConstructor
     | StringConstructor
     | NumberConstructor
     | DateConstructor
     | ArrayConstructor
     | "SimpleSchema.Integer"
     | RegExp
-    | string
+    | string;
 
-export const Optional = (field: Field) => (
-    { type: field, optional: true }
-);
+export const Optional = (field: Field) => ({ type: field, optional: true });

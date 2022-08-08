@@ -7,7 +7,7 @@ import type { User } from "./users";
 export class Device {
     @IsNotEmpty()
     macAddress: string;
-    
+
     @Link("user")
     user: One<User>;
 }

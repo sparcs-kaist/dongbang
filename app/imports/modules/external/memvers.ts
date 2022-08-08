@@ -5,11 +5,8 @@ import { Meteor } from "meteor/meteor";
 import axios from "axios";
 import { asyncToSync } from "/imports/custom/asyncToSync";
 
-const {
-    MEMVERS_ROOT,
-    MEMVERS_CREDENTIALS_UN,
-    MEMVERS_CREDENTIALS_PW,
-} = process.env;
+const { MEMVERS_ROOT, MEMVERS_CREDENTIALS_UN, MEMVERS_CREDENTIALS_PW } =
+    process.env;
 
 if (!(MEMVERS_ROOT && MEMVERS_CREDENTIALS_UN && MEMVERS_CREDENTIALS_PW)) {
     throw new Error("Missing env variables");
@@ -43,38 +40,46 @@ interface UserData {
 }
 
 interface NuguAPIData {
-    objs: UserData[],
-    success: boolean,
+    objs: UserData[];
+    success: boolean;
 }
 
 axios.defaults.withCredentials = true;
 
 class MemversClient {
     private readonly root: string;
-    private readonly credentials: { un: string, pw: string };
+    private readonly credentials: { un: string; pw: string };
     private cookie?: string;
-    
-    constructor (root: string, un: string, pw: string) {
+
+    constructor(root: string, un: string, pw: string) {
         this.root = root;
         this.credentials = { un, pw };
     }
-    
-    private async refreshSession () {
-        const response = await axios.post(this.root + "login", this.credentials);
-        
+
+    private async refreshSession() {
+        const response = await axios.post(
+            this.root + "login",
+            this.credentials,
+        );
+
         if (!response.data?.success) {
             throw new Meteor.Error("Failed to authenticate in Memvers API");
         }
-        
+
         this.cookie = response.headers["set-cookie"]?.[0];
     }
-    
-    async get (url: string) {
+
+    async get(url: string) {
         if (!this.cookie) throw new Error("Not authenticated");
-        return await axios.get(this.root + url, { headers: { Cookie: this.cookie } });
+        return await axios.get(this.root + url, {
+            headers: { Cookie: this.cookie },
+        });
     }
-    
-    private async fetchUserData (username: string, retry: boolean): Promise<UserData> {
+
+    private async fetchUserData(
+        username: string,
+        retry: boolean,
+    ): Promise<UserData> {
         try {
             const apiData = await this.get("nugu/" + username);
             const userData = apiData.data as NuguAPIData;
@@ -90,8 +95,8 @@ class MemversClient {
             return await this.fetchUserData(username, false);
         }
     }
-    
-    async getUserDataAsync (username: string) {
+
+    async getUserDataAsync(username: string) {
         return this.fetchUserData(username, true);
     }
 }

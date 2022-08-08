@@ -12,13 +12,14 @@ export enum Location {
 export class Session {
     @IsNotEmpty()
     name: string;
-    
-    @IsEnum(Location) @IsOptional()
+
+    @IsEnum(Location)
+    @IsOptional()
     location?: Location;
-    
+
     @Link("user")
     creator: One<User>;
-    
+
     @Link("user.session")
     members: Inverse<User>;
 }

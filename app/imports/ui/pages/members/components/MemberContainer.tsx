@@ -10,19 +10,18 @@ interface MemberContainerProps {
     children: ReactNode;
 }
 
-const MemberContainer: React.FC<MemberContainerProps> = (
-    { title, children },
-) => (
-    children ? <>
-        <Text.sub>{title}</Text.sub>
-        <AnimatePresence initial={false}>
-            {Children.count(children) > 0 && <Card>
-                <List>
-                    {children}
-                </List>
-            </Card>}
-        </AnimatePresence>
-    </> : null
-);
+const MemberContainer: React.FC<MemberContainerProps> = ({ title, children }) =>
+    children ? (
+        <>
+            <Text.sub>{title}</Text.sub>
+            <AnimatePresence initial={false}>
+                {Children.count(children) > 0 && (
+                    <Card>
+                        <List>{children}</List>
+                    </Card>
+                )}
+            </AnimatePresence>
+        </>
+    ) : null;
 
 export default MemberContainer;

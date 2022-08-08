@@ -4,16 +4,14 @@ import SimpleSchema from "simpl-schema";
 
 import { collections } from "../../collections";
 
-type RegisterDevice = (device: {
-    macAddress: string;
-}) => void;
+type RegisterDevice = (device: { macAddress: string }) => void;
 
 export const registerDevice = new ValidatedMethod<string, RegisterDevice>({
     name: "device.register",
     validate: new SimpleSchema({
         macAddress: String,
     }).validator(),
-    run (device) {
+    run(device) {
         if (!this.userId) {
             throw new Meteor.Error("Not authorized");
         }

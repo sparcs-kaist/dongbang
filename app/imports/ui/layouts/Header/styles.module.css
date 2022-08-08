@@ -13,7 +13,6 @@
     background-color: var(--theme-400);
 }
 
-
 .content {
     height: calc(var(--header-height) - 5px);
     padding: 0 10px 0 15px;
@@ -30,7 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color .05s ease;
+    transition: background-color 0.05s ease;
 }
 
 .action:active {

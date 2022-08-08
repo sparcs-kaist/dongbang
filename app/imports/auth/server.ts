@@ -9,21 +9,20 @@ import { collections } from "../collections";
 if (Meteor.isServer) {
     Accounts.registerLoginHandler("ldap", function (loginRequest) {
         if (loginRequest.type !== "ldap") return;
-        
+
         const username = authenticateByLDAP(
             loginRequest.username,
             loginRequest.password,
         );
-        
+
         if (!username) {
             throw new Meteor.Error("Wrong credentials");
         }
-        
-        const userId = Meteor.users.findOne(
-            { username: username },
-            { fields: { _id: 1 } },
-        )?._id || initializeUser(username);
-        
+
+        const userId =
+            Meteor.users.findOne({ username: username }, { fields: { _id: 1 } })
+                ?._id || initializeUser(username);
+
         return { userId };
     });
 }
@@ -35,22 +34,21 @@ const client = new Client({
     strictDN: true,
 });
 
-const authenticateByLDAP = asyncToSync(async (
-    username: string,
-    password: string,
-): Promise<string | null> => {
-    try {
-        await client.bind(
-            `uid=${sanitize(username)},ou=People,dc=sparcs,dc=org`,
-            password,
-        );
-        await client.unbind();
-    } catch {
-        return null;
-    }
-    
-    return username;
-});
+const authenticateByLDAP = asyncToSync(
+    async (username: string, password: string): Promise<string | null> => {
+        try {
+            await client.bind(
+                `uid=${sanitize(username)},ou=People,dc=sparcs,dc=org`,
+                password,
+            );
+            await client.unbind();
+        } catch {
+            return null;
+        }
+
+        return username;
+    },
+);
 
 const sanitize = (string: string): string => {
     if (!/^\w*$/.test(string)) throw Error("Disallowed character");
@@ -65,4 +63,3 @@ const initializeUser = (username: string): string => {
         isActive: false,
     });
 };
-

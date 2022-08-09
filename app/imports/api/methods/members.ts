@@ -1,4 +1,4 @@
-import { method } from "../../modules/methods";
+import { method } from "../../utils/methods";
 
 import { collections } from "../../collections";
 import { IsOptional } from "class-validator";

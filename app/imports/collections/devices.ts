@@ -1,5 +1,5 @@
 import { IsNotEmpty } from "class-validator";
-import { Link, One, Schema } from "../modules/collections";
+import { Link, One, Schema } from "../utils/collections";
 
 import type { User } from "./users";
 

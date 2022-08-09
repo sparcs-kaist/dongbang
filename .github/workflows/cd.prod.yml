@@ -1,4 +1,4 @@
-name: Docker Image Build CI
+name: Continuous Deployment for Production
 
 on:
   push:

@@ -21,11 +21,11 @@ jobs:
       
       - name: Run prettier checks
         working-directory: ./app
-        run: prettier --check .
+        run: npx prettier --check .
       
       - name: Run ESLint checks
         working-directory: ./app
-        run: eslint .
+        run: npx eslint .
       
   meteor_tests:
     name: Run tests

@@ -17,7 +17,7 @@ jobs:
       
       - name: Install dependencies
         working-directory: ./app
-        run: npm i
+        run: npm i eslint eslint-config-prettier prettier
       
       - name: Run prettier checks
         working-directory: ./app

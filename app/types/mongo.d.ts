@@ -1,6 +1,6 @@
 import "meteor/mongo";
 
-import * as Linkr from "/imports/modules/collections/types";
+import * as Linkr from "/imports/utils/collections/types";
 import { Grapher } from "meteor/cultofcoders:grapher";
 declare module "meteor/mongo" {
     export namespace Mongo {

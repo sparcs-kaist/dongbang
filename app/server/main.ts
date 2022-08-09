@@ -1,2 +1,3 @@
-import "/imports";
+import "./core";
 import "./internal";
+import "/imports";

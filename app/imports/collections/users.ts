@@ -5,7 +5,7 @@ import {
     IsNotEmpty,
     IsString,
 } from "class-validator";
-import { Link, Schema, One } from "../modules/collections";
+import { Link, Schema, One } from "../utils/collections";
 
 import type { Session } from "./sessions";
 

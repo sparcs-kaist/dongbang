@@ -20,11 +20,15 @@ jobs:
           meteor-release: 2.7.3
 
       - run: meteor npm i
+        working-directory: ./app
+      
   
       - name: Check code format
+        working-directory: ./app
         run: |
           meteor npx prettier --check .
           meteor npx eslint .
           
       - name: Run tests
+        working-directory: ./app
         run: meteor npm test

@@ -8,7 +8,24 @@ on:
     branches: [ "main" ]
 
 jobs:
-  lint_check:
+  code_style_check:
+    name: Code quality checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Run prettier checks
+        working-directory: ./app
+        run: npx prettier --check .
+      
+      - name: Run ESLint checks
+        working-directory: ./app
+        run: npx eslint .
+      
+  meteor_tests:
+    name: Run tests
     runs-on: ubuntu-latest
 
     steps:
@@ -19,16 +36,10 @@ jobs:
         with:
           meteor-release: 2.7.3
 
-      - run: meteor npm i
+      - name: Install dependencies
+        run: meteor npm i
         working-directory: ./app
       
-  
-      - name: Check code format
-        working-directory: ./app
-        run: |
-          meteor npx prettier --check .
-          meteor npx eslint .
-          
       - name: Run tests
         working-directory: ./app
         run: meteor npm test

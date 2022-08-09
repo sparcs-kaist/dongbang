@@ -1,8 +1,7 @@
-name: Continuous Deployment for Production
+name: Build and Deploy Application
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_call:
 
 jobs:
   push_to_registry:

@@ -1,0 +1,30 @@
+
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup meteor
+        uses: meteorengineer/setup-meteor@v1
+        with:
+          meteor-release: 2.7.3
+
+      - run: meteor npm i
+  
+      - name: Check code format
+        run: |
+          meteor npx prettier --check .
+          meteor npx eslint .
+          
+      - name: Run tests
+        run: meteor npm test

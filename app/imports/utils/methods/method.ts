@@ -20,7 +20,6 @@ type Options<I extends object, O> =
 
 type CallableWithInput<I extends object, O> = (input: I) => Promise<O>;
 type CallableWithoutInput<O> = () => Promise<O>;
-
 type Callable<I extends object, O> =
     | CallableWithInput<I, O>
     | CallableWithoutInput<O>;
@@ -33,44 +32,25 @@ export function method<I extends object, O>(
     name: string,
     options: OptionsWithoutInput<O>,
 ): CallableWithoutInput<O>;
-
 export function method<I extends object, O>(
     name: string,
     options: Options<I, O>,
 ): Callable<I, O> {
-    if ("input" in options) {
-        const _validatedMethod = new ValidatedMethod<string, (input: I) => O>({
-            name: name,
-            validate: validator(options.input),
-            run(input) {
-                if (!this.userId) throw new Meteor.Error("Not authorized.");
-                return options.resolve(this.userId, input);
-            },
-        });
+    const _validatedMethod = new ValidatedMethod({
+        name: name,
+        validate: "input" in options ? validator(options.input) : null,
+        run(...args: [I]) {
+            if (!this.userId) throw new Meteor.Error("Not authorized.");
+            return options.resolve(this.userId, ...args);
+        },
+    });
 
-        return (input) =>
-            new Promise<O>((resolve, reject) => {
-                _validatedMethod.call(input, (error, result) => {
-                    error ? reject(error) : resolve(result);
-                });
+    return (...args: [I]) =>
+        new Promise<O>((resolve, reject) => {
+            _validatedMethod.call(...args, (error, result) => {
+                error ? reject(error) : resolve(result);
             });
-    } else {
-        const _validatedMethod = new ValidatedMethod<string, () => O>({
-            name: name,
-            validate: null,
-            run() {
-                if (!this.userId) throw new Meteor.Error("Not authorized.");
-                return options.resolve(this.userId);
-            },
         });
-
-        return () =>
-            new Promise<O>((resolve, reject) => {
-                _validatedMethod.call((error, result) => {
-                    error ? reject(error) : resolve(result);
-                });
-            });
-    }
 }
 
 const validator =

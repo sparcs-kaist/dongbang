@@ -1,8 +1,7 @@
-name: Docker Image Build CI
+name: Continuous Deployment
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_call:
 
 jobs:
   push_to_registry:

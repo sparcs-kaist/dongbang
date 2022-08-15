@@ -1,0 +1,14 @@
+name: CI/CD Production
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+  cd:
+    name: CD
+    needs: ci
+    uses: ./.github/workflows/cd.yml

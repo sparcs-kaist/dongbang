@@ -13,7 +13,7 @@ import {
 } from "../../components";
 import { Collapse } from "../../components/animate";
 
-import { startSession } from "/imports/api/methods/sessions";
+import { methods } from "/imports/api";
 import useInput from "../../common/hooks/useInput";
 
 import { Location } from "/imports/collections/sessions";
@@ -36,13 +36,13 @@ const CreateSession: React.FC = () => {
     );
 
     const create = () => {
-        startSession.call({ name: name.value.trim(), location }, (err, res) => {
-            if (err) alert(err);
-            else {
-                console.log(res);
-            }
-        });
-        navigate("..", { replace: true });
+        methods.sessions
+            .start({
+                name: name.value.trim(),
+                location: location,
+            })
+            .then(() => navigate("..", { replace: true }))
+            .catch(console.error);
     };
 
     return (

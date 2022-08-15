@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import styles from "./SessionItem.module.css";
 
-// import {LOCATION_NAME, Session} from "/imports/collections/sessions";
-
 import {
     Card,
     CardAction,
@@ -16,7 +14,7 @@ import {
 
 import { Collapse } from "../../../components/animate";
 
-import { joinSession, leaveSession } from "/imports/api/methods/sessions";
+import { methods } from "/imports/api";
 
 import { LocationIcon } from "../../../assets";
 
@@ -32,11 +30,11 @@ const SessionItem: React.FC<SessionItemProps> = ({ session, joined }) => {
     const [showControls, setShowControls] = useState<boolean>(false);
 
     const join = () => {
-        joinSession.call({ sessionId: session._id });
+        methods.sessions.join({ sessionId: session._id }).catch(console.error);
     };
 
     const leave = () => {
-        leaveSession.call();
+        methods.sessions.leave().catch(console.error);
     };
 
     return (

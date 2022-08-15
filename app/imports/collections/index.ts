@@ -10,3 +10,14 @@ export const collections = {
     sessions: createCollection(Session),
     devices: createCollection(Device),
 };
+
+collections.users.find({}, { fields: { sessionId: 1 } }).observe({
+    changed(_, { sessionId }) {
+        sessionId &&
+            collections.sessions
+                .getLink(sessionId, "members")
+                .find()
+                .count() === 0 &&
+            collections.sessions.remove(sessionId);
+    },
+});

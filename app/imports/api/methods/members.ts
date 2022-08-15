@@ -13,7 +13,7 @@ class UpdateStatusInput {
 
 export const updateStatus = method("members.updateStatus", {
     input: UpdateStatusInput,
-    resolve(input, userId) {
+    resolve(userId, input) {
         collections.users.update(userId, {
             $set: { ...input },
         });

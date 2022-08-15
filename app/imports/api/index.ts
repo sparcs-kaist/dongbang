@@ -1,2 +1,2 @@
-import "./methods";
-import "./query";
+export * from "./methods";
+export * from "./query";

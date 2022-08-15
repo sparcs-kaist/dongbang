@@ -1,23 +1,15 @@
-import { Meteor } from "meteor/meteor";
-import { ValidatedMethod } from "meteor/mdg:validated-method";
-import SimpleSchema from "simpl-schema";
-
 import { collections } from "../../collections";
+import { IsNotEmpty } from "class-validator";
+import { method } from "../../utils/methods";
 
-type RegisterDevice = (device: { macAddress: string }) => void;
+class RegisterInput {
+    @IsNotEmpty()
+    macAddress: string;
+}
 
-export const registerDevice = new ValidatedMethod<string, RegisterDevice>({
-    name: "device.register",
-    validate: new SimpleSchema({
-        macAddress: String,
-    }).validator(),
-    run(device) {
-        if (!this.userId) {
-            throw new Meteor.Error("Not authorized");
-        }
-        collections.devices.insert({
-            macAddress: device.macAddress,
-            userId: this.userId,
-        });
+export const register = method("devices.register", {
+    input: RegisterInput,
+    resolve(userId, input) {
+        collections.devices.insert({ ...input, userId });
     },
 });

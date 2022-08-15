@@ -1,11 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+import { methods } from "/imports/api";
 import { AnimatePresence } from "framer-motion";
 
 import { Card, CardBody, CardText, Button, Spacer } from "../../../components";
-
-import { registerDevice } from "/imports/api/methods/devices";
 
 const DeviceRegister: React.FC = () => {
     const { active, register, error } = useDeviceRegister();
@@ -65,9 +64,7 @@ const useDeviceRegister = () => {
 
     const register = () => {
         if (macAddress) {
-            // Do something
-            registerDevice.call({ macAddress });
-
+            methods.devices.register({ macAddress }).catch(console.error);
             setMacAddress(undefined);
         }
     };

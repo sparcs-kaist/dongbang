@@ -1,54 +1,9 @@
 import { Meteor } from "meteor/meteor";
-import { ValidatedMethod } from "meteor/mdg:validated-method";
-import SimpleSchema from "simpl-schema";
 
-import { Location } from "../../collections/sessions";
-import { collections } from "../../collections";
 import { method } from "../../utils/methods";
+import { collections } from "../../collections";
 import { IsEnum, IsNotEmpty, IsOptional, Length } from "class-validator";
-
-function cleanup(options: any) {
-    const run = options.run;
-
-    options.run = function (...args: any[]) {
-        const sessionId = collections.users.findOne(this.userId, {
-            fields: { sessionId: 1 },
-        })?.sessionId;
-
-        const res = run.call(this, ...args);
-
-        if (!sessionId) return res;
-
-        const memberCount = collections.sessions
-            .getLink(sessionId, "members")
-            .find()
-            .count();
-
-        if (memberCount === 0) {
-            collections.sessions.remove(sessionId);
-        }
-
-        return res;
-    };
-
-    return options;
-}
-
-function active(options: any) {
-    const run = options.run;
-
-    options.run = function (...args: any[]) {
-        const res = run.call(this, ...args);
-
-        Meteor.users.update(this.userId, {
-            $set: { isActive: true },
-        });
-
-        return res;
-    };
-
-    return options;
-}
+import { Location } from "../../collections/sessions";
 
 class StartInput {
     @Length(1, 50)
@@ -95,55 +50,8 @@ export const join = method("sessions.join", {
     },
 });
 
-type JoinSession = (session: { sessionId: string }) => void;
-
-export const joinSession = new ValidatedMethod<string, JoinSession>({
-    name: "session.join",
-    mixins: [cleanup, active],
-    validate: new SimpleSchema({
-        sessionId: String,
-    }).validator({ clean: true, trimStrings: true }),
-    run({ sessionId }) {
-        if (!this.userId) {
-            throw new Meteor.Error("Not authorized.");
-        }
-
-        collections.sessions.getLink(sessionId, "members").set(this.userId);
-    },
-});
-
 export const leave = method("sessions.leave", {
     resolve(userId) {
         collections.users.getLink(userId, "session").unset();
-    },
-});
-
-export const leaveSession = new ValidatedMethod<string, () => void>({
-    name: "session.leave",
-    mixins: [cleanup],
-    validate: null,
-    run() {
-        if (!this.userId) {
-            throw new Meteor.Error("Not authorized.");
-        }
-
-        // const sessionId = Meteor.users
-        //     .findOne(this.userId, {fields: {sessionId: 1}})
-        //     ?.sessionId;
-        //
-        // if (!sessionId) {
-        //     throw new Meteor.Error("Not in session")
-        // }
-
-        collections.users.getLink(this.userId, "session").unset();
-
-        // const memberCount = SessionCollection
-        //     .getLink<Meteor.User>(sessionId, "members")
-        //     .find()
-        //     .count();
-
-        // if (memberCount === 0) {
-        //     SessionCollection.remove(sessionId);
-        // }
     },
 });

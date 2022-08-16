@@ -5,7 +5,7 @@ import { metaStorage } from "./metaStorage";
 
 import { SchemaObject } from "openapi3-ts";
 import { targetConstructorToSchema } from "class-validator-jsonschema";
-import { BaseCollection, Mutation } from "./types";
+import { BaseCollection } from "./types";
 
 const registerCollection = <T>(
     schema: ClassConstructor<T>,
@@ -43,40 +43,20 @@ export const bindCollection = <T>(
 };
 
 const addSchema = <T>(collection: BaseCollection, jsonSchema: SchemaObject) => {
-    if (Meteor.isServer) {
+    if (Meteor.isServer)
         (async () => {
-            await collection.rawDatabase().createCollection(collection.name),
-                console.log(
-                    await collection.rawDatabase().listCollections().toArray(),
-                );
-        })();
-
-        // console.log(collection.rawDatabase().listCollections().toArray());
-
-        const _addSchema = async () => {
+            await forceCreate(collection);
             await collection.rawDatabase().command({
                 collMod: collection._name,
                 validator: { $jsonSchema: jsonSchema },
             });
-        };
-
-        _addSchema().catch((e) => {
-            const { name, code } = e as { name: string; code: number };
-            console.log(e);
-            console.log(`Force create collection ${collection._name}`);
-
-            if (name === "MongoServerError" && code === 26) {
-                forceCreate(collection);
-                _addSchema().catch((e) => {
-                    throw e;
-                });
-            }
-        });
-    }
+        })();
 };
 
-const forceCreate = <T>(collection: Mongo.SchemaCollection<T>) => {
-    collection.remove(
-        collection.insert({} as unknown as Mongo.OptionalId<Mutation<T>>),
-    );
+const forceCreate = async (collection: BaseCollection) => {
+    try {
+        await collection.rawDatabase().createCollection(collection._name);
+    } catch (e) {
+        if ((e as { code?: number })?.code !== 48) throw e;
+    }
 };

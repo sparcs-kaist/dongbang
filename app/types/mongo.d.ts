@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "meteor/mongo";
 
 import * as Linkr from "/imports/utils/collections/types";

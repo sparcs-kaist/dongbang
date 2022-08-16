@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 declare module "meteor/cultofcoders:grapher" {
     import { Mongo } from "meteor/mongo";
     export namespace Grapher {

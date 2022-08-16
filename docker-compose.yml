@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: snowsuno/dongbang:latest
+    image: ghcr.io/sparcs-kaist/dongbang:main
     ports:
       - '${EXTERNAL_PORT-3000}:3000'
     depends_on:

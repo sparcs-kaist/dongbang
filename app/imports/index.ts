@@ -1,4 +1,3 @@
-import "./db";
-import "./auth";
-import "./api/query";
-import "./api/methods"
+import "./api";
+import "./collections";
+import "./observers";

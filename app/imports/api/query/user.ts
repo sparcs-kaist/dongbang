@@ -1,35 +1,18 @@
-import {Meteor} from "meteor/meteor";
-import {expose} from "/imports/api/query/helpers/expose";
+import { expose } from "/imports/api/query/helpers/expose";
+import { collections } from "../../collections";
 
-export const userQuery = Meteor.users.createQuery("user", {
-    // $filters({filters, params}) {
-    //     // "status.type": {$ne: UserStatus.OFFLINE}
-    //     // isActive: true
-    //     // _id: params.userId
-    //     filters._id = params.userId;
-    // },
-    // $filters: {
-    //     _id: "x5f5t29XG9xHYEid9"
-    // },
+export const userQuery = collections.users.createQuery("user", {
     $options: {
-        sort: {name: 1}
+        sort: { name: 1 },
     },
     name: 1,
     username: 1,
-    // status: 1,
     isActive: 1,
     statusMsg: 1,
     session: {
         name: 1,
-        location: 1
+        location: 1,
     },
 });
 
 expose(userQuery);
-// if (Meteor.isServer) {
-//     userQuery.expose({
-//         firewall(userId: string, params: any) {
-//             params.userId = userId;
-//         }
-//     })
-// }

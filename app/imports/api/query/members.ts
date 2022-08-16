@@ -1,23 +1,20 @@
-import {Meteor} from "meteor/meteor";
-import {expose} from "./helpers/expose";
+import { expose } from "./helpers/expose";
+import { collections } from "../../collections";
 
-export const membersQuery = Meteor.users.createQuery("members", {
+export const membersQuery = collections.users.createQuery("members", {
     $filters: {
-        // "status.type": {$ne: UserStatus.OFFLINE}
-        isActive: true
-        // _id: {$eq: this.userId}
+        isActive: true,
     },
     $options: {
-        sort: {name: 1}
+        sort: { name: 1 },
     },
     name: 1,
     username: 1,
-    // status: 1,
     isActive: 1,
     statusMsg: 1,
     session: {
         name: 1,
-        location: 1
+        location: 1,
     },
 });
 

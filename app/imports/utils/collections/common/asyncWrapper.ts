@@ -1,4 +1,4 @@
-export const sync = <T extends any[]>(
+export const sync = <T extends unknown[]>(
     asyncFn: (...props: T) => Promise<void>,
 ): ((...props: T) => void) => {
     return (...props) => {

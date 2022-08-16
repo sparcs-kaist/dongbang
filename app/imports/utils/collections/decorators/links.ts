@@ -3,7 +3,7 @@ import { IsOptional, IsString } from "class-validator";
 
 import { metaStorage } from "../metaStorage";
 import { sync } from "../common/asyncWrapper";
-import { Inverse, Many, One } from "../types";
+import { BaseSchema, Inverse, Many, One } from "../types";
 
 type LinkConstructorType = typeof One | typeof Many | typeof Inverse;
 type LinkType = "one" | "many" | "inverse";
@@ -33,7 +33,7 @@ export const Link = (relation: string): PropertyDecorator =>
         }
 
         const schemaName = await metaStorage.schemas.getAsync(
-            target.constructor,
+            target.constructor as BaseSchema,
         );
         const collection = await metaStorage.collections.getAsync(schemaName);
 

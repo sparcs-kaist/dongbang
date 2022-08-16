@@ -1,0 +1,13 @@
+.title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.members {
+    display: flex;
+    flex-direction: column;
+}
+
+.members > p {
+    margin-top: 5px;
+}

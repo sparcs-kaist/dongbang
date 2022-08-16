@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsOptional } from "class-validator";
-import { One, Inverse, Schema, Link } from "../modules/collections";
+import { One, Inverse, Schema, Link } from "../utils/collections";
 
 import type { User } from "./users";
 
@@ -12,13 +12,14 @@ export enum Location {
 export class Session {
     @IsNotEmpty()
     name: string;
-    
-    @IsEnum(Location) @IsOptional()
+
+    @IsEnum(Location)
+    @IsOptional()
     location?: Location;
-    
+
     @Link("user")
     creator: One<User>;
-    
+
     @Link("user.session")
     members: Inverse<User>;
 }

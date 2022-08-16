@@ -1,34 +1,25 @@
-import SimpleSchema from "simpl-schema";
-import { ValidatedMethod } from "meteor/mdg:validated-method";
-import { Meteor } from "meteor/meteor";
+import { method } from "../../utils/methods";
+
 import { collections } from "../../collections";
+import { IsOptional } from "class-validator";
 
-type UpdateStatusMethod = (status: {
+class UpdateStatusInput {
+    @IsOptional()
     isActive?: boolean;
-    statusMsg?: string;
-}) => void;
 
-export const updateStatus = new ValidatedMethod<string, UpdateStatusMethod>({
-    name: "members.updateStatus",
-    validate: new SimpleSchema({
-        isActive: Boolean,
-        statusMsg: String,
-    }, {
-        requiredByDefault: false,
-    }).validator(),
-    run (status) {
-        if (!this.userId) {
-            throw new Meteor.Error("Not authorized.");
-        }
-        
-        collections.users.update(this.userId, {
-            $set: { ...status },
+    @IsOptional()
+    statusMsg?: string;
+}
+
+export const updateStatus = method("members.updateStatus", {
+    input: UpdateStatusInput,
+    resolve(userId, input) {
+        collections.users.update(userId, {
+            $set: { ...input },
         });
-        
-        if (!status.isActive) {
-            collections.users
-                .getLink(this.userId, "session")
-                .unset();
+
+        if (!input.isActive) {
+            collections.users.getLink(userId, "session").unset();
         }
     },
 });

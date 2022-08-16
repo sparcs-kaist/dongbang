@@ -1,10 +1,3 @@
-import {Meteor} from 'meteor/meteor';
-import "/imports";
-
+import "./core";
 import "./internal";
-
-Meteor.startup(() => {
-});
-
-
-
+import "/imports";

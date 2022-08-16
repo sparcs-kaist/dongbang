@@ -1,17 +1,18 @@
-/// <reference path="../node_modules/@types/meteor/meteor.d.ts" />
-//// <reference path="../node_modules/types/meteor-mdg-validated-method/index.d.ts" />
+import "meteor/meteor";
 
-import {User as UserExtend} from "/imports/collections/users";
-import {Query} from "/imports/modules/collections/types";
+// import { User as UserExtend } from "/imports/collections/users";
+// import { Query } from "/imports/utils/collections/types";
 
 declare module "meteor/meteor" {
-    module Meteor {
+    namespace Meteor {
         // function loginAsAdmin(password: string, callback?: () => void): void;
-        
-        function loginAsLDAP(username: string, password: string, callback?: (error: Meteor.Error) => void): void;
-        
-        interface User extends Query<UserExtend> {}
+
+        function loginAsLDAP(
+            username: string,
+            password: string,
+            callback?: (error: Meteor.Error) => void,
+        ): void;
+
+        // type User = Query<UserExtend>;
     }
 }
-
-

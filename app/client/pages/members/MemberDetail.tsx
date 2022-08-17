@@ -1,9 +1,14 @@
 import React from "react";
-import styles from "./MemberOverlay.module.css";
 
 import { useParams } from "react-router-dom";
 
-import { Button, Drawer, Text, renderProfileText } from "../../components";
+import {
+    Button,
+    Drawer,
+    Text,
+    renderProfileText,
+    Spacer,
+} from "../../components";
 
 import { MemberStatus } from "./components";
 
@@ -35,18 +40,12 @@ const MemberDetail: React.FC<MemberProps> = ({ user, members }) => {
 
     return member ? (
         <Drawer>
-            <div>
-                <Text.main>{renderProfileText(member)}</Text.main>
-                <Text.sub className={styles.status}>
-                    <MemberStatus member={member} />
-                </Text.sub>
-            </div>
-
-            {isSelf && (
-                <div className={styles.buttonContainer}>
-                    <Button onClick={toggleStatus}>상태 변경</Button>
-                </div>
-            )}
+            <Text.main>{renderProfileText(member)}</Text.main>
+            <Text.sub>
+                <MemberStatus member={member} />
+            </Text.sub>
+            <Spacer y={10} />
+            {isSelf && <Button onClick={toggleStatus}>상태 변경</Button>}
         </Drawer>
     ) : (
         <></>

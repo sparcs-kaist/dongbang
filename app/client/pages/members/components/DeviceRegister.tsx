@@ -6,7 +6,7 @@ import { AnimatePresence } from "framer-motion";
 
 import { Card, CardBody, CardText, Button, Spacer } from "../../../components";
 
-const DeviceRegister: React.FC = () => {
+export const DeviceRegister: React.FC = () => {
     const { active, register, error } = useDeviceRegister();
 
     return (
@@ -97,5 +97,3 @@ const fetchData = async (): Promise<Data> => {
 
     throw new Error("Invalid response");
 };
-
-export default DeviceRegister;

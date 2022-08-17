@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { Button, Drawer, Text, renderProfileText } from "../../components";
 
-import MemberStatus from "./components/MemberStatus";
+import { MemberStatus } from "./components";
 
 import { methods } from "/imports/api/methods";
 

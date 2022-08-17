@@ -4,7 +4,7 @@ import styles from "./RequireLogin.module.css";
 import { CardAction, CardBody, CardText } from "../../../components";
 import { useNavigate } from "react-router-dom";
 
-const RequireLogin: React.FC = () => {
+export const RequireLogin: React.FC = () => {
     const navigate = useNavigate();
 
     return (
@@ -18,5 +18,3 @@ const RequireLogin: React.FC = () => {
         </CardBody>
     );
 };
-
-export default RequireLogin;

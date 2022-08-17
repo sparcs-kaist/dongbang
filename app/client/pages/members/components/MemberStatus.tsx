@@ -8,7 +8,7 @@ interface MemberStatusProps {
     member: Query<User>;
 }
 
-const MemberStatus: React.FC<MemberStatusProps> = ({
+export const MemberStatus: React.FC<MemberStatusProps> = ({
     member: { session, isActive, statusMsg },
 }) => {
     const [color, message]: [Color, ReactNode] = session
@@ -21,5 +21,3 @@ const MemberStatus: React.FC<MemberStatusProps> = ({
 
     return <Status color={color}>{message}</Status>;
 };
-
-export default MemberStatus;

@@ -39,7 +39,7 @@ jobs:
   deploy-in-server:
     name: Deploy in Server
     needs: build-and-push-image
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
       - name: Pull Image and Deploy from Server
         uses: joelwmale/webhook-action@2.1.0

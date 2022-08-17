@@ -1,0 +1,12 @@
+{
+    "public": {},
+    "private": {
+        "memvers": {
+            "root": "memvers-backend-endpoint",
+            "credentials": {
+                "un": "memvers-username",
+                "pw": "memvers-password"
+            }
+        }
+    }
+}

@@ -34,6 +34,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Call Prod Server Webhook
-        uses: joelwmale/webhook-action@v2
-        with:
-          url: ${{ secrets.WEBHOOK_URL }}
+        run: curl -X POST ${{ secrets.WEBHOOK_URL }}

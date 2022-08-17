@@ -52,11 +52,11 @@ export const UnstyledSelectItem: React.FC<SelectItemProps> = ({
 }) => <button {...props} onClick={() => setValue?.(value)} />;
 
 export const SelectItem = styled(UnstyledSelectItem).attrs((props) => ({
-    active: props.currentValue === props.value,
+    $active: props.currentValue === props.value,
 }))`
     flex: 1;
     height: 100%;
     font-size: inherit;
-    background: ${({ active }) => (active ? "var(--theme-500)" : "none")};
-    color: ${({ active }) => (active ? "var(--grey-900)" : "inherit")};
+    background: ${({ $active }) => ($active ? "var(--theme-500)" : "none")};
+    color: ${({ $active }) => ($active ? "var(--grey-900)" : "inherit")};
 `;

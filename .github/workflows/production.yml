@@ -12,4 +12,5 @@ jobs:
     name: CD
     needs: ci
     uses: ./.github/workflows/cd.yml
-    secrets: inherit
+    secrets:
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}

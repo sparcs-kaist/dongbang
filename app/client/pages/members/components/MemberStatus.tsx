@@ -76,10 +76,10 @@ const MemberStatus: React.FC<MemberStatusProps> = ({ member }) => {
     ];
 
     return (
-        <div className={classNames(styles.userDesc, className)}>
+        <span className={classNames(styles.userDesc, className)}>
             <span className={styles.indicator} />
             {component}
-        </div>
+        </span>
     );
 };
 

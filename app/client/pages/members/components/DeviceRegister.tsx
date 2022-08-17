@@ -82,7 +82,7 @@ interface Data {
 }
 
 const fetchData = async (): Promise<Data> => {
-    const res = await fetch("http://192.168.0.74:57463/dongbang");
+    const res = await fetch(Meteor.settings.public.internalEndpoint);
 
     if (res.status !== 200) throw new Error(res.statusText);
 

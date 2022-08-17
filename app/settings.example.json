@@ -1,5 +1,7 @@
 {
-    "public": {},
+    "public": {
+        "internalEndpoint": "some-endpoint"
+    },
     "private": {
         "memvers": {
             "root": "memvers-backend-endpoint",

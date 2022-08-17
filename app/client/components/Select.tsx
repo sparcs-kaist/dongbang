@@ -25,7 +25,6 @@ const UnstyledSelect: React.FC<SelectProps> = ({
         )}
     </div>
 );
-
 export const Select = styled(UnstyledSelect)`
     display: flex;
     flex-direction: row;

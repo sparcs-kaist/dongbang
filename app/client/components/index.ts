@@ -5,4 +5,5 @@ export * from "./Input";
 export * from "./List";
 export * from "./Select";
 export * from "./Spacer";
+export * from "./Status";
 export * from "./Text";

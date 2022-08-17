@@ -1,7 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import axios from "axios";
 
-import config from "/server/core/config";
 import { asyncToSync } from "/imports/utils/async";
 
 interface UserData {
@@ -43,9 +42,12 @@ class MemversClient {
     private readonly credentials: { un: string; pw: string };
     private cookie?: string;
 
-    constructor(root: string, un: string, pw: string) {
-        this.root = root;
-        this.credentials = { un, pw };
+    constructor(opts: {
+        root: string;
+        credentials: { un: string; pw: string };
+    }) {
+        this.root = opts.root;
+        this.credentials = opts.credentials;
     }
 
     private async refreshSession() {
@@ -93,11 +95,7 @@ class MemversClient {
     }
 }
 
-export const memversClient = new MemversClient(
-    config.MEMVERS_ROOT,
-    config.MEMVERS_CREDENTIALS_UN,
-    config.MEMVERS_CREDENTIALS_PW,
-);
+export const memversClient = new MemversClient(Meteor.settings.private.memvers);
 
 export const getMemberData = asyncToSync(async (username: string) => {
     if (Meteor.isClient) throw new Meteor.Error("Not allowed");

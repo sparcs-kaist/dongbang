@@ -20,11 +20,19 @@ import { useUser } from "./common/hooks/useUser";
 import { useQueryData } from "./common/hooks/useQueryData";
 import { membersQuery } from "/imports/api/query/members";
 import { sessionsQuery } from "/imports/api/query/sessions";
+import { useEffect, useState } from "react";
+import { checkTrackerStatus } from "../imports/api/methods/devices";
 
 export const App = () => {
     const user = useUser();
     const members = useQueryData(membersQuery);
     const sessions = useQueryData(sessionsQuery);
+
+    const [status, setStatus] = useState(false);
+
+    useEffect(() => {
+        checkTrackerStatus().then(setStatus);
+    });
 
     return (
         <Router>
@@ -60,6 +68,7 @@ export const App = () => {
                 </Route>
                 <Route path="/login" element={<Login />} />
             </Routes>
+            {status ? "true" : "false"}
         </Router>
     );
 };

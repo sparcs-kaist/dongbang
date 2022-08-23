@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
 
 const changeStatus = Meteor.bindEnvironment(
     (macAddress: string, isActive: boolean) => {
-        const device = collections.devices.findOne({ macAddress });
+        const device = collections.devices.findOne({ deviceId: macAddress });
 
         // try {
         //     if (device) {

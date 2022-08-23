@@ -9,6 +9,9 @@
                 "un": "memvers-username",
                 "pw": "memvers-password"
             }
+        },
+        "tracker": {
+            "token": "some-token"
         }
     }
 }

@@ -1,3 +1,3 @@
 import "./core";
-import "./internal";
+import "./tracker";
 import "/imports";

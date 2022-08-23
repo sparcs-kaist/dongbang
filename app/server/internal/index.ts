@@ -1,6 +1,9 @@
 import { Meteor } from "meteor/meteor";
-import { initApp } from "./app";
+import { WebApp } from "meteor/webapp";
+import { Connection } from "./connection";
 
-if (Meteor.isServer) {
-    initApp();
-}
+// export const connection = new Connection(Meteor.settings.private.token);
+
+// Meteor.startup(() => {
+//     connection.init(WebApp.httpServer);
+// });

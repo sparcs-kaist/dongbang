@@ -11,13 +11,13 @@ class RegisterInput {
 
 export const register = method("devices.register", {
     input: RegisterInput,
-    resolve(userId, input) {
+    resolve({ userId }, input) {
         collections.devices.insert({ ...input, userId });
     },
 });
 
 export const checkTrackerStatus = method("devices.checkTrackerStatus", {
-    resolve(userId) {
-        // return Meteor.isServer && connection;
+    resolve({ userId }) {
+        console.log(userId);
     },
 });

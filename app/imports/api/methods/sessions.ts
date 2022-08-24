@@ -16,7 +16,7 @@ class StartInput {
 
 export const start = method("sessions.start", {
     input: StartInput,
-    resolve(userId, input) {
+    resolve({ userId }, input) {
         const sessionId = collections.sessions.insert({
             ...input,
             creatorId: userId,
@@ -27,7 +27,7 @@ export const start = method("sessions.start", {
 });
 
 export const end = method("sessions.end", {
-    resolve(userId) {
+    resolve({ userId }) {
         const session = collections.users.getLink(userId, "session").fetch();
 
         if (session.creatorId !== userId) {
@@ -45,13 +45,13 @@ class JoinInput {
 
 export const join = method("sessions.join", {
     input: JoinInput,
-    resolve(userId, input) {
+    resolve({ userId }, input) {
         collections.sessions.getLink(input.sessionId, "members").set(userId);
     },
 });
 
 export const leave = method("sessions.leave", {
-    resolve(userId) {
+    resolve({ userId }) {
         collections.users.getLink(userId, "session").unset();
     },
 });

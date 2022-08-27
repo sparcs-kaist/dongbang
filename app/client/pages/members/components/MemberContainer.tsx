@@ -10,7 +10,10 @@ interface MemberContainerProps {
     children: ReactNode;
 }
 
-const MemberContainer: React.FC<MemberContainerProps> = ({ title, children }) =>
+export const MemberContainer: React.FC<MemberContainerProps> = ({
+    title,
+    children,
+}) =>
     children ? (
         <>
             <Text.sub>{title}</Text.sub>
@@ -23,5 +26,3 @@ const MemberContainer: React.FC<MemberContainerProps> = ({ title, children }) =>
             </AnimatePresence>
         </>
     ) : null;
-
-export default MemberContainer;

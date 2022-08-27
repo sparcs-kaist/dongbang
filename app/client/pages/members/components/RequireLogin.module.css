@@ -1,7 +1,0 @@
-.item {
-    /*height: 88px;*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*align-items: center;*/
-    padding: var(--card-vertical-padding) var(--card-horizontal-padding);
-}

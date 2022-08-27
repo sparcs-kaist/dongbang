@@ -4,14 +4,18 @@ import { validateSync } from "class-validator";
 import { ClassConstructor, plainToClass } from "class-transformer";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 
+interface Connection extends Meteor.Connection {
+    userId: string;
+}
+
 interface OptionsWithInput<I extends object, O> {
     input: ClassConstructor<I>;
 
-    resolve(userId: string, input: I): O;
+    resolve(connection: Connection, input: I): O;
 }
 
 interface OptionsWithoutInput<O> {
-    resolve(userId: string): O;
+    resolve(connection: Connection): O;
 }
 
 type Options<I extends object, O> =
@@ -41,7 +45,10 @@ export function method<I extends object, O>(
         validate: "input" in options ? validator(options.input) : null,
         run(...args: [I]) {
             if (!this.userId) throw new Meteor.Error("Not authorized.");
-            return options.resolve(this.userId, ...args);
+            return options.resolve(
+                { userId: this.userId, ...this.connection },
+                ...args,
+            );
         },
     });
 

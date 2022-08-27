@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import styles from "./SessionItem.module.css";
 
 import {
     Card,
@@ -62,9 +61,7 @@ const SessionItem: React.FC<SessionItemProps> = ({ session, joined }) => {
                         <span>{session.location}</span>
                     </CardText.sub>
                 )}
-                <CardText.main className={styles.title}>
-                    {session.name}
-                </CardText.main>
+                <CardText.main>{session.name}</CardText.main>
 
                 <List>
                     {session.members.map((member) => (

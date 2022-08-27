@@ -1,40 +1,34 @@
+import { Meteor } from "meteor/meteor";
 import jwt from "jsonwebtoken";
 
 import { collections } from "../../collections";
-import { IsNotEmpty } from "class-validator";
 import { method } from "../../utils/methods";
 import { tracker, TrackerError } from "../../tracker";
-
-// import { connection } from "/server/internal";
-
-class RegisterInput {
-    @IsNotEmpty()
-    deviceId: string;
-}
-
-export const register = method("devices.register", {
-    input: RegisterInput,
-    resolve({ userId }, input) {
-        collections.devices.insert({ ...input, userId });
-    },
-});
-
-export const checkTrackerStatus = method("devices.checkTrackerStatus", {
-    resolve({ userId, clientAddress }) {
-        console.log(clientAddress);
-        return clientAddress;
-    },
-});
 
 export const isRegisterable = method("devices.isRegisterable", {
     resolve({ userId, clientAddress }): {
         registerable: boolean;
         error: TrackerError | null;
     } {
+        if (!Meteor.isServer) {
+            return {
+                registerable: false,
+                error: null,
+            };
+        }
+        console.log(userId, clientAddress, tracker.ipAddr);
+
         if (tracker.error) {
             return {
                 registerable: false,
                 error: tracker.error,
+            };
+        }
+
+        if (clientAddress !== tracker.ipAddr) {
+            return {
+                registerable: false,
+                error: null,
             };
         }
 
@@ -43,7 +37,7 @@ export const isRegisterable = method("devices.isRegisterable", {
         });
 
         return {
-            registerable: !!user?.deviceId,
+            registerable: !user?.deviceId,
             error: null,
         };
     },
@@ -51,8 +45,12 @@ export const isRegisterable = method("devices.isRegisterable", {
 
 export const getToken = method("devices.getToken", {
     resolve({ userId }) {
-        return jwt.sign(userId, Meteor.settings.private.privateKey, {
-            expiresIn: 10000,
+        if (!Meteor.isServer) {
+            return "";
+        }
+
+        return jwt.sign({ userId }, Meteor.settings.private.privateKey, {
+            expiresIn: 10,
         });
     },
 });

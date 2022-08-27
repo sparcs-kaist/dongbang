@@ -13,6 +13,7 @@ export const userQuery = collections.users.createQuery("user", {
         name: 1,
         location: 1,
     },
+    deviceId: 1,
 });
 
 expose(userQuery);

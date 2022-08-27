@@ -1,12 +1,9 @@
 import React from "react";
 
 import { Text } from "../../components";
-import {
-    MemberItem,
-    MemberContainer,
-    RequireLogin,
-    DeviceRegister,
-} from "./components";
+import { MemberItem, MemberContainer, RequireLogin } from "./components";
+
+import { Tracker } from "../../common/tracker/components";
 
 import { AnimatedOutlet } from "../../layouts";
 import { LayoutGroup } from "framer-motion";
@@ -24,7 +21,7 @@ const MembersPage: React.FC<MembersProps> = ({ user, members }) => {
     return (
         <>
             <Text.main>멤버</Text.main>
-            {!!user && <DeviceRegister />}
+            <Tracker user={user} />
             <MemberContainer title={"내 프로필"} key="me">
                 {user ? <MemberItem member={user} /> : <RequireLogin />}
             </MemberContainer>

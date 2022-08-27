@@ -1,11 +1,16 @@
 import React from "react";
 import { Button, CardText, Spacer } from "/client/components";
+import { methods } from "../../../../imports/api";
+import { Meteor } from "meteor/meteor";
 
-interface RegisterProps {
-    register: () => Promise<void>;
-}
+export const Register: React.FC = () => {
+    const register = async () => {
+        const token = await methods.devices.getToken();
+        window
+            .open(Meteor.settings.public.trackerEndpoint + token, "_blank")
+            ?.focus();
+    };
 
-export const Register: React.FC<RegisterProps> = ({ register }) => {
     return (
         <>
             <CardText.main>내 기기 등록하기</CardText.main>

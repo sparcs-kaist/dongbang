@@ -1,35 +1,30 @@
-import { Meteor } from "meteor/meteor";
 import { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { methods } from "/imports/api";
 import { TrackerError } from "/imports/tracker";
 
-export const useTracker = () => {
-    const navigate = useNavigate();
+import type { Query } from "/imports/utils/collections";
+import type { User } from "/imports/collections/users";
 
-    const [register, setRegister] = useState<(() => Promise<void>) | null>(
-        null,
-    );
+export const useTracker = (user: Query<User> | undefined) => {
+    const [registerable, setRegisterable] = useState<boolean>(false);
     const [error, setError] = useState<TrackerError | null>(null);
 
-    const _register = async () => {
-        const token = await methods.devices.getToken();
-        navigate(Meteor.settings.public.trackerEndpoint + token);
-    };
-
     useEffect(() => {
+        if (!user) return;
+
         methods.devices
             .isRegisterable()
             .then(({ registerable, error }) => {
-                setRegister(isMobile && registerable ? _register : null);
+                console.log(registerable);
+                setRegisterable(isMobile && registerable);
                 setError(error);
             })
             .catch(() => {
                 setError(TrackerError.UNKNOWN);
             });
-    }, [setRegister, setError]);
+    }, [user, setRegisterable, setError]);
 
-    return { register, error };
+    return { registerable, error };
 };

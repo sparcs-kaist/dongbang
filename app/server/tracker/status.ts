@@ -1,15 +1,18 @@
-import { trackerStatus, TrackerError } from "/imports/tracker";
+import { tracker, TrackerError } from "/imports/tracker";
+import { Socket } from "socket.io";
 
 export const status = {
-    setError(error: TrackerError | null) {
-        trackerStatus.error = error;
-    },
+    // setError(error: TrackerError | null) {
+    //     trackerStatus.error = error;
+    // },
 
     disconnect() {
-        this.setError({ message: "Tracker offline" });
+        tracker.ipAddr = null;
+        // this.setError({ message: "Tracker offline" });
     },
 
-    connect() {
-        this.setError(null);
+    connect(socket: Socket) {
+        tracker.ipAddr = socket.conn.remoteAddress;
+        // this.setError(null);
     },
 };

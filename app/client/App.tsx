@@ -28,7 +28,7 @@ export const App = () => {
     const members = useQueryData(membersQuery);
     const sessions = useQueryData(sessionsQuery);
 
-    const [status, setStatus] = useState(false);
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
         checkTrackerStatus().then(setStatus);
@@ -68,7 +68,7 @@ export const App = () => {
                 </Route>
                 <Route path="/login" element={<Login />} />
             </Routes>
-            {status ? "true" : "false"}
+            {status}
         </Router>
     );
 };

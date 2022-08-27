@@ -30,4 +30,8 @@ export class User {
 
     @Link("session")
     session: One<Session>;
+
+    @IsOptional()
+    @IsString()
+    deviceId?: string;
 }

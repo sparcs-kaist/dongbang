@@ -64,7 +64,9 @@ const useDeviceRegister = () => {
 
     const register = () => {
         if (macAddress) {
-            methods.devices.register({ macAddress }).catch(console.error);
+            methods.devices
+                .register({ deviceId: macAddress })
+                .catch(console.error);
             setMacAddress(undefined);
         }
     };

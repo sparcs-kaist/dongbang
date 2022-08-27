@@ -1,3 +1,4 @@
 import "./core";
-import "./internal";
+import "./observers";
+import "./tracker";
 import "/imports";

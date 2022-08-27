@@ -1,14 +1,18 @@
 {
     "public": {
-        "internalEndpoint": "some-endpoint"
+        "trackerEndpoint": "some-endpoint"
     },
     "private": {
+        "privateKey": "some-private-key",
         "memvers": {
             "root": "memvers-backend-endpoint",
             "credentials": {
                 "un": "memvers-username",
                 "pw": "memvers-password"
             }
+        },
+        "tracker": {
+            "token": "some-token"
         }
     }
 }

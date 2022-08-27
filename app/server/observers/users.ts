@@ -1,4 +1,4 @@
-import { collections } from "../collections";
+import { collections } from "/imports/collections";
 
 collections.users.find({}, { fields: { sessionId: 1 } }).observe({
     changed(curr, prev) {

@@ -5,14 +5,16 @@ export const deviceStatus = (() => {
 
     const change = Meteor.bindEnvironment((devices: string[]) => {
         console.log(devices);
-        // collections.devices
-        //     .find({ deviceId: { $in: devices } }, { fields: { userId: 1 } })
-        //     .forEach((userId) => {
-        //         console.log(userId);
-        //     });
-        // .forEach((device) => {});
 
-        // collections.devices.find({ deviceId: { $nin: devices } });
+        collections.users.update(
+            { deviceId: { $in: devices } },
+            { $set: { isActive: true } },
+        );
+
+        collections.users.update(
+            { deviceId: { $ne: undefined, $nin: devices } },
+            { $set: { isActive: false } },
+        );
     });
 
     return { change };

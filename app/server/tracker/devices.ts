@@ -1,18 +1,23 @@
 import { collections } from "/imports/collections";
 
 export const deviceStatus = (() => {
-    const cache = [];
+    let cache: string;
 
     const change = Meteor.bindEnvironment((devices: string[]) => {
         console.log(devices);
-        // collections.devices
-        //     .find({ deviceId: { $in: devices } }, { fields: { userId: 1 } })
-        //     .forEach((userId) => {
-        //         console.log(userId);
-        //     });
-        // .forEach((device) => {});
+        if (cache === JSON.stringify(devices)) return;
 
-        // collections.devices.find({ deviceId: { $nin: devices } });
+        collections.users.update(
+            { deviceId: { $in: devices } },
+            { $set: { isActive: true } },
+        );
+
+        collections.users.update(
+            { deviceId: { $ne: undefined, $nin: devices } },
+            { $set: { isActive: false } },
+        );
+
+        cache = JSON.stringify(devices);
     });
 
     return { change };

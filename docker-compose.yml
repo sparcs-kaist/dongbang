@@ -12,6 +12,7 @@ services:
       MONGO_URL: mongodb://mongo:27017/meteor
       PORT: 3000
       METEOR_SETTINGS: ${METEOR_SETTINGS}
+      HTTP_FORWARDED_COUNT: 1
 
   mongo:
     image: mongo:4.4.10

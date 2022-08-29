@@ -6,17 +6,22 @@ import { method } from "../../utils/methods";
 import { tracker, TrackerError } from "../../tracker";
 
 export const isRegisterable = method("devices.isRegisterable", {
-    resolve({ userId, clientAddress }): {
+    resolve({ userId, clientAddress, httpHeaders }): {
         registerable: boolean;
         error: TrackerError | null;
     } {
+        const origin =
+            (httpHeaders as { "x-forwarded-for"?: string })?.[
+                "x-forwarded-for"
+            ] || clientAddress;
+
         if (!Meteor.isServer) {
             return {
                 registerable: false,
                 error: null,
             };
         }
-        console.log(userId, clientAddress, tracker.ipAddr);
+        console.log(userId, origin, tracker.ipAddr);
 
         if (tracker.error) {
             return {
@@ -25,7 +30,7 @@ export const isRegisterable = method("devices.isRegisterable", {
             };
         }
 
-        if (clientAddress !== tracker.ipAddr) {
+        if (origin !== tracker.ipAddr) {
             return {
                 registerable: false,
                 error: null,

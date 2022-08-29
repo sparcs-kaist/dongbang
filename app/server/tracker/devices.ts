@@ -8,7 +8,7 @@ export const deviceStatus = (() => {
         );
 
         collections.users.update(
-            { deviceId: { $ne: undefined, $nin: devices } },
+            { deviceId: { $exists: true, $nin: devices } },
             { $set: { isActive: false } },
         );
     });

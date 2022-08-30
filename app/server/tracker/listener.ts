@@ -8,7 +8,7 @@ import { deviceStatus } from "./devices";
 import { collections } from "../../imports/collections";
 
 export const listener = Meteor.bindEnvironment((socket: Socket) => {
-    status.connect(socket);
+    if (!status.connect(socket)) return;
 
     socket.on("devices", (devices: string[]) => {
         deviceStatus.change(devices);

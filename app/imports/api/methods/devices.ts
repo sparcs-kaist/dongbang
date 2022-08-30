@@ -6,14 +6,14 @@ import { method } from "../../utils/methods";
 import { tracker, TrackerError } from "../../tracker";
 
 export const isRegisterable = method("devices.isRegisterable", {
-    resolve({ userId, clientAddress, httpHeaders }): {
+    resolve({ userId, httpHeaders }): {
         registerable: boolean;
         error: TrackerError | null;
     } {
-        const origin =
-            (httpHeaders as { "x-forwarded-for"?: string })?.[
-                "x-forwarded-for"
-            ] || clientAddress;
+        console.log(httpHeaders);
+        const origin = (httpHeaders as { "x-forwarded-for"?: string })?.[
+            "x-forwarded-for"
+        ];
 
         if (!Meteor.isServer) {
             return {

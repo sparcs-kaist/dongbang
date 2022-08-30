@@ -2,17 +2,19 @@ import { collections } from "/imports/collections";
 
 export const deviceStatus = (() => {
     const change = Meteor.bindEnvironment((devices: string[]) => {
-        collections.users.update(
+        console.log(devices);
+        const entered = collections.users.update(
             { deviceId: { $in: devices } },
             { $set: { isActive: true } },
             { multi: true },
         );
 
-        collections.users.update(
+        const exited = collections.users.update(
             { deviceId: { $nin: devices } },
             { $set: { isActive: false } },
             { multi: true },
         );
+        console.log(entered, exited);
     });
 
     return { change };

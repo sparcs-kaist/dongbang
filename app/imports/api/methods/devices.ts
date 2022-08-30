@@ -10,10 +10,7 @@ export const isRegisterable = method("devices.isRegisterable", {
         registerable: boolean;
         error: TrackerError | null;
     } {
-        console.log(httpHeaders);
-        const origin = (httpHeaders as { "x-forwarded-for"?: string })?.[
-            "x-forwarded-for"
-        ];
+        const origin = (httpHeaders as { "x-real-ip"?: string })?.["x-real-ip"];
 
         if (!Meteor.isServer) {
             return {
@@ -21,7 +18,6 @@ export const isRegisterable = method("devices.isRegisterable", {
                 error: null,
             };
         }
-        console.log(userId, origin, tracker.ipAddr);
 
         if (tracker.error) {
             return {
